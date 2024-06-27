@@ -1,0 +1,246 @@
+const { validationResult } = require("express-validator")
+const User = require("../models/user-model")
+const express = require('express')
+const _ = require("lodash")
+const bcryptjs = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+const Profile = require("../models/profile-model")
+const Cart = require("../models/cart-model")
+const sendMail = require("../../utils/email/nodemailer")
+const cookieParser = require('cookie-parser')
+const userCltr = {}
+
+const app = express()
+
+app.use(cookieParser())
+
+userCltr.register = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ error: errors.array() });
+  } else {
+    const body = _.pick(req.body, ["username", "email", "password", "phoneNumber"]);
+
+    try {
+      const user = new User(body);
+      const salt = await bcryptjs.genSalt();
+
+      const encryptedPwd = await bcryptjs.hash(user.password, salt);
+      user.password = encryptedPwd;
+
+      const userCount = await User.countDocuments();
+
+      if (userCount === 0) {
+        user.role = "SuperAdmin"
+      }else if(userCount <= 5){
+        user.role = "Admin"
+      }else{
+        user.role = "Customer"
+      }
+
+      const profile = new Profile({
+        userId:user._id
+      })
+      const cart = new Cart({
+        userId:user._id
+      })
+
+
+
+      await user.save()
+      await profile.save()
+      await cart.save()
+
+      await sendMail({
+        email: user.email,
+        subject: "REGISTRATION STATUS",
+        message: "YOU'R REGISTRATION IS SUCCESSFULLY PLEASE LOGIN TO BUY AMAZING 3D PRINTED MODELS"
+      })
+
+      const { username } = user
+
+      return res.status(201).json({
+        username,
+        
+      });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json(err);
+    }
+  }
+};
+
+userCltr.login = async (req, res) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ error: errors.array() })
+  } else {
+    const body = _.pick(req.body, ["email", "password"])
+    try {
+      const user = await User.findOne({ email: body.email })
+      if (!user) {
+        return res.status(400).json({ error: "invalid email/password" })
+      }
+      const result = bcryptjs.compare(body.password, user.password)
+      if (!result) {
+        return res.status(400).json("invalid email/password")
+      }
+      console.log(user)
+
+      if (user.isActive) {
+        const tokenData = {
+          id: user._id,
+          role: user.role
+        }
+        const token = jwt.sign(tokenData, process.env.JWT_SECRET, { expiresIn: "7d" })
+        // res.status(200).json({ token })
+        res.cookie("jwt",token)
+        return res.send("Cookie has been set")
+
+      } else {
+        return res.status(403).json("You'r account is blocked by Admin")
+      }
+
+
+    } catch (err) {
+      console.log(err)
+      return res.status(500).json(err)
+    }
+  }
+}
+
+
+
+
+// userCltr.updatePassword = async (req, res) => {
+//   const errors = validationResult(req)
+//   if (!errors.isEmpty()) {
+//     return res.status(400).json({ error: errors })
+//   } else {
+//     const body = _.pick(req.body, ["newPassword", "changePassword"])
+
+//     try {
+//       if (body.newPassword === body.changePassword) {
+//         const tempUser = await UserModel.findOne(req.user.id) //check its one or id
+
+//         if (!tempUser) {
+//           return res.status(404).json({ error: "User not found" })
+//         }
+
+//         const salt = await bcryptjs.genSalt();
+//         const encryptedPwd = await bcryptjs.hash(body.changePassword, salt)
+
+//         const user = await UserModel.findOneAndUpdate(
+//           { _id: req.user.id },
+//           { password: encryptedPwd },
+//           { new: true }
+//         );
+
+//         return res.status(200).json(user);
+//       } else {
+//         return res.status(400).json({ error: "New passwords do not match" })
+//       }
+//     } catch (err) {
+//       console.error(err);
+//       return res.status(500).json({ error: "Internal Server Error" })
+//     }
+//   }
+// };
+
+
+
+
+// userCltr.getAll = async (req, res) => {
+//   try {
+//     const users = await UserModel.find()
+//     return res.status(200).json(users)
+//   } catch (err) {
+//     console.log(err)
+//     return res.status(500).json(err)
+
+
+//   }
+// }
+
+// ///check userCltr.forgotPassword
+
+// userCltr.forgotPassword = async (req, res) => {
+//   const { email } = req.body
+//   try {
+
+//     const user = await UserModel.findOne({ email: email })
+//     if (!user) return res.status(404).json({ err: "Email not found" })
+
+//     const genToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+//       expiresIn: "10min"
+//     })
+//     emailData = {
+//       email: user.email,
+//       subject: "EVENT_SPOT@ <support> Password Change",
+//       message: `Click here to reset your password ${process.env.SERVER_URL}/resetPassword/${user._id}/${genToken}`
+
+//     }
+//     await funEmail(emailData)
+ 
+//     res.status(200).json({ status: "success", msg: "sent success " })
+//   } catch (err) {
+//     console.log(err)
+//     return res.status(500).json(err)
+//   }
+
+// }
+
+
+// userCltr.resetPassword = async (req, res) => {
+//   const { password } = req.body
+
+//   const { id, token } = req.params
+
+//   try {
+//     const decrypt = jwt.verify(token, process.env.JWT_SECRET)
+
+//     const salt = await bcryptjs.genSalt()
+//     const encryptedPwd = await bcryptjs.hash(password, salt)
+
+//     await UserModel.findByIdAndUpdate(id, { password: encryptedPwd })
+//     return res.status(200).json({ msg: "Successfully changed the password" })
+//   } catch (err) {
+//     console.log(err)
+//     if (err.name === "TokenExpriedError") {
+//       return res.status(401).json({ status: 'error', msg: "Token has expried" })
+//     }
+//     return res.status(500).json(err)
+//   }
+// }
+
+
+
+
+// userCltr.deactivate = async (req, res) => {
+//   const { userId } = req.params;
+//   try {
+//       const user = await UserModel.findById(userId);
+//       if (!user) return res.status(404).json({ err: "User Not Found" });
+//       const updatedUser = await UserModel.findByIdAndUpdate(userId, { isActive: !user.isActive }, { new: true });
+//       const options = {
+//         to:updatedUser.email,
+//         subject:`Account Details`,
+//         text:`User Account has be ${updatedUser.isActive}`
+//       }
+
+//       funEmail(options)
+      
+//       return res.status(200).json(updatedUser);
+//   } catch (err) {
+//       console.error(err);
+//       return res.status(500).json({ error: "Internal Server Error" });
+//   }
+// };
+
+
+
+
+
+
+
+module.exports = userCltr
