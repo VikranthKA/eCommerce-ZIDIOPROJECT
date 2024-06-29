@@ -5,7 +5,7 @@ import Home from "./pages/Home"
 import AboutUs from "./pages/AboutUS"
 import ContactUs from "./pages/ContactUs"
 import Products from './pages/Products'
-import Profile from './pages/Profile'
+import Profile from './pages/Profile/Profile'
 
 
 const App = () => {

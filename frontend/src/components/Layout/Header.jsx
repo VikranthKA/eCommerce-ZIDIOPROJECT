@@ -1,13 +1,17 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
+import React from 'react';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchIcon from '@mui/icons-material/Search';
 import Box from '@mui/material/Box';
+import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
+import Container from '@mui/material/Container'; 
 import Avatar from '@mui/material/Avatar';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
@@ -21,7 +25,7 @@ function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -57,8 +61,7 @@ function Header() {
               color: 'inherit',
               textDecoration: 'none',
             }}
-            onClick={()=>navigate("/")} 
-
+            onClick={() => navigate("/")}
           >
             LOGO
           </Typography>
@@ -93,8 +96,8 @@ function Header() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" onClick={()=>navigate(`${page.toLocaleLowerCase()}`)}> {page} </Typography>
+                <MenuItem key={page} onClick={() => { handleCloseNavMenu(); navigate(`/${page.toLowerCase()}`); }}>
+                  <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -104,7 +107,7 @@ function Header() {
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -115,7 +118,7 @@ function Header() {
               color: 'inherit',
               textDecoration: 'none',
             }}
-            onClick={()=>navigate("/")} 
+            onClick={() => navigate("/")}
           >
             LOGO
           </Typography>
@@ -123,19 +126,35 @@ function Header() {
             {pages.map((page) => (
               <Button
                 key={page}
-                // onClick={handleCloseNavMenu}
-                onClick={()=>navigate(`${page.toLocaleLowerCase()}`)}
+                onClick={() => navigate(`/${page.toLowerCase()}`)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
-                
               >
                 {page}
               </Button>
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', gap: 2 }}>
+            <TextField
+              id="standard-basic"
+              label="Search"
+              variant="standard"
+              sx={{ mr: 1 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Tooltip title="Cart">
+              <IconButton onClick={() => navigate("/cart")} color="inherit">
+                <ShoppingCartIcon />
+              </IconButton>
+            </Tooltip>
             <Tooltip title="Open settings">
-              <IconButton onClick={()=>navigate("/profile")} sx={{ p: 0 }}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
@@ -156,7 +175,7 @@ function Header() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={() => { handleCloseUserMenu(); navigate(`/${setting.toLowerCase()}`); }}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
@@ -167,4 +186,5 @@ function Header() {
     </AppBar>
   );
 }
-export default Header;
+
+export default Header
