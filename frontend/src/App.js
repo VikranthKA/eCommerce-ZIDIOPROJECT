@@ -6,6 +6,7 @@ import AboutUs from "./pages/AboutUS"
 import ContactUs from "./pages/ContactUs"
 import Products from './pages/Products'
 import Profile from './pages/Profile/Profile'
+import ThreeDScene from './components/3D/Three'
 
 
 const App = () => {
@@ -18,6 +19,8 @@ const App = () => {
         <Route path="/contactUS" element={<ContactUs/>}/>
         <Route path="/products" element={<Products/>}/>
         <Route path="/profile" element={<Profile/>}/>
+        <Route path="/3d" element={<ThreeDScene/>}/>
+
 
 
 

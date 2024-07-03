@@ -9,6 +9,7 @@ import './CSS/Home.css';
 import ProductCard from "../components/Products/ProductCard"
 
 const Home = () => {
+  
   const uvpData = {
     title: 'Our Unique Value Proposition',
     description: 'We offer the best products at the best prices, delivered directly to your doorstep.',
