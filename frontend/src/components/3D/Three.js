@@ -1,66 +1,46 @@
-import React, { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+import {Suspense} from 'react'
+import {Canvas, useLoader} from "@react-three/fiber"
+import {OrbitControls} from "@react-three/drei"
+import {GLTFLoader,STLLoader} from "three-stdlib"
+import { MeshStandardMaterial } from 'three'
+import glb from "../../Assests/3D/9-mushroom.glb"
+import stl from "../../Assests/3D/gearLarge.STL"
 
-const ThreeDScene = () => {
-  const mountRef = useRef(null);
+function GLBModel({url}){
+  const {scene} = useLoader(GLTFLoader,url)
+  return <primitive object={scene} />
+}
 
-  useEffect(() => {
-    const currentMount = mountRef.current;
+function STLModel({url}){
+  const geometry = useLoader(STLLoader,url);
+  const material = new MeshStandardMaterial({color:0xaaaaaa,flatShading:true})
+  return <mesh geometry={geometry} material={material} />
+}
 
-    // Create Scene
-    const scene = new THREE.Scene();
+export function GLB(){
+  return(
+    <Canvas>
+      <Suspense fallback={null}>
+        <GLBModel url={glb}/>
 
-    // Create Camera
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
-    camera.position.setZ(30);
+      </Suspense>
+      <OrbitControls/>
+    </Canvas>
+  )
+}
 
-    // Create Renderer
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    currentMount.appendChild(renderer.domElement);
+export function STL(){
+  return (
+    <Canvas>
+      <Suspense fallback={null}>
+        <ambientLight/>
+        {console.log("working")}
+        <pointLight position={[10,10,10]} />
+        <STLModel url={stl} />
 
-    // Create Torus
-    const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-    const material = new THREE.MeshStandardMaterial({ color: 0xff6347});
-    const torus = new THREE.Mesh(geometry, material);
-    scene.add(torus);
+      </Suspense>
+        <OrbitControls/>
+    </Canvas>
+  )
+}
 
-    // Animation Function
-    const animate = () => {
-      requestAnimationFrame(animate);
-
-      torus.rotation.x += 0.01;
-      torus.rotation.y += 0.005;
-      torus.rotation.z += 0.01;
-
-      renderer.render(scene, camera);
-    };
-
-    animate();
-
-    // Handle Resize
-    const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup on Unmount
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      currentMount.removeChild(renderer.domElement);
-    };
-  }, []);
-
-  return <div ref={mountRef} />;
-};
-
-export default ThreeDScene;

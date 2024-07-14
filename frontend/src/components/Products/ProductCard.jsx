@@ -16,7 +16,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
 import image1 from "../../Assests/image1.jpg"
-import ThreeDScene from '../3D/Three';
+// import ThreeDScene from '../3D/Three';
 
 const ExpandMore = styled((props) => {
 
@@ -33,7 +33,7 @@ const ExpandMore = styled((props) => {
 
 
 
-export default function RecipeReviewCard() {
+export default function ProductCard() {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -49,7 +49,7 @@ export default function RecipeReviewCard() {
         image={image1}
         alt="Loading..."
       />
-      <ThreeDScene/>
+      {/* <ThreeDScene/> */}
       <CardContent>
         <Typography variant="body2" color="text.secondary" sx={{textAlign:"center"}}>
             T-Shirt<br/>
