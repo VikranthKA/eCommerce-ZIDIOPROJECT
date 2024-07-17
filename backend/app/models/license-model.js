@@ -7,6 +7,11 @@ const licenseSchema = new Schema({
         ref: 'User',
         required: true,
     },
+    orderId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Order',
+        required: true,
+    },
     productId: {
         type: Schema.Types.ObjectId,
         ref: 'Product',
@@ -24,7 +29,7 @@ const licenseSchema = new Schema({
     expiryDate: {
         type: Date,
     },
-}, { timestamps: true });
+}, { timestamps: true })
 
-const License = model('License', licenseSchema);
-module.exports = License;
+const License = model('License', licenseSchema)
+module.exports = License

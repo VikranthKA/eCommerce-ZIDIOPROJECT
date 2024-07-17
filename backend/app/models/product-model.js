@@ -101,26 +101,11 @@ const productSchema = new Schema({
         required: true,
         enum: ['3DModelWithLogo', '3DModelWithoutLogo', '3DSoftwareWithLogo', '3DSoftwareWithoutLogo', 'RealModelWithSoftware'],
     },
-    hasLogo: {
-        type: Boolean,
-        default: false,
-    },
-    softwareUrl: {
-        type: String,
-    },
-    version: {
-        type: String,
-    },
-    licenseKey: {
-        type: String,
-    },
-    systemRequirements: {
-        type: String,
-    },
-    isRealModelIncluded: {
-        type: Boolean,
-        default: false,
-    },
+    
+    madeFrom:{
+        type:String,
+        default:"plastic"
+    }
 }, { timestamps: true });
 
 const Product = model('Product', productSchema);

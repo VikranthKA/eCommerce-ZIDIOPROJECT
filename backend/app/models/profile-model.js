@@ -40,7 +40,6 @@ const profileSchema = new Schema({
   gender: {
     type: String,
     enum: ["Male", "Female", "Others"],
-    required: true
   }
 }, { timestamps: true });
 
