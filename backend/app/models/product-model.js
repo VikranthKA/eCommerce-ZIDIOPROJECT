@@ -86,20 +86,18 @@ const productSchema = new Schema({
     images: {
         type: String,
     },
-    color: {
-        type: String,
-        default: 'black',
-        enum: ['black', 'white', 'grey'],
-    },
-    size: {
-        type: String,
-        default: 'Small',
-        enum: ['Small', 'Medium', 'Large'],
-    },
+    sizes: {
+        type: [String],
+        required: true
+      },
+    colors: {
+        type: [String],
+        required: true
+      },
     productType: {
         type: String,
         required: true,
-        enum: ['3DModelWithLogo', '3DModelWithoutLogo', '3DSoftwareWithLogo', '3DSoftwareWithoutLogo', 'RealModelWithSoftware'],
+        enum: ['3DModelWithLogo', '3DModelWithoutLogo', '3DSoftwareWithLogo', '3DSoftwareWithoutLogo','3DModelWithLogo & 3DSoftwareWithLogo',"3DModelWithLogo & 3DSoftwareWithoutLogo ","3DModelWithoutLogo & 3DSoftwareWithLogo ","3DModelWithoutLogo & 3DSoftwareWithoutLogo"],
     },
     
     madeFrom:{

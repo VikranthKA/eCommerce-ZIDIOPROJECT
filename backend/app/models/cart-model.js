@@ -18,13 +18,7 @@ const cartSchema = new Schema({
             required: true,
             default: 1,
         },
-        hasLogo: {
-            type: Boolean,
-            default: false,
-        },
-        softwareUrl: {
-            type: String,
-        },
+
         version: {
             type: String,
         },
