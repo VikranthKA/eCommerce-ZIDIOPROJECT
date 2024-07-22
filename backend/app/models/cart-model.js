@@ -18,6 +18,9 @@ const cartSchema = new Schema({
             required: true,
             default: 1,
         },
+        isLogo:{
+            type:Boolean
+        },
 
         version: {
             type: String,

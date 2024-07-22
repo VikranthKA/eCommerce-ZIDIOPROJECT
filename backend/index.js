@@ -7,16 +7,17 @@ const cron = require("node-cron")
 const multer = require('multer')
 const path = require("path")
 const { checkSchema } = require("express-validator")
-const cookieParser  = require("cookie-parser")
+const cookieParser = require("cookie-parser")
 
 const app = express()
 
 
-const cloudinaryUpload = require("./utils/Cloudinary/cloudinary")
+//db on
 const db = require("./config/db")
 db()
+
 //middlewares
-const {authenticateUser, authorizeUser} = require("./app/middlewares/auth")
+const { authenticateUser, authorizeUser } = require("./app/middlewares/auth")
 
 //validations
 const categoryValidationSchema = require("./app/validation/category-validation")
@@ -32,29 +33,24 @@ const profileCltr = require("./app/controllers/profielCltr")
 
 
 const storage = multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,'Uploads/images')
+    destination: (req, file, cb) => {
+        cb(null, 'Uploads/images')
     },
-    filename:(req,file,cb)=>{
-        const uniqueDateName = `${Date.now() }__${file.originalname}`
-        cb(null,uniqueDateName)
+    filename: (req, file, cb) => {
+        const uniqueDateName = `${Date.now()}__${file.originalname}`
+        cb(null, uniqueDateName)
         // cb(null,Date.now()+file.filename+"__"+Date.now()+path.extname(file.originalname))
-    }   
+    }
 })
 
-const staticpath = path.join(__dirname,"/Uploads/images")
+const staticpath = path.join(__dirname, "/Uploads/images")
 
-const upload = multer({storage:storage})
+const upload = multer({ storage: storage })
 
-app.use("/Uploads/images",express.static(staticpath))
+app.use("/Uploads/images", express.static(staticpath))
 
 // http://localhost:3333/Uploads/images/1714713253535__p2.png
 
-
-
-app.listen(process.env.PORT,()=>{
-    console.log("Server On!",process.env.PORT)
-})
 
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
@@ -68,36 +64,39 @@ app.use(express.static("public")) // public visible when in local file
 
 
 // register
- app.post("/api/user/register",checkSchema( userRegSchema),userCltr.register)
+app.post("/api/user/register", checkSchema(userRegSchema), userCltr.register)
 
- //login
-app.post("/api/user/login",checkSchema(userLoginSchema),userCltr.login)
+//login
+app.post("/api/user/login", checkSchema(userLoginSchema), userCltr.login)
 
 
 //profile
-app.put("/api/profile/:profileId",authenticateUser,profileCltr.update)
+app.put("/api/profile/:profileId", authenticateUser, profileCltr.update)
 
 //updating the existing the profile with new information
-app.put("/api/profile",checkSchema)
+app.put("/api/profile", checkSchema)
 
 
 //category
-app.post("/api/category",upload.single("image"),checkSchema(categoryValidationSchema),categoryCltr.create)
+app.post("/api/category", upload.single("image"), checkSchema(categoryValidationSchema), categoryCltr.create)
 
 //product
 
 //creating the products by admin
-app.post("/api/product",upload.single("images"),authenticateUser,authorizeUser(["SuperAdmin","Admin"]),productCltr.create)
+app.post("/api/product", upload.single("images"), authenticateUser, authorizeUser(["SuperAdmin", "Admin"]), productCltr.create)
+//updating the product by admin
+app.put("/api/product/:productId", upload.single("images"), authenticateUser, authorizeUser(["SuperAdmin", "Admin"]), productCltr.update)
+
 //get all products
-app.get("/api/products",authenticateUser,productCltr.getAll)
+app.get("/api/products", authenticateUser, productCltr.getAll)
 //cart
 
 //Adding the products
-app.put("/api/cart",authenticateUser,authorizeUser(["Customer"]),cartCltr.addProducts)
+app.put("/api/cart", authenticateUser, authorizeUser(["Customer"]), cartCltr.addProducts)
 
 
 //order checkout
-app.post("/api/order",authenticateUser,authorizeUser(["Customer"]),orderCltr.create)
+app.post("/api/order", authenticateUser, authorizeUser(["Customer"]), orderCltr.create)
 
 //creating the order using the cart items
 app.post
@@ -114,3 +113,8 @@ app.post("/api/review/:productId")
 
 
 
+
+app.listen(process.env.PORT, () => {
+    // Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+    console.log("Server On!", process.env.PORT)
+})

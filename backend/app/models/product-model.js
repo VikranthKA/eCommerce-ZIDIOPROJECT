@@ -54,10 +54,19 @@
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
+
+const checkArray = {
+    validator:function (value){
+        return Array.isArray(value) && value.length > 0
+    },
+    message:"Size must be non empty array"
+}
+
+
 const productSchema = new Schema({
-    userId: {
-        type: String,
-        required: true,
+    userId:  {
+        type: Schema.Types.ObjectId,
+        ref : 'User'  
     },
     name: {
         type: String,
@@ -88,11 +97,13 @@ const productSchema = new Schema({
     },
     sizes: {
         type: [String],
-        required: true
+        // required: true,
+        // validate:checkArray
       },
     colors: {
         type: [String],
-        required: true
+        // required: true,
+        // validate:checkArray        
       },
     productType: {
         type: String,

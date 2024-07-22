@@ -17,50 +17,44 @@ cartCltr.addProducts = async (req, res) => {
             ]
         )
 
-        const {productId,quantity} = body
+        const { productId, quantity } = body
 
         try {
-            const isPresentProduct = await Product.findById({_id:productId})
-            if(!isPresentProduct || isPresentProduct.stock < 1){
+            const isPresentProduct = await Product.findById({ _id: productId })
+            if (!isPresentProduct || isPresentProduct.stock < 1) {
                 return res.status(400).json({
-                    error:"Cannot add the Product",
+                    error: "Cannot add the Product",
 
                 })
-            } 
+            }
 
             let cart = await Cart.findOne({ userId: req.user.id })
-            if(!cart) cart= new Cart({userId:req.user.id})
+            if (!cart) cart = new Cart({ userId: req.user.id })
 
-            const productIndex = cart.products.findIndex(product => product.productId.toString()===productId)
-            
-            if(productIndex > -1){
+            const productIndex = cart.products.findIndex(product => product.productId.toString() === productId)
+
+            if (productIndex > -1) {
                 //product in cart
                 cart.products[productIndex].quantity += quantity
-            }else{
+            } else {
 
                 cart.products.push({
-                    productId,quantity
+                    productId, quantity
                 })
 
             }
 
             await cart.save()
             return res.status(201).json({
-               msg:"Updated Successfully",
-               cart:cart 
+                msg: "Updated Successfully",
+                cart: cart
             })
         } catch (error) {
             console.log(error)
             res.status(500).json({ error: 'Something went wrong' });
 
 
-        }
-
-
-
-
-
-    }
+        }}
 }
 
 
