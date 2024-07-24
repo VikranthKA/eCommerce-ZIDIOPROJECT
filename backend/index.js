@@ -78,7 +78,7 @@ app.put("/api/profile", checkSchema)
 
 
 //category
-app.post("/api/category", upload.single("image"), checkSchema(categoryValidationSchema), categoryCltr.create)
+app.post("/api/category", upload.single("image"), categoryCltr.create)
 
 //product
 
@@ -115,6 +115,7 @@ app.post("/api/review/:productId")
 
 
 app.listen(process.env.PORT, () => {
-    // Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+    // Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
     console.log("Server On!", process.env.PORT)
 })

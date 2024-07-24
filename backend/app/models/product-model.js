@@ -51,22 +51,24 @@
 
 // const Product = model('Product', productSchema);
 // module.exports = Product;
+
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
 
 const checkArray = {
-    validator:function (value){
+    validator: function (value) {
         return Array.isArray(value) && value.length > 0
     },
-    message:"Size must be non empty array"
+    message: "Size must be non empty array"
 }
 
 
+
 const productSchema = new Schema({
-    userId:  {
+    userId: {
         type: Schema.Types.ObjectId,
-        ref : 'User'  
+        ref: 'User'
     },
     name: {
         type: String,
@@ -95,27 +97,55 @@ const productSchema = new Schema({
     images: {
         type: String,
     },
-    sizes: {
-        type: [String],
-        // required: true,
-        // validate:checkArray
-      },
-    colors: {
-        type: [String],
-        // required: true,
-        // validate:checkArray        
-      },
+    colors: [{
+        name: String,
+        quantity: Number
+    }],
+    // required: true,
+    // validate:checkArray        
     productType: {
         type: String,
         required: true,
-        enum: ['3DModelWithLogo', '3DModelWithoutLogo', '3DSoftwareWithLogo', '3DSoftwareWithoutLogo','3DModelWithLogo & 3DSoftwareWithLogo',"3DModelWithLogo & 3DSoftwareWithoutLogo ","3DModelWithoutLogo & 3DSoftwareWithLogo ","3DModelWithoutLogo & 3DSoftwareWithoutLogo"],
+        enum: ['3DModelWithLogo', '3DModelWithoutLogo', '3DSoftwareWithLogo', '3DSoftwareWithoutLogo', '3DModelWithLogo & 3DSoftwareWithLogo', "3DModelWithLogo & 3DSoftwareWithoutLogo ", "3DModelWithoutLogo & 3DSoftwareWithLogo ", "3DModelWithoutLogo & 3DSoftwareWithoutLogo"],
     },
-    
-    madeFrom:{
-        type:String,
-        default:"plastic"
+
+    madeFrom: {
+        type: String,
+        default: "Plastic"
     }
-}, { timestamps: true });
+}, { timestamps: true })
 
 const Product = model('Product', productSchema);
 module.exports = Product;
+
+
+
+// sizes and color : [{
+//     size: S, color:"green",stock: 30,
+//      size: L, color:"blue",stock: 30,
+//       size: XL,color:"violet", stock: 30
+
+// }]
+
+// sizes:[{
+//     size:"S",
+// }]
+
+
+
+// sizes and color : [{
+//     size: S, color:["green","violet"],stock: 30,
+//      size: L, color:"blue",stock: 30,
+//       size: XL,color:"violet", stock: 30
+
+// }]
+
+// // color:[{
+// //     color:"green",
+// //     stock:30,
+// //     color:"green",
+// //     stock:30, 
+// //     color:"green",
+// //     stock:30,
+
+// // }]

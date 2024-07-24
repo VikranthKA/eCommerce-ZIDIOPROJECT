@@ -15,20 +15,20 @@ const app = express()
 app.use(cookieParser())
 
 userCltr.register = async (req, res) => {
-  const errors = validationResult(req);
+  const errors = validationResult(req)
   if (!errors.isEmpty()) {
-    return res.status(400).json({ error: errors.array() });
+    return res.status(400).json({ error: errors.array() })
   } else {
     const body = _.pick(req.body, ["username", "email", "password", "phoneNumber"]);
 
     try {
-      const user = new User(body);
-      const salt = await bcryptjs.genSalt();
+      const user = new User(body)
+      const salt = await bcryptjs.genSalt()
 
       const encryptedPwd = await bcryptjs.hash(user.password, salt);
-      user.password = encryptedPwd;
+      user.password = encryptedPwd
 
-      const userCount = await User.countDocuments();
+      const userCount = await User.countDocuments()
 
       if (userCount === 0) {
         user.role = "SuperAdmin"
@@ -92,7 +92,7 @@ userCltr.login = async (req, res) => {
           id: user._id,
           role: user.role
         }
-        const token = jwt.sign(tokenData, process.env.JWT_SECRET, { expiresIn: "7d" })
+      const token = jwt.sign(tokenData, process.env.JWT_SECRET)
         // res.status(200).json({ token })
         res.cookie("jwt",token)
         return res.send("Cookie has been set")
@@ -108,6 +108,310 @@ userCltr.login = async (req, res) => {
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

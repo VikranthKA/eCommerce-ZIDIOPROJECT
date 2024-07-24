@@ -6,7 +6,9 @@ import AboutUs from "./pages/AboutUS"
 import ContactUs from "./pages/ContactUs"
 import Products from './pages/Products'
 import Profile from './pages/Profile/Profile'
-import {STL,GLB} from './components/3D/Three'
+// import {STL,GLB} from './components/3D/Three'
+import Login from './pages/Login'
+import Register from './pages/Register'
 // import Spline from '@splinetool/react-spline/next';
 
 
@@ -14,36 +16,25 @@ import {STL,GLB} from './components/3D/Three'
 const App = () => {
   return (
     <div >
-      {/* <STL/> */}
-      <GLB/>
 
-
-      <div style={{ width: '100vw', height: '100vh' }}>
-      <iframe 
-        src="https://prod.spline.design/rdEVDYY84JWdk8pO/scene.splinecode" 
-        frameBorder="0" 
-        width="100%" 
-        height="100%" 
-        style={{ display: 'block' }}
-        title="Spline Scene"
-      ></iframe>
-    </div>
  
 
-      {/* <Header/>
+      <Header/>
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/aboutUS" element={<AboutUs/>}/>
         <Route path="/contactUS" element={<ContactUs/>}/>
         <Route path="/products" element={<Products/>}/>
         <Route path="/profile" element={<Profile/>}/>
-        <Route path="/3d" element={<ThreeDScene/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/register" element={<Register/>}/>
 
 
 
 
 
-      </Routes> */}
+
+      </Routes>
     </div>
   )
 }
