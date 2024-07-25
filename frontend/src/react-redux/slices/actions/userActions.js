@@ -23,16 +23,18 @@ export const verifyLogout =()=>{
 }
 
 export const verifyLogin =(jwt_token)=>{
-    const decodeToken = jwtDecode(jwt_token)
+    const decodeToken = jwtDecode(jwt_token )
 
     //put the decoded data to the store
-
     cookies.set("jwt_authorization",jwt_token,{
         expires:new Date(decodeToken.exp * 1000)
     })
     return {
         type:LOGIN,
-        payload:decodeToken
+        payload:{
+            decodeToken,
+            jwt_token
+        }
 
         
     }

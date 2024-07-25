@@ -21,9 +21,9 @@ const Home = () => {
   const dispatch = useAppDispatch()
 
   return (
-    <Box>
+    <div >
       <AppBar position="static">
-        <Toolbar sx={{ flexGrow: 1, bgcolor: 'lightblue' }}>
+        <Toolbar sx={{ flexGrow: 1, bgcolor: 'electricblue',minHeight:"30px"}}>
           <Typography variant="h6" >
             eCommerce Site
           </Typography>
@@ -35,11 +35,8 @@ const Home = () => {
           <Button color="inherit">Discounts</Button>
         </Toolbar>
       </AppBar>
-      Count {count}
-      <button onClick={()=>dispatch(increment())}>+1</button>
-      <button onClick={()=>dispatch(decrement())}>-1</button>
 
-      </Box>
+      </div>
   );
 };
 

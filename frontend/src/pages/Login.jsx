@@ -18,6 +18,8 @@ import axios from '../Utils/api_resources/axios'
 import {Button, TextField,Box, Typography, Alert} from "@mui/material"
 import { ToastContainer } from 'react-toastify';
 import Cookies from "universal-cookie"
+import {useAppDispatch} from '../react-redux/hooks/reduxHooks'
+import { verifyLogin } from '../react-redux/slices/actions/userActions';
 
 
 export default function Login() {
@@ -27,6 +29,7 @@ export default function Login() {
 
   //initialize
   const cookie = new Cookies()
+  const dispatch = useAppDispatch()
 
 
   
@@ -56,12 +59,14 @@ export default function Login() {
     onSubmit: async (values) => {
       console.log(values);
       try {
-        const response = await axios.post('/api/users/login', values);
-
-        // localStorage.setItem('token',(response.data.token));
+        const response = await axios.post('/api/user/login', values);
+        
         // decodeData()
         // swal('Successful!', 'Your Registration successful', 'success');
         console.log(response);
+        if(response.data.msg && response.data.cookie){
+          dispatch(verifyLogin(response.data.cookie))
+        }
 
         //add the logic of redux
         // toast.success('Your Login successful', { duration: 3000 })

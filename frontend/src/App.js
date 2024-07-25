@@ -11,14 +11,18 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 // import Spline from '@splinetool/react-spline/next';
 import axios from './Utils/api_resources/axios'
+import {verifyLogin} from "./react-redux/slices/actions/userActions" 
+import { useAppDispatch } from './react-redux/hooks/reduxHooks'
 
 
 
 const App = () => {
+  const dispatch = useAppDispatch()
   useEffect(()=>{
     (async()=>{
+      // dispatch(verifyLogin())
     })()
-    })
+    },[])
   return (
     <div >
 

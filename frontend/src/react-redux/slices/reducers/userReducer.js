@@ -19,13 +19,21 @@ const userReducers =(state=initialState,action)=>{
             }
         case LOGIN:
             return {
-                ...state,isLogin:true,isLogout:false,decodedData:action.payload
+                ...state,
+                isLogin:true,
+                isLogout:false,
+                decodedData:action.payload.decodeToken,
+                userToken:action.payload.jwt_token
             }
 
         
         case LOGOUT:
             return {
-                ...state,isLogin:false,isLogout:true,userToken:null,decodedData:null
+                ...state,
+                isLogin:false,
+                isLogout:true,
+                userToken:null,
+                decodedData:null
             }
         default:
             return state;

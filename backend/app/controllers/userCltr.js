@@ -92,10 +92,13 @@ userCltr.login = async (req, res) => {
           id: user._id,
           role: user.role
         }
-      const token = jwt.sign(tokenData, process.env.JWT_SECRET)
+      const token = jwt.sign(tokenData, process.env.JWT_SECRET,{expiresIn:"3d"})
         // res.status(200).json({ token })
-        res.cookie("jwt",token)
-        return res.send("Cookie has been set")
+        res.cookie("jwt_",token)
+        return res.status(200).json({
+          msg:"Cookie has been set",
+          cookie:token
+        })
 
       } else {
         return res.status(403).json("You'r account is blocked by Admin")

@@ -17,15 +17,19 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router-dom';
+import {useAppSelector} from '../../react-redux/hooks/reduxHooks'
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['Products'];
+const loginRegister = ["Login","Register"]
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const navigate = useNavigate();
+  const isLogin = useAppSelector(state=>state.user.isLogin)
+  console.log(isLogin)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -89,7 +93,7 @@ function Header() {
                 vertical: 'top',
                 horizontal: 'left',
               }}
-              open={Boolean(anchorElNav)}
+              open={Boolean(anchorElNav)} 
               onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: 'block', md: 'none' },
@@ -148,16 +152,25 @@ function Header() {
                 ),
               }}
             />
-            <Tooltip title="Cart">
+            {isLogin ?
+            <><Tooltip title="Cart">
               <IconButton onClick={() => navigate("/cart")} color="inherit">
                 <ShoppingCartIcon />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Open settings">
+             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
+            </> : <>
+              {loginRegister.map((ele)=>(
+                <MenuItem key={ele} onClick={() => {navigate(`/${ele.toLowerCase()}`) }}>
+                <Typography textAlign="center">{ele}</Typography>
+              </MenuItem>
+              ))}
+            </>}
+
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -179,6 +192,7 @@ function Header() {
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
+
             </Menu>
           </Box>
         </Toolbar>
