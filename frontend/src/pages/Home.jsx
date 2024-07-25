@@ -7,6 +7,8 @@ import UVP from '../components/UniqueValueProposition/UVP';
 // import landingPageImage from '/mnt/data/landingPage.jpg'; // Ensure this path is correct
 import './CSS/Home.css';
 import ProductCard from "../components/Products/ProductCard"
+import {useAppDispatch,useAppSelector} from "../react-redux/hooks/reduxHooks"
+import { decrement, increment } from '../react-redux/slices/actions/countActions';
 
 const Home = () => {
   
@@ -15,6 +17,8 @@ const Home = () => {
     description: 'We offer the best products at the best prices, delivered directly to your doorstep.',
     // imageUrl: landingPageImage
   };
+  const count = useAppSelector(state=>state.count.value)
+  const dispatch = useAppDispatch()
 
   return (
     <Box>
@@ -31,8 +35,319 @@ const Home = () => {
           <Button color="inherit">Discounts</Button>
         </Toolbar>
       </AppBar>
+      Count {count}
+      <button onClick={()=>dispatch(increment())}>+1</button>
+      <button onClick={()=>dispatch(decrement())}>-1</button>
 
-      <Container>
+      </Box>
+  );
+};
+
+export default Home;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {/* <Container>
         <Box sx={{ bgcolor: 'lightblue', padding: '20px', marginTop: '20px' }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -51,9 +366,7 @@ const Home = () => {
             <Grid item xs={12}>
               <Typography variant="h6">Featured Products</Typography>
               <Box sx={{ display: 'flex', justifyContent: 'space-around', marginTop: '20px' }}>
-                {/* <Box className="product-card">Product Name - $22.00</Box>
-                <Box className="product-card">Product Name - $22.00</Box>
-                <Box className="product-card">Product Name - $22.00</Box> */}
+               
                                 <ProductCard/>
                                 <ProductCard/>
                                 <ProductCard/>
@@ -68,7 +381,7 @@ const Home = () => {
                 {/* <Box className="product-card">Product Name - $22.00</Box>
                 <Box className="product-card">Product Name - $22.00</Box>
                 <Box className="product-card">Product Name - $22.00</Box> */}
-                <ProductCard/>
+                {/* <ProductCard/>
                 <ProductCard/>
                 <ProductCard/>
 
@@ -109,9 +422,5 @@ const Home = () => {
             </Box>
           </Grid>
         </Grid>
-      </Box>
-    </Box>
-  );
-};
+      </Box> */} 
 
-export default Home;

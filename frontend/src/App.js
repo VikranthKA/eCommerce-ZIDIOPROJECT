@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from './components/Layout/Header'
 import { Route, Routes } from 'react-router-dom'
 import Home from "./pages/Home"
@@ -10,10 +10,15 @@ import Profile from './pages/Profile/Profile'
 import Login from './pages/Login'
 import Register from './pages/Register'
 // import Spline from '@splinetool/react-spline/next';
+import axios from './Utils/api_resources/axios'
 
 
 
 const App = () => {
+  useEffect(()=>{
+    (async()=>{
+    })()
+    })
   return (
     <div >
 
