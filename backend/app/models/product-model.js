@@ -108,7 +108,10 @@ const productSchema = new Schema({
         required: true,
         enum: ['3DModelWithLogo', '3DModelWithoutLogo', '3DSoftwareWithLogo', '3DSoftwareWithoutLogo', '3DModelWithLogo & 3DSoftwareWithLogo', "3DModelWithLogo & 3DSoftwareWithoutLogo ", "3DModelWithoutLogo & 3DSoftwareWithLogo ", "3DModelWithoutLogo & 3DSoftwareWithoutLogo"],
     },
+    discount:{
+        type:Number,
 
+    },
     madeFrom: {
         type: String,
         default: "Plastic"

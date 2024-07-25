@@ -1,18 +1,31 @@
-import {TOKEN} from "../../constants/constantTypes"
+import {TOKEN,LOGIN,LOGOUT} from "../../constants/constantTypes"
 
 
 
 const initialState = {
-    userToken : " ",
+    userToken : null,
+    isLogin : false,
+    isLogout : true,
+    decodedData :null
 }
 
 
-const countReducers =(state=initialState,action)=>{
+const userReducers =(state=initialState,action)=>{
     switch(action.type){
         case TOKEN:
             return{
                 ...state,
                 userToken:action.payload
+            }
+        case LOGIN:
+            return {
+                ...state,isLogin:true,isLogout:false,decodedData:action.payload
+            }
+
+        
+        case LOGOUT:
+            return {
+                ...state,isLogin:false,isLogout:true,userToken:null,decodedData:null
             }
         default:
             return state;
@@ -20,4 +33,4 @@ const countReducers =(state=initialState,action)=>{
 
 }
 
-export default countReducers
+export default userReducers

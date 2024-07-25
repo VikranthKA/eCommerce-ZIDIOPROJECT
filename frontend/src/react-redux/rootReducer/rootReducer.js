@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 import countReducers from "../slices/reducers/countReducers";
+import userReducers from "../slices/reducers/userReducer";
 
 
 const rootReducer = combineReducers({
-    count : countReducers
+    count : countReducers,
+    user:userReducers
     
 })
 

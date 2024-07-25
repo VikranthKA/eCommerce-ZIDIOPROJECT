@@ -17,12 +17,18 @@ import { useNavigate, Link } from 'react-router-dom';
 import axios from '../Utils/api_resources/axios'
 import {Button, TextField,Box, Typography, Alert} from "@mui/material"
 import { ToastContainer } from 'react-toastify';
+import Cookies from "universal-cookie"
 
 
 export default function Login() {
   const navigate = useNavigate();
   const [serverErr, setServererr] = useState('')
-  const [showPassword, setShowPassword] = React.useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+
+  //initialize
+  const cookie = new Cookies()
+
+
   
 
   const handleMouseDownPassword = (event) => {
@@ -56,6 +62,8 @@ export default function Login() {
         // decodeData()
         // swal('Successful!', 'Your Registration successful', 'success');
         console.log(response);
+
+        //add the logic of redux
         // toast.success('Your Login successful', { duration: 3000 })
       } catch (e) {
         // setServererr(e.response.data.error)
