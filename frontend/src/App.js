@@ -14,6 +14,7 @@ import Register from './pages/Register'
 import axios from './Utils/api_resources/axios'
 import {verifyLogin} from "./react-redux/slices/actions/userActions" 
 import { useAppDispatch, useAppSelector } from './react-redux/hooks/reduxHooks'
+import PrivateRoute from './components/Private/PrivateRoute'
 
 
 
@@ -33,13 +34,17 @@ const App = () => {
 
       <Header/>
       <Routes>
-        <Route path="/" element={userData.isLogin && userData.decodedData.role==="Customer" && <Home/> || userData.decodedData==="Admin" || "SuperAdmin" && <Dashboard/> }/>
+        <Route path="/" element={<Home/>}/>
         <Route path="/aboutUS" element={<AboutUs/>}/>
         <Route path="/contactUS" element={<ContactUs/>}/>
         <Route path="/products" element={<Products/>}/>
-        <Route path="/profile" element={<Profile/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
+
+        <Route element={<PrivateRoute roles={['Admin','Customer',"SuperAdmin"]}/>}>
+          <Route path='/profile' element={<Profile/>} />
+
+        </Route>
 
 
 

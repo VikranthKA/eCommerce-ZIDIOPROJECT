@@ -59,14 +59,15 @@ export default function Login() {
         const response = await axios.post('/api/user/login', values);
         
         // decodeData()
-        // swal('Successful!', 'Your Registration successful', 'success');
         console.log(response);
         if(response.data.msg && response.data.cookie){
           dispatch(verifyLogin(response.data.cookie))
         }
+        // swal('Successful!', 'Your Login successful', 'success');
 
-        //add the logic of redux
-        // toast.success('Your Login successful', { duration: 3000 })
+        
+        toast.success('Your Login successful', { duration: 3000 })
+        navigate("/")
       } catch (e) {
         // setServererr(e.response.data.error)
         console.error(e);
