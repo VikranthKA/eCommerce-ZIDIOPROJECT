@@ -7,17 +7,20 @@ import ContactUs from "./pages/ContactUs"
 import Products from './pages/Products'
 import Profile from './pages/Profile/Profile'
 // import {STL,GLB} from './components/3D/Three'
+import Dashboard from './components/Admin/Dashboard/Dashboard'
 import Login from './pages/Login'
 import Register from './pages/Register'
 // import Spline from '@splinetool/react-spline/next';
 import axios from './Utils/api_resources/axios'
 import {verifyLogin} from "./react-redux/slices/actions/userActions" 
-import { useAppDispatch } from './react-redux/hooks/reduxHooks'
+import { useAppDispatch, useAppSelector } from './react-redux/hooks/reduxHooks'
 
 
 
 const App = () => {
   const dispatch = useAppDispatch()
+  const userData = useAppSelector(state=>state.user)
+
   useEffect(()=>{
     (async()=>{
       // dispatch(verifyLogin())
@@ -30,7 +33,7 @@ const App = () => {
 
       <Header/>
       <Routes>
-        <Route path="/" element={<Home/>}/>
+        <Route path="/" element={userData.isLogin && userData.decodedData.role==="Customer" && <Home/> || userData.decodedData==="Admin" || "SuperAdmin" && <Dashboard/> }/>
         <Route path="/aboutUS" element={<AboutUs/>}/>
         <Route path="/contactUS" element={<ContactUs/>}/>
         <Route path="/products" element={<Products/>}/>

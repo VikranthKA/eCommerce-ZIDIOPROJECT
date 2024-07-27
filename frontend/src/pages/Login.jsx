@@ -30,10 +30,7 @@ export default function Login() {
   //initialize
   const cookie = new Cookies()
   const dispatch = useAppDispatch()
-
-
   
-
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   }

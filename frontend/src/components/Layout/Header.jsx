@@ -1,23 +1,13 @@
 import React from 'react';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
+import {TextField,InputAdornment,Box,AppBar,Toolbar,IconButton,Typography,Menu,Container,Avatar,Button,Tooltip,MenuItem} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
+
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container'; 
-import Avatar from '@mui/material/Avatar';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router-dom';
-import {useAppSelector} from '../../react-redux/hooks/reduxHooks'
+import {useAppDispatch, useAppSelector} from '../../react-redux/hooks/reduxHooks'
+import { verifyLogout } from '../../react-redux/slices/actions/userActions';
 
 const pages = ['Products'];
 const loginRegister = ["Login","Register"]
@@ -29,8 +19,7 @@ function Header() {
 
   const navigate = useNavigate();
   const isLogin = useAppSelector(state=>state.user.isLogin)
-  console.log(isLogin)
-
+const dispatch = useAppDispatch()
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -45,6 +34,7 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
 
   return (
     <AppBar position="static">
@@ -188,7 +178,15 @@ function Header() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={() => { handleCloseUserMenu(); navigate(`/${setting.toLowerCase()}`); }}>
+                <MenuItem key={setting} onClick={() => { 
+                  handleCloseUserMenu();
+                  if(setting==="Logout"){
+                    dispatch(verifyLogout())
+                  } else{
+                    navigate(`/${setting.toLowerCase()}`); 
+                  }
+
+                  }}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

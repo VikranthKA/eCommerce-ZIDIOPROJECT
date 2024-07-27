@@ -63,8 +63,8 @@ export default function Register() {
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "center", width: "100%", marginTop: "60px" }}>
-        <form onSubmit={formik.handleSubmit}>
+      {/* <div style={{ display: "flex", justifyContent: "center", width: "100%", marginTop: "60px" ,alignContent:"center",alignItems:"center"}}>
+        <form onSubmit={formik.handleSubmit} style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
 
 
           <p >{formik.errors.username}</p>
@@ -133,8 +133,9 @@ export default function Register() {
               sx={{ marginTop: "15px", marginLeft: "5px" }}
             >
 
+              <Link to="/Login">
               Already Registered! Login
-              <Link to="/Login"></Link>
+              </Link>
             </Typography>
             <Button
               type="submit"
@@ -149,7 +150,106 @@ export default function Register() {
           </div>
           <ToastContainer />
         </form>
-      </div>
+      </div> */}
+      <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+      height: '100vh',
+      
+      margin:"-85px 10px 0 10px",
+      boxSizing: 'border-box',
+    }}>
+      <form onSubmit={formik.handleSubmit} style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        maxWidth: '450px',
+        // backgroundColor: 'white',
+        padding: '10px', 
+        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', 
+        borderRadius: '8px',
+      }}>
+        {formik.errors.username && <p>{formik.errors.username}</p>}
+        <TextField
+          id="outlined-basic-username"
+          label="Username"
+          variant="outlined"
+          sx={{ width: '100%', mt: '20px' }}
+          name="username"
+          type="text"
+          required
+          value={formik.values.username}
+          onChange={formik.handleChange}
+        />
+        {formik.errors.username && (
+          <Alert severity="error" sx={{ marginBottom: '10px' }}>
+            <span>{formik.errors.username}</span>
+          </Alert>
+        )}
+        <TextField
+          id="outlined-basic-email"
+          label="Email"
+          variant="outlined"
+          sx={{ width: '100%', mt: '20px' }}
+          name="email"
+          type="text"
+          required
+          value={formik.values.email}
+          onChange={formik.handleChange}
+        />
+        <FormControl variant="outlined" sx={{ width: '100%', mt: '20px', mb: '20px' }}>
+          <InputLabel htmlFor="outlined-adornment-password">Password *</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={showPassword ? 'text' : 'password'}
+            label="Password"
+            name="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+        {formik.errors.password && (
+          <Alert severity="error" sx={{ marginBottom: '10px' }}>
+            <span>{formik.errors.password}</span>
+          </Alert>
+        )}
+        {serverErr && (
+          <Alert severity="error" sx={{ marginBottom: '20px' }}>
+            <span>{JSON.stringify(serverErr)}</span>
+          </Alert>
+        )}
+        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+          <Typography
+            onClick={() => navigate('/Login')}
+            variant="outlined"
+            color="info"
+            sx={{ marginTop: '15px', marginLeft: '5px' }}
+          >
+            <Link to="/Login">Already Registered! Login</Link>
+          </Typography>
+          <Button type="submit" variant="outlined" color="success">
+            Submit
+          </Button>
+        </div>
+        <ToastContainer />
+      </form>
+    </div>
 
     </>
   );

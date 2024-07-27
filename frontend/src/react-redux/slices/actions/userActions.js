@@ -13,11 +13,8 @@ export const decodeToken = () => {
 
 export const verifyLogout =()=>{
     cookies.remove("jwt_authorization")
-
-
     return {
         type:LOGOUT,
-
     }
 
 }
@@ -29,13 +26,12 @@ export const verifyLogin =(jwt_token)=>{
     cookies.set("jwt_authorization",jwt_token,{
         expires:new Date(decodeToken.exp * 1000)
     })
+
     return {
         type:LOGIN,
         payload:{
             decodeToken,
             jwt_token
         }
-
-        
     }
 }
