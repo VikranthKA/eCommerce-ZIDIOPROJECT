@@ -14,21 +14,23 @@ const cartSchema = new Schema({
             required: true,
         },
         quantity: {
-            type: Number,
-            required: true,
-            default: 1,
+            sc_id:{
+                type:Schema.Types.ObjectId,
+                ref:"Product",
+                required:true
+
+            },
+            count: {
+                type: Number,
+                required: true,
+                default: 1,
+            }
+
         },
         isLogo:{
             type:Boolean
         },
-
-        version: {
-            type: String,
-        },
         licenseKey: {
-            type: String,
-        },
-        systemRequirements: {
             type: String,
         },
         isRealModelIncluded: {

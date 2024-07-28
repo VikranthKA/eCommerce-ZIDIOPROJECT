@@ -5,12 +5,12 @@ import HomeCard from "../components/Customer/HomeCard"
 
 
 const Home = () => {
-  const {decodedData} = useAppSelector((state)=>state.user)
-  console.log(decodedData)
+  const decodedData = useAppSelector((state)=>state?.user?.decodedData)
+  console.log(decodedData,"home")
   return (
     <>
       {
-        (Object.entries(decodedData).length>=0) && (decodedData.role==="Admin" || decodedData.role==="SuperAdmin") ? <Dashboard/> : <HomeCard/>
+        (decodedData && Object?.entries(decodedData)?.length>=0 || decodedData===null && <HomeCard/>) && (decodedData?.role==="Admin" || decodedData?.role==="SuperAdmin") ? <Dashboard/> : <HomeCard/>
       }
     </>
   )

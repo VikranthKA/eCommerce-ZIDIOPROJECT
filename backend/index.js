@@ -91,7 +91,7 @@ app.put("/api/product/:productId", upload.single("images"), authenticateUser, au
 app.get("/api/products", authenticateUser, productCltr.getAll)
 //cart
 
-//Adding the products
+//Adding the products to Cart
 app.put("/api/cart", authenticateUser, authorizeUser(["Customer"]), cartCltr.addProducts)
 
 

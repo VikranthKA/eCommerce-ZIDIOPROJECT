@@ -90,19 +90,25 @@ const productSchema = new Schema({
         type: String,
         default: 'INR',
     },
-    stock: {
+    totalStock: {
         type: Number,
         default: 0,
     },
     images: {
         type: String,
     },
-    colors: [{
-        name: String,
-        quantity: Number
+    sizesAndColors : [{
+            size: {
+                type:String,
+
+            }, 
+            color:{
+                type:String
+            },
+            stock: {
+                type:Number
+            },
     }],
-    // required: true,
-    // validate:checkArray        
     productType: {
         type: String,
         required: true,
@@ -110,7 +116,6 @@ const productSchema = new Schema({
     },
     discount:{
         type:Number,
-
     },
     madeFrom: {
         type: String,
@@ -118,17 +123,12 @@ const productSchema = new Schema({
     }
 }, { timestamps: true })
 
-const Product = model('Product', productSchema);
+const Product = model('Product', productSchema)
 module.exports = Product;
 
 
 
-// sizes and color : [{
-//     size: S, color:"green",stock: 30,
-//      size: L, color:"blue",stock: 30,
-//       size: XL,color:"violet", stock: 30
 
-// }]
 
 // sizes:[{
 //     size:"S",
