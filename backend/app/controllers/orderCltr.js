@@ -13,8 +13,9 @@ orderCltr.create = async(req,res)=>{
         // const checkoutAddress = await Profile.findOne({userId:req.user.id})
         const cartItems = await Cart.findOne({userId:req.user.id}).populate("products.productId")
 
+
         const totalCartAmount = cartItems.products.reduce((amount, item) => {
-          return amount + item.productId.price * item.quantity;
+          return amount + item.productId.sizesAndColors[0].price * item.quantity.count;
       }, 0);
 
         const newUser = await Profile.findOne({userId:req.user.id})

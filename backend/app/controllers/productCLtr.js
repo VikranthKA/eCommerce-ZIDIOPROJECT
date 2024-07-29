@@ -10,6 +10,16 @@ const cloudinary = require("../../utils/Cloudinary/cloudinary")
 
 const productCltr = new Object()
 
+const findMinPrice = async (arr) => {
+    let min = Infinity
+    for (const element of arr) {
+        if (element.price <= min) {
+            min = element.price;
+        }
+    }
+    return min;
+}
+
 function toArray(string) {
     if (typeof string === "string") {
         const array = JSON.parse(string.replace(/'/g, '"'))
@@ -48,11 +58,10 @@ productCltr.create = async (req, res) => {
                 name: body.name,
                 categoryId: body.categoryId,
                 description: body.description,
-                price: body.price,
+                min:await findMinPrice(body.sizesAndColors),
                 stock: body.stock,
                 // image: uploaded.secure_url,
                 image:"image",
-
                 productType: body.productType,
                 madeFrom: body.madeFrom,
                 sizesAndColors:body.sizesAndColors,
@@ -95,6 +104,7 @@ productCltr.getAll = async (req, res) => {
 }
 
 
+//need to change
 productCltr.update = async (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {

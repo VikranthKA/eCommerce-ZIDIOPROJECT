@@ -18,7 +18,6 @@ const cartSchema = new Schema({
                 type:Schema.Types.ObjectId,
                 ref:"Product",
                 required:true
-
             },
             count: {
                 type: Number,
@@ -40,5 +39,5 @@ const cartSchema = new Schema({
     }],
 }, { timestamps: true });
 
-const Cart = model('Cart', cartSchema);
-module.exports = Cart;
+const Cart = model('Cart', cartSchema)
+module.exports = Cart

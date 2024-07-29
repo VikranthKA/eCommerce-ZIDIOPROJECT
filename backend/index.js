@@ -69,7 +69,6 @@ app.post("/api/user/register", checkSchema(userRegSchema), userCltr.register)
 //login
 app.post("/api/user/login", checkSchema(userLoginSchema), userCltr.login)
 
-
 //profile
 app.put("/api/profile/:profileId", authenticateUser, profileCltr.update)
 
@@ -78,14 +77,15 @@ app.put("/api/profile", checkSchema)
 
 
 //category
-app.post("/api/category", upload.single("image"), categoryCltr.create)
+app.post("/api/category",authenticateUser, authorizeUser(["SuperAdmin", "Admin"]), upload.single("image"), categoryCltr.create) 
+app.put("/api/category/:categoryId",authenticateUser, authorizeUser(["SuperAdmin", "Admin"]),upload.single('image'),categoryCltr.update)
 
 //product
 
 //creating the products by admin
-app.post("/api/product", upload.single("images"), authenticateUser, authorizeUser(["SuperAdmin", "Admin"]), productCltr.create)
+app.post("/api/product", upload.single("images"), authenticateUser, authorizeUser(["SuperAdmin"]), productCltr.create)
 //updating the product by admin
-app.put("/api/product/:productId", upload.single("images"), authenticateUser, authorizeUser(["SuperAdmin", "Admin"]), productCltr.update)
+app.put("/api/product/:productId", upload.single("images"), authenticateUser, authorizeUser(["SuperAdmin"]), productCltr.update)
 
 //get all products
 app.get("/api/products", authenticateUser, productCltr.getAll)

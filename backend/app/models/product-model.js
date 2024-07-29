@@ -82,7 +82,7 @@ const productSchema = new Schema({
         type: String,
         required: true,
     },
-    price: {
+    minPrice: {
         type: Number,
         default: 0,
     },
@@ -100,13 +100,18 @@ const productSchema = new Schema({
     sizesAndColors : [{
             size: {
                 type:String,
-
             }, 
             color:{
                 type:String
             },
+            price:{
+                type:Number
+            },
             stock: {
                 type:Number
+            },
+            discount:{
+                type:Number,
             },
     }],
     productType: {
@@ -114,9 +119,7 @@ const productSchema = new Schema({
         required: true,
         enum: ['3DModelWithLogo', '3DModelWithoutLogo', '3DSoftwareWithLogo', '3DSoftwareWithoutLogo', '3DModelWithLogo & 3DSoftwareWithLogo', "3DModelWithLogo & 3DSoftwareWithoutLogo ", "3DModelWithoutLogo & 3DSoftwareWithLogo ", "3DModelWithoutLogo & 3DSoftwareWithoutLogo"],
     },
-    discount:{
-        type:Number,
-    },
+
     madeFrom: {
         type: String,
         default: "Plastic"
