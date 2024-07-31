@@ -46,7 +46,8 @@ productCltr.create = async (req, res) => {
                 [
                     "name", "categoryId", "description",
                     "price", "images",'sizesAndColors', 
-                    'stock', "productType", "madeFrom"
+                    'stock', "productType", "madeFrom",
+                    "discount"
 
                 ]
             )
@@ -60,8 +61,8 @@ productCltr.create = async (req, res) => {
                 description: body.description,
                 min:await findMinPrice(body.sizesAndColors),
                 stock: body.stock,
-                // image: uploaded.secure_url,
-                image:"image",
+                image: uploaded.secure_url,
+                discount:body.discount,
                 productType: body.productType,
                 madeFrom: body.madeFrom,
                 sizesAndColors:body.sizesAndColors,

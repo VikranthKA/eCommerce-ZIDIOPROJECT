@@ -79,13 +79,13 @@ userCltr.login = async (req, res) => {
     try {
       const user = await User.findOne({ email: body.email })
       if (!user) {
-        return res.status(400).json({ error: "invalid email/password" })
+        return res.status(400).json({ error: "Account not found" })
       }
       const result = bcryptjs.compare(body.password, user.password)
       if (!result) {
-        return res.status(400).json("invalid email/password")
+        return res.status(400).json({error:"invalid email/password"})
       }
-      console.log(user)
+      // console.log(user)
 
       if (user.isActive) {
         const tokenData = {
@@ -93,7 +93,6 @@ userCltr.login = async (req, res) => {
           role: user.role
         }
       const token = jwt.sign(tokenData, process.env.JWT_SECRET,{expiresIn:"3d"})
-        // res.status(200).json({ token })
         res.cookie("jwt_",token)
         return res.status(200).json({
           msg:"Cookie has been set",

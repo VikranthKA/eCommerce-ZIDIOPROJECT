@@ -110,10 +110,11 @@ const productSchema = new Schema({
             stock: {
                 type:Number
             },
-            discount:{
-                type:Number,
-            },
+
     }],
+    discount:{
+        type:Number,
+    },
     productType: {
         type: String,
         required: true,
