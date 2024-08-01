@@ -7,7 +7,7 @@ import categoryReducers from "../slices/reducers/categoryReducer";
 const rootReducer = combineReducers({
     count : countReducers,
     user:userReducers,
-    category:categoryReducers
+    categories:categoryReducers
     
 })
 

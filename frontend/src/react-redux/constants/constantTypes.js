@@ -7,6 +7,7 @@ export const LOGIN = "user/login"
 
 export const GET_ALL_CATEGORY = "get/all/category"
 export const CREATE_CATEGORY = "create/category"
+export const CATEGORY_ERROR = "error/categroy"
 
 
 

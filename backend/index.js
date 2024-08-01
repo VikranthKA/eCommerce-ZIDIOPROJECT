@@ -79,6 +79,7 @@ app.put("/api/profile", checkSchema)
 //category
 app.post("/api/category",authenticateUser, authorizeUser(["SuperAdmin", "Admin"]), upload.single("image"), categoryCltr.create) 
 app.put("/api/category/:categoryId",authenticateUser, authorizeUser(["SuperAdmin", "Admin"]),upload.single('image'),categoryCltr.update)
+app.get("/api/category",authenticateUser,authorizeUser(["SuperAdmin"]),categoryCltr.getAll)
 
 //product
 
@@ -119,3 +120,4 @@ app.listen(process.env.PORT, () => {
 
     console.log("Server On!", process.env.PORT)
 })
+

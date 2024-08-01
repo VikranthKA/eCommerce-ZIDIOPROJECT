@@ -32,10 +32,10 @@ categoryCltr.create = async (req, res) => {
 
 categoryCltr.getAll = async (req, res) => {
     try {
-        const cat = await CategoryModel.find()
-        res.status(200).json(cat)
+        const cat = await Category.find()
+        return res.status(200).json(cat)
     } catch (err) {
-        res.status(500).json(err)
+        return res.status(500).json(err)
 
     }
 }

@@ -3,7 +3,8 @@ import {GET_ALL_CATEGORY,CREATE_CATEGORY} from "../../constants/constantTypes"
 
 
 const initialState ={
-    category : []
+    category : [],
+    error:null
 }
 
 
@@ -12,7 +13,8 @@ const categoryReducers =(state=initialState,action)=>{
         case GET_ALL_CATEGORY:
             return{
                 ...state,
-                category:action.payload
+                category:action.payload,
+                error:null
             }
 
         default:

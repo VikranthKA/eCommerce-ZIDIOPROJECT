@@ -5,6 +5,8 @@ import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import {ListItemIcon} from '@mui/material';
 import ListItemText from '@mui/material/ListItemText';
+import AllCategory from "../Category/AllCategory"
+import CreateCategory from "../Category/CreateCategory"
 
 
 
@@ -34,11 +36,19 @@ export default function PersistentDrawer() {
     setContent(text);
   };
 
+  const handleCategoryView = ()=>(
+    <div>
+    <CreateCategory/>
+    <AllCategory/>
+   </div>
+  )
+
+
   return (
     <Box className={classes.container}>
       <Box className={classes.menu}>
         <List>
-          {['New Product', 'Coupon', 'Payment','New Category'].map((text, index) => (
+          {['New Product', 'Coupon', 'Payment','Category'].map((text, index) => (
             <ListItem  key={text} onClick={() => handleMenuClick(text)}>
               <ListItemIcon>{}</ListItemIcon>
               <ListItemText primary={text} />
@@ -56,12 +66,12 @@ export default function PersistentDrawer() {
         </List>
       </Box>
       <Box className={classes.content}>
-        <Typography variant="h4">{content}</Typography>
+        {/* <Typography variant="h4">{content}</Typography> */}
         <Typography variant="body1">
           {content === 'New Product' && <CreateProduct/>}
           {content === 'Coupon' && 'Here are your Coupon items.'}
           {content === 'Payment' && 'Here you can Payment.'}
-          {content === 'New Category' && 'Here can create Category.'}
+          {content === 'Category' && handleCategoryView() }
           {content === 'Products' && 'Here is all your Products.'}
           {content === 'Users' && 'Here is your Users.'}
           {content === 'Coupons' && 'Here is your Coupons.'}
