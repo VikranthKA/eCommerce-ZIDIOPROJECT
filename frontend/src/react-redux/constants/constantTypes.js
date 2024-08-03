@@ -9,6 +9,8 @@ export const GET_ALL_CATEGORY = "get/all/category"
 export const SET_CATEGORIES = "set/categories"
 export const CREATE_CATEGORY = "create/category"
 export const FETCH_CATEGORIES_FAILURE = "error/categories"
+export const EDIT_CATEGORY_ID = "get/edit/id/category"
+export const REMOVE_CATEGORY_EDIT_ID = "remove/edit/id/category"
 
 
 

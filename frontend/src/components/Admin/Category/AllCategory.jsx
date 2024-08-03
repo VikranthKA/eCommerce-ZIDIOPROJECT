@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import {useAppDispatch,useAppSelector} from "../../../react-redux/hooks/reduxHooks"
 import {getAllCategory} from "../../../react-redux/slices/actions/categoryActions" 
 import CategoryCard from './CategoryCard'
+import CreateCategory from './CreateCategory'
+import { Box, Container } from '@mui/material'
 const AllCategory = () => {
     const categories = useAppSelector((state)=>state.categories.category)
     console.log(categories,"allcategory")
@@ -11,18 +13,17 @@ const AllCategory = () => {
         dispatch(getAllCategory())
     },[])
   return (
-    <div>
-      {
-        categories.length>=0 && categories.map((category)=>(
-          
+    <Container sx={{ mt: 5 }}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+        {categories.map((category) => (
           <CategoryCard
-            name={category.name}
             _id={category._id}
+            name={category.name}
             image={category.image}
           />
-        ))
-      }
-    </div>
+        ))}
+      </Box>
+    </Container>
   )
 }
 

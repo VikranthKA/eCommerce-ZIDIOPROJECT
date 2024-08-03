@@ -77,6 +77,7 @@ const ProductForm = () => {
         })
         console.log(...formData)
         const response = await axios.post('/api/product', formData)
+        
         console.log(response.data,"created product")
         
         toast.success('Product created successfully')
