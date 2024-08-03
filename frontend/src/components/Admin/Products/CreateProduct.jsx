@@ -6,6 +6,7 @@ import { AddCircle, RemoveCircle } from '@mui/icons-material';
 import axios from '../../../Utils/api_resources/axios';
 import { Toaster, toast } from 'react-hot-toast';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { useAppSelector } from '../../../react-redux/hooks/reduxHooks';
 
 
 const validationSchema = Yup.object({
@@ -56,7 +57,9 @@ const productTypes = [
   '3DModelWithoutLogo & 3DSoftwareWithoutLogo'
 ];
 
+
 const ProductForm = () => {
+  const categories = useAppSelector((state)=>state.categories.category)
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -65,7 +68,7 @@ const ProductForm = () => {
         const formData = new FormData();
         Object.keys(values).forEach((key) => {
           if (key === 'sizesAndColors') {
-            formData.append(key, JSON.stringify(values[key]));
+            formData.append(key, values[key]);
           } else if (key === 'images') {
             formData.append(key, values[key]);
           } else {
@@ -73,9 +76,10 @@ const ProductForm = () => {
           }
         })
         console.log(...formData)
-        // const response = await axios.post('/api/products', formData);
+        const response = await axios.post('/api/product', formData)
+        console.log(response.data,"created product")
         
-        toast.success('Product created successfully');
+        toast.success('Product created successfully')
       } catch (error) {
         toast.error('Error creating product');
         console.error(error);
@@ -295,9 +299,9 @@ const ProductForm = () => {
               value={formik.values.categoryId}
               onChange={formik.handleChange}
             >
-              {productTypes.map((type) => (
-                <MenuItem key={type} value={type}>
-                  {type}
+              {categories.map((category) => (
+                <MenuItem key={category._id} value={category._id}>
+                  {category.name}
                 </MenuItem>
               ))}
             </Select>

@@ -6,8 +6,9 @@ export const LOGOUT = "user/logout"
 export const LOGIN = "user/login"
 
 export const GET_ALL_CATEGORY = "get/all/category"
+export const SET_CATEGORIES = "set/categories"
 export const CREATE_CATEGORY = "create/category"
-export const CATEGORY_ERROR = "error/categroy"
+export const FETCH_CATEGORIES_FAILURE = "error/categories"
 
 
 

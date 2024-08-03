@@ -11,6 +11,23 @@ const cookieParser = require("cookie-parser")
 
 const app = express()
 
+app.use(cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  }))
+
+//   console.log(process.env.FRONTEND_URL,"url")
+
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', process.env.FRONTEND_URL)
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    next();
+  });
+  
+
+
 
 //db on
 const db = require("./config/db")
@@ -55,7 +72,6 @@ app.use("/Uploads/images", express.static(staticpath))
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(express.json())
-app.use(cors())
 app.use(express.static("public")) // public visible when in local file
 // app.use(morgan('combined'))
 

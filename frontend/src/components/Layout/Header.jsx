@@ -18,7 +18,8 @@ function Header() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const navigate = useNavigate();
-  const isLogin = useAppSelector(state=>state.user.isLogin)
+  const {user} = useAppSelector(state=>state)
+
 const dispatch = useAppDispatch()
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -129,7 +130,7 @@ const dispatch = useAppDispatch()
           </Box>
 
           <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', gap: 2 }}>
-            <TextField
+            {/* <TextField
               id="standard-basic"
               label="Search"
               variant="standard"
@@ -141,13 +142,15 @@ const dispatch = useAppDispatch()
                   </InputAdornment>
                 ),
               }}
-            />
-            {isLogin ?
-            <><Tooltip title="Cart">
+            /> */}
+            {user?.isLogin ?
+            <>
+
+            {user.decodedData.role==="Customer" && <Tooltip title="Cart">
               <IconButton onClick={() => navigate("/cart")} color="inherit">
                 <ShoppingCartIcon />
               </IconButton>
-            </Tooltip>
+            </Tooltip>}
              <Tooltip title="Open Profile">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />

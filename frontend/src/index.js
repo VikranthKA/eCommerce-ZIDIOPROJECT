@@ -17,7 +17,7 @@ store.subscribe(() => {
     console.log('State_Updated', store.getState())
 })
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
     <BrowserRouter>
         <Provider store={store}>

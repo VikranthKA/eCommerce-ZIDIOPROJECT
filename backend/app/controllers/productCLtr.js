@@ -38,19 +38,19 @@ productCltr.create = async (req, res) => {
     } else {
         try {
 
-
-
-            // const uploaded = await cloudinary.uploader.upload(req.file.path)
-
+            
+            const uploaded = await cloudinary.uploader.upload(req.file.path)
+            
             const body = _.pick(req.body,
                 [
                     "name", "categoryId", "description",
                     "price", "images",'sizesAndColors', 
                     'stock', "productType", "madeFrom",
                     "discount"
-
+                    
                 ]
             )
+            return res.json({data:body,userId:req.user.id})
             // return res.json({
             //     sizes:toArray(body.sizes)
             // })

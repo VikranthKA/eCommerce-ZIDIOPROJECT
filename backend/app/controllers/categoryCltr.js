@@ -35,6 +35,7 @@ categoryCltr.getAll = async (req, res) => {
         const cat = await Category.find()
         return res.status(200).json(cat)
     } catch (err) {
+        console.log(err,"err in category")
         return res.status(500).json(err)
 
     }

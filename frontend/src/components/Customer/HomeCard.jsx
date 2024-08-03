@@ -21,7 +21,7 @@ const Home = () => {
 
   return (
     <>
-    Home page for Customer</>
+    Home page for Customer and non-authenticated users</>
     // <div >
     //   <AppBar position="static">
     //     <Toolbar sx={{ flexGrow: 1, bgcolor: 'electricblue',minHeight:"30px"}}>
