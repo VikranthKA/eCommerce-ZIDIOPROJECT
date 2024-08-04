@@ -99,7 +99,7 @@ app.get("/api/category",authenticateUser,authorizeUser(["SuperAdmin"]),categoryC
 
 //product
 
-//creating the products by admin
+//creating the products by admin 
 app.post("/api/product", upload.single("images"), authenticateUser, authorizeUser(["SuperAdmin"]), productCltr.create)
 //updating the product by admin
 app.put("/api/product/:productId", upload.single("images"), authenticateUser, authorizeUser(["SuperAdmin"]), productCltr.update)

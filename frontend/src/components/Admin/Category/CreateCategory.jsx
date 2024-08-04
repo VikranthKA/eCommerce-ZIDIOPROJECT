@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { TextField, Button, Box, InputLabel, FormHelperText, Container } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useAppDispatch, useAppSelector } from '../../../react-redux/hooks/reduxHooks';
-import { removeCategoryIdForEdit } from '../../../react-redux/slices/actions/categoryActions';
+import { createCategory, removeCategoryIdForEdit } from '../../../react-redux/slices/actions/categoryActions';
 
 const CreateCategory = () => {
   const [name, setName] = useState('');
-  const [images, setImages] = useState(null);
-  const [errors, setErrors] = useState({ name: '', images: '' });
+  const [images, setImages] = useState(null)
+  const [errors, setErrors] = useState({ name: '', images: '' })
   
 
   const {categories} = useAppSelector((state=>state))
+
 
   useEffect(()=>{
     const categoryData = categories.category.find((cat=>cat._id===categories.editId))
@@ -38,12 +39,14 @@ const CreateCategory = () => {
       formData.append('name', name);
       formData.append('images', images);
 
-      // You can now send formData to your backend
-      console.log([...formData]); // For demonstration purposes
+      console.log([...formData])
+
 
       try {
           setName("")
           setImages(null)
+
+          dispatch(createCategory(formData))
       } catch (error) {
         console.log(error)
         

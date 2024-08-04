@@ -68,7 +68,7 @@ const ProductForm = () => {
         const formData = new FormData();
         Object.keys(values).forEach((key) => {
           if (key === 'sizesAndColors') {
-            formData.append(key, values[key]);
+            formData.append(key, JSON.stringify(values[key]));
           } else if (key === 'images') {
             formData.append(key, values[key]);
           } else {
@@ -80,7 +80,7 @@ const ProductForm = () => {
         
         console.log(response.data,"created product")
         
-        toast.success('Product created successfully')
+        toast.success('Product created successfully') 
       } catch (error) {
         toast.error('Error creating product');
         console.error(error);

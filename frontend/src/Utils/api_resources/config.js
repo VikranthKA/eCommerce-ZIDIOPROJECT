@@ -2,11 +2,15 @@ import Cookies from "universal-cookie";
 
 const cookies = new Cookies()
 
-export const cookieConfig={
+export const config={
     headers:{
         Authorization:cookies.get("jwt_authorization"),
-        'Content-Type':'application/json'
+        'Content-Type':'application/json',
+        withCredentials: true,
+
     },
 }
+
+
 
 

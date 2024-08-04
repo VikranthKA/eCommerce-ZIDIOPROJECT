@@ -50,11 +50,18 @@ productCltr.create = async (req, res) => {
                     
                 ]
             )
-            return res.json({data:body,userId:req.user.id})
+            // return res.json({data:body,userId:req.user.id})
             // return res.json({
             //     sizes:toArray(body.sizes)
             // })
+            // console.log(  body.sizesAndColors,"sac")
+            // return res.json("wo")
 
+
+            if (typeof body.sizesAndColors === 'string') {
+                body.sizesAndColors = JSON.parse(body.sizesAndColors);
+              }
+            
             const product = new Product({
                 name: body.name,
                 categoryId: body.categoryId,

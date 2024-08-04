@@ -1,4 +1,4 @@
-import {GET_ALL_CATEGORY,FETCH_CATEGORIES_FAILURE,SET_CATEGORIES,CREATE_CATEGORY, EDIT_CATEGORY_ID, REMOVE_CATEGORY_EDIT_ID} from "../../constants/constantTypes"
+import {GET_ALL_CATEGORY,FETCH_CATEGORIES_FAILURE,SET_CATEGORIES,CREATE_CATEGORY, EDIT_CATEGORY_ID, REMOVE_CATEGORY_EDIT_ID, SET_CREATED_CATEGORIES} from "../../constants/constantTypes"
 
 const initialState ={
     editId:"",
@@ -14,6 +14,11 @@ const categoryReducers =(state=initialState,action)=>{
                 ...state,
                 category:action.payload,
                 error:null
+            }
+        case SET_CREATED_CATEGORIES:
+            return {
+                ...state,
+                category:[action.payload,...state.category]
             }
         case FETCH_CATEGORIES_FAILURE:
             return {

@@ -57,7 +57,7 @@ export default function PersistentDrawer() {
               onClick={() => handleMenuClick(text)}
               className={activeMenuItem === text ? classes.activeItem : ''}
             >
-              <ListItemIcon>{/* Add icons here if needed */}</ListItemIcon>
+              <ListItemIcon>{/* Add icons here */}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
@@ -71,7 +71,7 @@ export default function PersistentDrawer() {
               onClick={() => handleMenuClick(text)}
               className={activeMenuItem === text ? classes.activeItem : ''}
             >
-              <ListItemIcon>{/* Add icons here if needed */}</ListItemIcon>
+              <ListItemIcon>{/* Add icons here*/}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
