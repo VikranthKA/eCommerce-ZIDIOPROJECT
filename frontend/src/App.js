@@ -15,6 +15,8 @@ import axios from './Utils/api_resources/axios'
 import {verifyLogin} from "./react-redux/slices/actions/userActions" 
 import { useAppDispatch, useAppSelector } from './react-redux/hooks/reduxHooks'
 import PrivateRoute from './components/Private/PrivateRoute'
+import { ToastContainer } from 'react-toastify'
+import { getAllProducts } from './react-redux/slices/actions/productActions'
 
 
 
@@ -24,7 +26,7 @@ const App = () => {
 
   useEffect(()=>{
     (async()=>{
-      // dispatch(verifyLogin())
+      dispatch(getAllProducts())
     })()
     },[])
   return (
@@ -52,6 +54,7 @@ const App = () => {
 
 
       </Routes>
+      <ToastContainer/>
     </div>
   )
 }

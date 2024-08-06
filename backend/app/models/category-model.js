@@ -7,6 +7,11 @@ const CategorySchema = new Schema({
         required:true,
         // unique:true,
     },
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    }  ,
     image:{
         type:String,
         required:true

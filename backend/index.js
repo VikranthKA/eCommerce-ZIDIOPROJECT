@@ -96,16 +96,19 @@ app.put("/api/profile", checkSchema)
 app.post("/api/category",authenticateUser, authorizeUser(["SuperAdmin", "Admin"]), upload.single("image"), categoryCltr.create) 
 app.put("/api/category/:categoryId",authenticateUser, authorizeUser(["SuperAdmin", "Admin"]),upload.single('image'),categoryCltr.update)
 app.get("/api/category",authenticateUser,authorizeUser(["SuperAdmin"]),categoryCltr.getAll)
+app.delete("/api/category/:categoryId",authenticateUser,authorizeUser(["SuperAdmin"]),categoryCltr.delete)
 
 //product
 
-//creating the products by admin 
+//creating the products by admin  
 app.post("/api/product", upload.single("images"), authenticateUser, authorizeUser(["SuperAdmin"]), productCltr.create)
 //updating the product by admin
 app.put("/api/product/:productId", upload.single("images"), authenticateUser, authorizeUser(["SuperAdmin"]), productCltr.update)
 
 //get all products
-app.get("/api/products", authenticateUser, productCltr.getAll)
+app.get("/api/products", productCltr.getAll)
+
+
 //cart
 
 //Adding the products to Cart
@@ -135,5 +138,5 @@ app.listen(process.env.PORT, () => {
     // Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
     console.log("Server On!", process.env.PORT)
-})
+})  
 

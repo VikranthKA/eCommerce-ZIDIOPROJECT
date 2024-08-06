@@ -11,6 +11,16 @@ export const config={
     },
 }
 
+export const fileConfig = {
+    headers: {
+        Authorization: cookies.get("jwt_authorization"),
+        'Content-Type': 'multipart/form-data',
+    },
+    withCredentials: true,
+}
+
+
+
 
 
 

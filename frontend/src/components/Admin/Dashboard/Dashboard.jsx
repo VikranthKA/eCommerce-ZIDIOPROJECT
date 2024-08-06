@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import CreateProduct from '../Products/CreateProduct';
 import CreateCategory from "../Category/CreateCategory";
 import AllCategory from "../Category/AllCategory";
-
+import Analytics from './Analytics';
 const useStyles = makeStyles({
   container: {
     display: 'flex',
@@ -33,7 +33,7 @@ const useStyles = makeStyles({
 
 export default function PersistentDrawer() {
   const classes = useStyles();
-  const [activeMenuItem, setActiveMenuItem] = useState('New Product');
+  const [activeMenuItem, setActiveMenuItem] = useState(false);
   
   const handleMenuClick = (text) => {
     setActiveMenuItem(text);
@@ -79,6 +79,7 @@ export default function PersistentDrawer() {
       </Box>
       <Box className={classes.content}>
         <Typography variant="body1">
+          {activeMenuItem ? <>
           {activeMenuItem === 'New Product' && <CreateProduct />}
           {activeMenuItem === 'Coupon' && 'Here are your Coupon items.'}
           {activeMenuItem === 'Payment' && 'Here you can make Payments.'}
@@ -87,6 +88,7 @@ export default function PersistentDrawer() {
           {activeMenuItem === 'Users' && 'Here are your Users.'}
           {activeMenuItem === 'Coupons' && 'Here are your Coupons.'}
           {activeMenuItem === 'Orders' && 'These are your Orders.'}
+          </> : <Analytics/> }
         </Typography>
       </Box>
     </Box>

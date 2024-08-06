@@ -13,6 +13,7 @@ const pages = ['Products'];
 const loginRegister = ["Login","Register"]
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
+
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -58,7 +59,7 @@ const dispatch = useAppDispatch()
             }}
             onClick={() => navigate("/")}
           >
-            LOGO
+            I'M_LOGO
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -90,7 +91,9 @@ const dispatch = useAppDispatch()
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
+              {user?.decodedData?.role === "SuperAdmin" ? <>
+                
+              </> : pages.map((page) => (
                 <MenuItem key={page} onClick={() => { handleCloseNavMenu(); navigate(`/${page.toLowerCase()}`); }}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>

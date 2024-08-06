@@ -301,8 +301,8 @@ const ProductForm = () => {
               onChange={formik.handleChange}
             >
               {categories.map((category) => (
-                <MenuItem key={category._id} value={category._id}>
-                  {category.name}
+                <MenuItem key={category?._id} value={category?._id}>
+                  {category?.name}
                 </MenuItem>
               ))}
             </Select>

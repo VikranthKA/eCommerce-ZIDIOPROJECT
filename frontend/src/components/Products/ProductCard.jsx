@@ -16,6 +16,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
 import image1 from "../../Assests/image1.jpg"
+import { StrikethroughS } from '@mui/icons-material';
 // import ThreeDScene from '../3D/Three';
 
 const ExpandMore = styled((props) => {
@@ -41,7 +42,7 @@ export default function ProductCard() {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 ,width:"30%"}}>
+    <Card sx={{ maxWidth: 345 ,width:"21%",margin:"10px 0 0 20px"}}>
       
       <CardMedia
         component="img"
@@ -55,14 +56,15 @@ export default function ProductCard() {
             T-Shirt<br/>
             <Button>Add to Cart</Button>
         </Typography>
+        <Typography sx={{ml:4}}>Made From: Bamboo</Typography>
+
+ <div style={{display:"flex",marginLeft:"40px"}}>      <h5>MEN'S</h5>
+        <strike>200₹</strike>
+        <div>190₹</div></div> 
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+      <CardActions sx={{ml:8}}>
+
+
        
       </CardActions>
      

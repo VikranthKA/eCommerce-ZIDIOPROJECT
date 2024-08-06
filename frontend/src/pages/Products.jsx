@@ -4,7 +4,7 @@ import ProductCard from '../components/Products/ProductCard'
 const Products = () => {
   return (
     <div>
-      {/* <ProductCard/> */}
+      <ProductCard/>
       Product
     </div>
   )

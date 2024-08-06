@@ -104,10 +104,10 @@ productCltr.create = async (req, res) => {
 
 
 productCltr.getAll = async (req, res) => {
-    const products = await Product.find()
+    const products = await Product.find().populate("categoryId")
     res.status(200).json({
-        products,
-        uid: req.user.id,
+        msg:"Success",
+        data:products
     })
 }
 

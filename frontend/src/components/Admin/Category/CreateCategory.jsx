@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { TextField, Button, Box, InputLabel, FormHelperText, Container } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useAppDispatch, useAppSelector } from '../../../react-redux/hooks/reduxHooks';
-import { createCategory, removeCategoryIdForEdit } from '../../../react-redux/slices/actions/categoryActions';
+import { createCategory, removeCategoryIdForEdit, setCreatedData, updatedCategorySaga } from '../../../react-redux/slices/actions/categoryActions';
 
 const CreateCategory = () => {
   const [name, setName] = useState('');
@@ -14,9 +14,9 @@ const CreateCategory = () => {
 
 
   useEffect(()=>{
-    const categoryData = categories.category.find((cat=>cat._id===categories.editId))
+    const categoryData = categories?.category?.find((cat=>cat?._id===categories?.editId))
     if(categoryData?._id){
-      setName(categoryData.name)
+      setName(categoryData?.name)
       
 
     }
@@ -35,9 +35,9 @@ const CreateCategory = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validate()) {
-      const formData = new FormData();
+      const formData = new FormData()
       formData.append('name', name);
-      formData.append('images', images);
+      formData.append('image', images);
 
       console.log([...formData])
 
@@ -45,8 +45,16 @@ const CreateCategory = () => {
       try {
           setName("")
           setImages(null)
+          console.log(...formData,"createCat",categories.editId)
+          if(categories?.editId){
+            console.log("updating category")
+            formData.append("_id",categories.editId)
+              dispatch(updatedCategorySaga(formData,categories.editId))
+          }else{
 
-          dispatch(createCategory(formData))
+            dispatch(createCategory(formData))
+          }
+
       } catch (error) {
         console.log(error)
         
@@ -118,7 +126,7 @@ const CreateCategory = () => {
               setName("");
               setImages(null);
               dispatch(removeCategoryIdForEdit());
-            }} color="error" sx={{ height: '45px', mb: 3, mt: { xs: 2, md: 4 }, width: { xs: '90%', md: '10%' } }}>
+            }} color="danger" sx={{ height: '45px', mb: 3, mt: { xs: 2, md: 4 }, width: { xs: '90%', md: '10%' } }}>
             Cancel
           </Button>
           

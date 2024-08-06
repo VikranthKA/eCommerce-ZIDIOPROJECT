@@ -28,6 +28,6 @@ root.render(
         </Provider>
     </BrowserRouter>
 
-);
+)
 
 

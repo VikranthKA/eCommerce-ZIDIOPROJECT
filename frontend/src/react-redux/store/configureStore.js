@@ -6,6 +6,7 @@ import createSagaMiddleware from 'redux-saga'
 import rootSaga from '../root/rootSaga'
 
 const sageMiddleware = createSagaMiddleware()
+
 const persistConfig = {
     key:'root',
     storage,
@@ -14,10 +15,17 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig,rootReducer)
 
 const store = configureStore({
-    reducer:persistedReducer,
-    middleware:(getDefaultMiddleware)=>getDefaultMiddleware().concat(sageMiddleware)
-    
-})
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: ['create/category',"update/category/saga"],
+          ignoredPaths: ['payload'],
+        },
+      }).concat(sageMiddleware),
+  })
+
+
 
 sageMiddleware.run(rootSaga)
 
