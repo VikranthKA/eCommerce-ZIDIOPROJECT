@@ -44,18 +44,12 @@ productCltr.create = async (req, res) => {
             const body = _.pick(req.body,
                 [
                     "name", "categoryId", "description",
-                    "price", "images",'sizesAndColors', 
+                    "price",'sizesAndColors', 
                     'stock', "productType", "madeFrom",
                     "discount"
                     
                 ]
             )
-            // return res.json({data:body,userId:req.user.id})
-            // return res.json({
-            //     sizes:toArray(body.sizes)
-            // })
-            // console.log(  body.sizesAndColors,"sac")
-            // return res.json("wo")
 
 
             if (typeof body.sizesAndColors === 'string') {
@@ -68,7 +62,7 @@ productCltr.create = async (req, res) => {
                 description: body.description,
                 min:await findMinPrice(body.sizesAndColors),
                 stock: body.stock,
-                image: uploaded.secure_url,
+                images: uploaded.secure_url,
                 discount:body.discount,
                 productType: body.productType,
                 madeFrom: body.madeFrom,
@@ -76,6 +70,8 @@ productCltr.create = async (req, res) => {
                 userId: req.user.id
 
             })
+
+            console.log( uploaded.secure_url,"image")
 
             await product.save()
 

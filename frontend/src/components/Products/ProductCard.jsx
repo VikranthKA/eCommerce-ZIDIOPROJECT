@@ -1,26 +1,14 @@
-import * as React from 'react';
+import React from 'react';
+import { Card, CardMedia, CardContent, CardActions, IconButton, Typography, Chip, Collapse, Box, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { Button } from '@mui/material';
-import image1 from "../../Assests/image1.jpg"
-import { StrikethroughS } from '@mui/icons-material';
-// import ThreeDScene from '../3D/Three';
+import image1 from "../../Assests/image1.jpg";
+import { Link } from 'react-router-dom';
+
+
 
 const ExpandMore = styled((props) => {
-
   const { expand, ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
@@ -31,10 +19,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-
-
-
-export default function ProductCard() {
+const ProductCard = ({ ...product }) => {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -42,32 +27,58 @@ export default function ProductCard() {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 ,width:"21%",margin:"10px 0 0 20px"}}>
-      
+    <Card sx={{ maxWidth: 250, margin: 'auto', mt: 5,boxShadow: 3 ,height:350}} key={product._id}>
+      <Link to={`/product/${product._id}`}  style={{ textDecoration: 'none'}}>
       <CardMedia
         component="img"
         height="194"
-        image={image1}
-        alt="Loading..."
+        image={product?.images ? product?.images : image1}
+        alt="Product Image"
+        sx={{ objectFit: 'cover' }}
       />
-      {/* <ThreeDScene/> */}
       <CardContent>
-        <Typography variant="body2" color="text.secondary" sx={{textAlign:"center"}}>
-            T-Shirt<br/>
-            <Button>Add to Cart</Button>
-        </Typography>
-        <Typography sx={{ml:4}}>Made From: Bamboo</Typography>
+        <Container>
+        <Box sx={{ mb: 2, display: 'flex', flexDirection: 'column', alignItems: 'center',gap:1 }}>
+          <Typography sx={{ fontSize: '1.2rem', fontWeight: 'bold' }}>{product?.name}</Typography>
+          <Typography variant="h6" color="text.primary" gutterBottom sx={{ margin: '0px' }}>
+            <Chip label={product?.categoryId?.name} color="primary" />
+          </Typography>
+        </Box>
+        <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-around' }}>
+          <Typography variant="h5" color="text.secondary" sx={{ textDecoration: 'line-through' }}>
+            ₹{product?.sizesAndColors[0].price}
+          </Typography>
+          <Typography variant="h5" color="success.main">
+            ₹{(product?.sizesAndColors[0].price * (1 - product?.discount / 100)).toFixed(2)}
+          </Typography>
 
- <div style={{display:"flex",marginLeft:"40px"}}>      <h5>MEN'S</h5>
-        <strike>200₹</strike>
-        <div>190₹</div></div> 
+        </Box>
+        </Container>
       </CardContent>
-      <CardActions sx={{ml:8}}>
-
-
-       
+      <CardActions disableSpacing sx={{ m: 0 }}>
+        <IconButton aria-label="share">
+          <ShareIcon />
+        </IconButton>
+        <ExpandMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </ExpandMore>
       </CardActions>
-     
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <Typography paragraph>Additional Details:</Typography>
+          <Typography paragraph>
+            {product?.description}
+          </Typography>
+        </CardContent>
+      </Collapse>
+    </Link>
     </Card>
   );
-}
+};
+
+export default ProductCard;

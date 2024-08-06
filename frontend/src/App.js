@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from './react-redux/hooks/reduxHooks'
 import PrivateRoute from './components/Private/PrivateRoute'
 import { ToastContainer } from 'react-toastify'
 import { getAllProducts } from './react-redux/slices/actions/productActions'
+import ProductInfo from "./components/Products/ProductInfo"
 
 
 
@@ -42,6 +43,8 @@ const App = () => {
         <Route path="/products" element={<Products/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
+        <Route path="/product/:productId" element={<ProductInfo/>}/>
+
 
         <Route element={<PrivateRoute roles={['Admin','Customer',"SuperAdmin"]}/>}>
           <Route path='/profile' element={<Profile/>} />
