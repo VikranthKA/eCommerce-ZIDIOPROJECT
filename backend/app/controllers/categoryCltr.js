@@ -12,10 +12,8 @@ categoryCltr.create = async (req, res) => {
 
     const body = _.pick(req.body, ["name"]);
 
-    // Logging for debugging
-    console.log('Request body:', req.body);
+ 
     console.log('Request file:', req.file);
-    console.log('Request user ID:', req.user.id);
 
     try {
         if (req.file && req.file.path) {
@@ -36,7 +34,7 @@ categoryCltr.create = async (req, res) => {
         } else {
             return res.status(400).json({
                 msg: "Error in the image/file"
-            });
+            })
         }
     } catch (err) {
         console.log('Error:', err);

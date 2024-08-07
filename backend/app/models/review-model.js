@@ -22,13 +22,9 @@ const reviewSchema = new Schema({
         min: 1,
         max: 5,
     },
-    image: {
-        type: String,
-    },
-    likes: {
-        type: Number,
-        default: 0,
-    },
+    images: {
+        type: Array,
+    }
 }, { timestamps: true });
 
 const Review = model('Review', reviewSchema);

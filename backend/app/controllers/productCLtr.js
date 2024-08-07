@@ -37,56 +37,57 @@ productCltr.create = async (req, res) => {
         return res.status(400).json({ errors: errors.array() })
     } else {
         try {
-
-            
-            const uploaded = await cloudinary.uploader.upload(req.file.path)
-            
-            const body = _.pick(req.body,
+            if (req.file && req.file.path) {
+                const uploaded = await cloudinary.uploader.upload(req?.file?.path)
+                
+                const body = _.pick(req.body,
                 [
                     "name", "categoryId", "description",
-                    "price",'sizesAndColors', 
+                    "price", 'sizesAndColors',
                     'stock', "productType", "madeFrom",
                     "discount"
-                    
+
                 ]
             )
-
-
+            
+            
             if (typeof body.sizesAndColors === 'string') {
                 body.sizesAndColors = JSON.parse(body.sizesAndColors);
-              }
+            }
             
             const product = new Product({
                 name: body.name,
                 categoryId: body.categoryId,
                 description: body.description,
-                min:await findMinPrice(body.sizesAndColors),
+                min: await findMinPrice(body.sizesAndColors),
                 stock: body.stock,
                 images: uploaded.secure_url,
-                discount:body.discount,
+                discount: body.discount,
                 productType: body.productType,
                 madeFrom: body.madeFrom,
-                sizesAndColors:body.sizesAndColors,
+                sizesAndColors: body.sizesAndColors,
                 userId: req.user.id
-
+                
             })
 
-            console.log( uploaded.secure_url,"image")
-
+            
             await product.save()
-
+            
             if (!product._id) return res.status(400).json({
                 error: "Cannot Create the Product"
             })
 
             await Category.findByIdAndUpdate(product.categoryId, { $push: { products: { productId: product._id } } })//check
-
-
-
+            
             return res.status(201).json({
                 message: `${product.name} Created Successfully`,
-                product,
+                data:product,
             })
+        }
+        return res.json({
+            msg:"Error creating the product",
+            
+        })
         } catch (error) {
             console.log(error)
             return res.status(500).json({
@@ -102,8 +103,8 @@ productCltr.create = async (req, res) => {
 productCltr.getAll = async (req, res) => {
     const products = await Product.find().populate("categoryId")
     res.status(200).json({
-        msg:"Success",
-        data:products
+        msg: "Success",
+        data: products
     })
 }
 
@@ -167,7 +168,7 @@ productCltr.update = async (req, res, next) => {
             }
 
 
-            const product = await Product.findOneAndUpdate({ _id:req.params.productId, userId: req.user.id },tempBody,{new:true})
+            const product = await Product.findOneAndUpdate({ _id: req.params.productId, userId: req.user.id }, tempBody, { new: true })
 
 
             if (body.categoryId) {

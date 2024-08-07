@@ -47,6 +47,8 @@ const productCltr = require("./app/controllers/productCLtr")
 const cartCltr = require("./app/controllers/cartCltr")
 const orderCltr = require("./app/controllers/orderCltr")
 const profileCltr = require("./app/controllers/profielCltr")
+const reviewCltr = require("./app/controllers/reviewCltr")
+const { reviewSchema } = require("./app/validation/review-validation")
 
 
 const storage = multer.diskStorage({
@@ -128,9 +130,11 @@ app.post("/api/payment")
 
 
 //review model
+app.post("/api/product/:productId/review",upload.array("images",10),authenticateUser,authorizeUser(['Customer',"SuperAdmin"]),reviewCltr.createReviewForProduct)
+app.put("/api/product/:productId/review/:reviewId",upload.array("images",10), authenticateUser, authorizeUser(['Customer',"SuperAdmin"]), checkSchema(reviewSchema),reviewCltr.updateReviewForProduct);
+app.delete("/api/product/:productId/review/:reviewId", authenticateUser, authorizeUser(['Customer',"SuperAdmin"]),reviewCltr.deleteReviewForProduct )
 
-app.post("/api/review/:productId")
-
+ 
 
 
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { useAppSelector } from '../../react-redux/hooks/reduxHooks'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '../../react-redux/hooks/reduxHooks'
 import { Box, Button, Card, CardMedia, Container, Rating, Typography, MenuItem, Select, InputLabel, FormControl } from "@mui/material"
 import image1 from "../../Assests/image1.jpg"
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
@@ -9,14 +9,20 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import CategoryIcon from '@mui/icons-material/Category';
 import PercentIcon from '@mui/icons-material/Percent';
+import { productEditId } from '../../react-redux/slices/actions/productActions'
 
 const ProductInfo = () => {
     const [displayProduct, setDisplayProduct] = useState(null)
     const { productId } = useParams()
     const { products } = useAppSelector((state) => state.products)
+    const {decodedData} = useAppSelector((state)=>state.user)
     const [quantity, setQuantity] = useState(1)
     const [selectedOption, setSelectedOption] = useState("") 
     const [selectedId, setSelectedId] = useState(null)
+
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+
 
     useEffect(() => {
         if (products.length > 0) {
@@ -40,6 +46,7 @@ const ProductInfo = () => {
         setSelectedId(selectedProduct._id)
     }
 
+
     return (
         <Container sx={{ mt: 3,mb:3 }}>
             <Card>
@@ -55,10 +62,19 @@ const ProductInfo = () => {
 
                     <Box sx={{ ml: 15, width: "60%" }}>
                         <Typography variant="h5">
-                            {displayProduct.name}
+                            {displayProduct?.name}
                         </Typography>
+                        {
+                            decodedData?.role === "SuperAdmin" && <Button onClick={()=>{
+                                dispatch(productEditId(displayProduct._id));
+                                navigate(`/product/edit/${displayProduct._id}`)
+                                
+                            }}>
+                                Edit
+                            </Button>
+                        }
                         <Typography>
-                            <CategoryIcon />{displayProduct.categoryId.name}
+                            <CategoryIcon />{displayProduct?.categoryId?.name}
                         </Typography>
                         <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
                             <Rating name="read-only" value={3} readOnly />

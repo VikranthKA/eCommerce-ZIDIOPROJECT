@@ -28,7 +28,19 @@ export const SET_DELETED_CATEGORIES = "set/deleted/category"
 //to call the all the products
 export const GET_ALL_PRODUCTS = "get/all/products"
 export const SET_ALL_PRODUCTS = "set/all/products"
+
 export const ERROR_IN_PRODUCTS = "error/in/products"
+
+export const ADD_CREATE_PRODUCT_SAGA = "add/creating/product/saga"
+export const SET_CREATED_PRODUCT = "set/created/product"
+
+export const EDIT_CREATED_PRODUCT_ID = "edit/created/product_id"
+export const REMOVE_EDIT_PRODUCT_ID = "remove/edit/product/id"
+export const UPDATE_CREATED_PRODUCT_SAGA = "update/created/product/saga"
+export const SET_UPDATED_PRODUCT = "set/updated/product"
+
+export const DELETE_PRODUCT_SAGA = "delete/product/saga"
+export const SET_DELETED_PRODUCT = "deleted/product"
 
 
 

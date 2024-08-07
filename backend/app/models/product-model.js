@@ -70,6 +70,12 @@ const productSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+    reviews: [{
+        reviewId:{
+        type: Schema.Types.ObjectId,
+        ref: 'ReviewModel'
+    }
+    }],
     name: {
         type: String,
         required: true,

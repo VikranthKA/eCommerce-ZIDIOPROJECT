@@ -11,6 +11,7 @@ import CreateProduct from '../Products/CreateProduct';
 import CreateCategory from "../Category/CreateCategory";
 import AllCategory from "../Category/AllCategory";
 import Analytics from './Analytics';
+import AllProducts from '../../Products/AllProducts';
 const useStyles = makeStyles({
   container: {
     display: 'flex',
@@ -84,7 +85,7 @@ export default function PersistentDrawer() {
           {activeMenuItem === 'Coupon' && 'Here are your Coupon items.'}
           {activeMenuItem === 'Payment' && 'Here you can make Payments.'}
           {activeMenuItem === 'Category' && handleCategoryView()}
-          {activeMenuItem === 'Products' && 'Here are all your Products.'}
+          {activeMenuItem === 'Products' && <AllProducts/>}
           {activeMenuItem === 'Users' && 'Here are your Users.'}
           {activeMenuItem === 'Coupons' && 'Here are your Coupons.'}
           {activeMenuItem === 'Orders' && 'These are your Orders.'}

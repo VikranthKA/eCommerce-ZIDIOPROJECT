@@ -18,6 +18,7 @@ import PrivateRoute from './components/Private/PrivateRoute'
 import { ToastContainer } from 'react-toastify'
 import { getAllProducts } from './react-redux/slices/actions/productActions'
 import ProductInfo from "./components/Products/ProductInfo"
+import CreateProduct from "./components/Admin/Products/CreateProduct"
 
 
 
@@ -48,6 +49,11 @@ const App = () => {
 
         <Route element={<PrivateRoute roles={['Admin','Customer',"SuperAdmin"]}/>}>
           <Route path='/profile' element={<Profile/>} />
+
+        </Route>
+
+        <Route element={<PrivateRoute roles={["SuperAdmin"]}/>}>
+          <Route path='/product/edit/:productId' element={<CreateProduct/>} />
 
         </Route>
 
