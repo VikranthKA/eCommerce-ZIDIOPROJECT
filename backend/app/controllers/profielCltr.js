@@ -6,6 +6,42 @@ const { getCoByGeoApify } = require("../../utils/Address/getLatLon")
 const profileCltr = {}
 const cloudinary = require("../../utils/Cloudinary/cloudinary")
 
+
+profileCltr.getOne = async (req, res) => {
+
+    try {
+        const profile = await Profile.findOne({ userId: req.user.id })
+        .populate("userId")
+        .populate("orders")
+        .populate(
+            {
+             path:"orders",
+             populate:{
+             path:"productId",
+             
+             model:"Product",
+             select:"_id name " 
+            },
+            options: {
+                sort: { createdAt: -1 }
+            }
+        })
+
+ 
+
+
+        
+        if (!profile) {
+            //  profile is not found 
+            return res.status(404).json({ error: "Profile not found" });
+        } 
+        return res.status(200).json(profile);
+    } catch (err) {
+        console.error(err);
+            return res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
 profileCltr.update = async (req, res) => {
     try {
         // return res.json(req.body)

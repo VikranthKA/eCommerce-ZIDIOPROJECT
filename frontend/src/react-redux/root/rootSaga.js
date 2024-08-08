@@ -6,6 +6,7 @@ import {
     updateCategorySaga
   } from "../saga/categorySaga"
 import { productAllSaga, setNewCreatedProductSaga, setUpdatedProductSaga } from '../saga/productSaga'
+import { setUserProfile } from '../saga/profileSaga'
 
 
 
@@ -17,6 +18,8 @@ export default function* rootSaga(){
         deleteCategorySaga(),
         productAllSaga(),
         setNewCreatedProductSaga(),
-        setUpdatedProductSaga()
+        setUpdatedProductSaga(),
+        setUserProfile()
+
     ])
 }

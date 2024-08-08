@@ -17,6 +17,10 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import CloseIcon from '@mui/icons-material/Close';
 import ProfileCard from './ProfileCard';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
+import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 199;
 
@@ -66,23 +70,41 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
+
 const sideBarTopElements = [
+  
     {
         text:"Profile",
         icon:<AccountCircleIcon/>
+    },
+    {
+        text:"Address",
+        icon:<AddLocationAltIcon/>
+    },
+    {
+      text:"Orders",
+      icon:<ShoppingBagIcon/>
     }
 
 ]
 
+
 const sideBarLowerElements = [
+
     {
         text:"Settings",
         icon:<SettingsIcon/>
-    }
+    },
+    {
+      text:"Customer Care",
+      icon:<HeadsetMicIcon/>
+  }
 
 ]
 
-export default function MiniDrawer() {
+
+
+export default function ProfileSideBar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
 
@@ -95,15 +117,16 @@ export default function MiniDrawer() {
           <IconButton            
            onClick={()=>setOpen(!open)}
           >
-            {/* {theme.direction === 'rtl' ? <CloseIcon /> : <MenuIcon/>}
-             */}
+
         {open ? <CloseIcon /> : <MenuIcon/>}
 
           </IconButton>
         </DrawerHeader>
         <Divider />
         <List>
+
           {sideBarTopElements.map((bar, index) => (
+            <Link to={`/${bar?.text?.toLowerCase()}`} style={{ textDecoration: 'none'}}>
             <ListItem key={bar.text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -124,11 +147,13 @@ export default function MiniDrawer() {
                 <ListItemText primary={bar.text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
+            </Link>
           ))}
         </List>
         <Divider />
         <List>
           {sideBarLowerElements.map((bar, index) => (
+            <Link to={`/${bar?.text?.toLowerCase()}`} style={{ textDecoration: 'none'}}>
             <ListItem key={bar.text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -149,15 +174,15 @@ export default function MiniDrawer() {
                 <ListItemText primary={bar.text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
+            </Link>
           ))}
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         {/* <DrawerHeader />  */}
-        <ProfileCard/>
-
 
       </Box>
     </Box>
   );
 }
+

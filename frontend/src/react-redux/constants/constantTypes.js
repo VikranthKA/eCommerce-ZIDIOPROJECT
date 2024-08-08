@@ -5,6 +5,12 @@ export const TOKEN = "user/token"
 export const LOGOUT = "user/logout"
 export const LOGIN = "user/login"
 
+
+export const GET_LOGINED_PROFILE_SAGA = "user/profile/saga" 
+export const SET_USER_PROFILE = "set/user/profile"
+
+export const ERROR_IN_USER_PROFILE = "error/in/user/profile"
+
 //for saga
 export const GET_ALL_CATEGORY = "get/all/category"
 export const CREATE_CATEGORY = "create/category"

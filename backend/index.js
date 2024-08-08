@@ -89,6 +89,7 @@ app.post("/api/user/login", checkSchema(userLoginSchema), userCltr.login)
 
 //profile
 app.put("/api/profile/:profileId", authenticateUser, profileCltr.update)
+app.get("/api/profile",authenticateUser,profileCltr.getOne)
 
 //updating the existing the profile with new information
 app.put("/api/profile", checkSchema)

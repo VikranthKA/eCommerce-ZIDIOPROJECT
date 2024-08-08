@@ -11,7 +11,7 @@ import { verifyLogout } from '../../react-redux/slices/actions/userActions';
 
 const pages = ['Products'];
 const loginRegister = ["Login","Register"]
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
+const settings = ['Profile', 'Logout']
 
 
 function Header() {
@@ -23,11 +23,12 @@ function Header() {
 
 const dispatch = useAppDispatch()
   const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+    setAnchorElNav(event.currentTarget)
+  }
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-  };
+  }
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
@@ -59,7 +60,7 @@ const dispatch = useAppDispatch()
             }}
             onClick={() => navigate("/")}
           >
-            I'M_LOGO
+            LOGO
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

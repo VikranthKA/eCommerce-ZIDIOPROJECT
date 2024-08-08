@@ -19,6 +19,11 @@ import { ToastContainer } from 'react-toastify'
 import { getAllProducts } from './react-redux/slices/actions/productActions'
 import ProductInfo from "./components/Products/ProductInfo"
 import CreateProduct from "./components/Admin/Products/CreateProduct"
+import Address from './components/Profile/Address'
+import Orders from './components/Profile/Orders'
+import Payments from './components/Profile/Payments'
+import Settings from './components/Profile/Settings'
+import { getLoginedUserProfile } from './react-redux/slices/actions/profileActions'
 
 
 
@@ -31,6 +36,12 @@ const App = () => {
       dispatch(getAllProducts())
     })()
     },[])
+  
+  useEffect(()=>{
+    if(userData?.decodedData?.role){
+      dispatch(getLoginedUserProfile())
+    }
+  },[userData?.decodedData])
   return (
     <div >
 
@@ -49,11 +60,25 @@ const App = () => {
 
         <Route element={<PrivateRoute roles={['Admin','Customer',"SuperAdmin"]}/>}>
           <Route path='/profile' element={<Profile/>} />
+          <Route path='/settings' element={<Settings/>} />
+
+
 
         </Route>
 
         <Route element={<PrivateRoute roles={["SuperAdmin"]}/>}>
           <Route path='/product/edit/:productId' element={<CreateProduct/>} />
+          <Route path='/coupon' element={<p>Coupon page yet to create</p>} />
+
+
+        </Route>
+
+        <Route element={<PrivateRoute roles={["Customer"]}/>}>
+          <Route path='/address' element={<Address/>} />
+          <Route path='/orders' element={<Orders/>} />
+          <Route path='/payment' element={<Payments/>} />
+
+
 
         </Route>
 
