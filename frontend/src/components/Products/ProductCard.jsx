@@ -44,15 +44,16 @@ const ProductCard = ({ ...product }) => {
             <Chip label={product?.categoryId?.name} color="primary" />
           </Typography>
         </Box>
-        <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-around' }}>
+{ product?.sizesAndColors?.length &&       <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-around' }}>
           <Typography variant="h5" color="text.secondary" sx={{ textDecoration: 'line-through' }}>
-            ₹{product?.sizesAndColors[0].price}
+            {console.log(product?.sizesAndColors[0]?.price)}
+            ₹{product?.sizesAndColors[0]?.price}
           </Typography>
           <Typography variant="h5" color="success.main">
             ₹{(product?.sizesAndColors[0].price * (1 - product?.discount / 100)).toFixed(2)}
           </Typography>
 
-        </Box>
+        </Box>}
         </Container>
       </CardContent>
       <CardActions disableSpacing sx={{ m: 0 }}>

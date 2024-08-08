@@ -22,7 +22,7 @@ const reviewValidationSchema =  {
         custom: {
             options: async function (value, { req }) {
                 if (req.files.length <=0 ) {
-                    throw new Error("Please upload a profile picture");
+                    throw new Error("Please upload a image ");
                 }
     
                 const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
@@ -30,7 +30,7 @@ const reviewValidationSchema =  {
     
                 if (!allowedTypes.includes(req.file.mimetype)) {
                     console.log(req.file.mimetype,"in if")
-                    throw new Error('Picture should be in these formats: ' + allowedTypes.join(', '));
+                    throw new Error('Image should be in these formats: ' + allowedTypes.join(', '));
                 }
     
                 return true;

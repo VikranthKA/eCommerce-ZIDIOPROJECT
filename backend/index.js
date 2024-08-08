@@ -131,7 +131,7 @@ app.post("/api/payment")
 
 //review model
 app.post("/api/product/:productId/review",upload.array("images",10),authenticateUser,authorizeUser(['Customer',"SuperAdmin"]),reviewCltr.createReviewForProduct)
-app.put("/api/product/:productId/review/:reviewId",upload.array("images",10), authenticateUser, authorizeUser(['Customer',"SuperAdmin"]), checkSchema(reviewSchema),reviewCltr.updateReviewForProduct);
+app.put("/api/product/:productId/review/:reviewId",upload.array("images",10), authenticateUser, authorizeUser(['Customer',"SuperAdmin"]),reviewCltr.updateReviewForProduct);
 app.delete("/api/product/:productId/review/:reviewId", authenticateUser, authorizeUser(['Customer',"SuperAdmin"]),reviewCltr.deleteReviewForProduct )
 
  
