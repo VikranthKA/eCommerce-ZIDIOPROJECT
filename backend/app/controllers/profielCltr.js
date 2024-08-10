@@ -76,9 +76,25 @@ profileCltr.update = async (req, res) => {
         res.status(201).json(profile);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Server error" });
+        res.status(500).json({ error: "Server error" })
     }
 };
+
+
+profileCltr.addAddress = async(req,res)=>{
+    try {
+        const updateNewAddress = await Profile.findOne({_id:req.user.id})
+        console.log(updateNewAddress)
+
+        return res.json({
+            data:updateNewAddress
+        })
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Server error" });
+    }
+}
 
 
 module.exports = profileCltr

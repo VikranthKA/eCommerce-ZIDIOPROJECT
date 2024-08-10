@@ -24,6 +24,8 @@ import Orders from './pages/Orders'
 import Payments from './components/Profile/Payments'
 import Settings from './components/Profile/Settings'
 import { getLoginedUserProfile } from './react-redux/slices/actions/profileActions'
+import { getAllCartItems } from './react-redux/slices/actions/cartItemsActions'
+import Cart from './pages/Cart'
 
 
 
@@ -40,6 +42,7 @@ const App = () => {
   useEffect(()=>{
     if(userData?.decodedData?.role){
       dispatch(getLoginedUserProfile())
+      dispatch(getAllCartItems())
     }
   },[userData?.decodedData])
   return (
@@ -77,6 +80,8 @@ const App = () => {
           <Route path='/address' element={<Address/>} />
           <Route path='/orders' element={<Orders/>} />
           <Route path='/payment' element={<Payments/>} />
+          <Route path='/cart' element={<Cart/>} />
+
 
 
 

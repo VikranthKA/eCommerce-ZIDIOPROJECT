@@ -4,12 +4,14 @@ import userReducers from "../slices/reducers/userReducer";
 import categoryReducers from "../slices/reducers/categoryReducer";
 import productReducers from "../slices/reducers/productReducers";
 import profileReducers from "../slices/reducers/profileReducer";
+import cartReducers from "../slices/reducers/cartReducres";
 
 
 const rootReducer = combineReducers({
     count : countReducers,
     user:userReducers,
     profile:profileReducers,
+    cart:cartReducers,
     categories:categoryReducers,
     products:productReducers
     

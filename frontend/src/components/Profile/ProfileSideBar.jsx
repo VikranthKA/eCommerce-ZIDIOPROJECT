@@ -55,6 +55,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
+    mt:15,
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
@@ -105,15 +106,16 @@ const sideBarLowerElements = [
 
 
 export default function ProfileSideBar() {
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(true)
 
   return (
-    <Box sx={{ display: 'flex' ,mt:10}}>
-      <CssBaseline />
+    <Box style={{ display: 'flex',marginTop:"1px"}}>
+      <CssBaseline style={{marginTop:"63px"}}/>
      
-      <Drawer variant="permanent" open={open} >
-        <DrawerHeader>
+      <Drawer variant="permanent" open={open}  style={{marginTop:"63px"}}>
+        <DrawerHeader style={{
+          
+        }}>
           <IconButton            
            onClick={()=>setOpen(!open)}
           >
@@ -123,11 +125,11 @@ export default function ProfileSideBar() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
+        <List >
 
           {sideBarTopElements.map((bar, index) => (
             <Link to={`/${bar?.text?.toLowerCase()}`} style={{ textDecoration: 'none'}}>
-            <ListItem key={bar.text} disablePadding sx={{ display: 'block' }}>
+            <ListItem key={bar.text} disablePadding sx={{ display: 'block',color:"black" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -154,7 +156,7 @@ export default function ProfileSideBar() {
         <List>
           {sideBarLowerElements.map((bar, index) => (
             <Link to={`/${bar?.text?.toLowerCase()}`} style={{ textDecoration: 'none'}}>
-            <ListItem key={bar.text} disablePadding sx={{ display: 'block' }}>
+            <ListItem key={bar.text} disablePadding sx={{ display: 'block',color:"black" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -178,10 +180,7 @@ export default function ProfileSideBar() {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        {/* <DrawerHeader />  */}
 
-      </Box>
     </Box>
   );
 }

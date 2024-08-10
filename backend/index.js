@@ -90,6 +90,7 @@ app.post("/api/user/login", checkSchema(userLoginSchema), userCltr.login)
 //profile
 app.put("/api/profile/:profileId", authenticateUser, profileCltr.update)
 app.get("/api/profile",authenticateUser,profileCltr.getOne)
+app.put("/api/profile/address",authenticateUser,profileCltr.addAddress)
 
 //updating the existing the profile with new information
 app.put("/api/profile", checkSchema)
@@ -113,7 +114,7 @@ app.get("/api/products", productCltr.getAll)
 
 
 //cart
-
+app.get("/api/cart", authenticateUser, authorizeUser(["Customer"]), cartCltr.cartItems)
 //Adding the products to Cart
 app.put("/api/cart", authenticateUser, authorizeUser(["Customer"]), cartCltr.addProducts)
 

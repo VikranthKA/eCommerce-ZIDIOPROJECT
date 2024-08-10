@@ -73,6 +73,19 @@ cartCltr.addProducts = async (req, res) => {
 };
 
 
+cartCltr.cartItems = async(req,res)=>{
+    try {
+        const cartItems = await Cart.findOne({userId:req.user.id}).populate("products.productId")
+        console.log(cartItems)
+        return res.json({
+            data:cartItems
+        })
+    } catch (error) {
+        res.json(error)
+    }
+}
+
+
 module.exports = cartCltr
 
 
