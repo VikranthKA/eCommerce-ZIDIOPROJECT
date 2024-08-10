@@ -10,7 +10,7 @@ const cloudinary = require("../../utils/Cloudinary/cloudinary")
 profileCltr.getOne = async (req, res) => {
 
     try {
-        const profile = await Profile.findOne({ userId: req.user.id })
+        const profile = await Profile.findOne({ userId: req.user.id }).populate("userId")
             .populate({
                 path: 'orders.ordersId',
                 populate: {

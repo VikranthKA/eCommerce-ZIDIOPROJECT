@@ -20,7 +20,7 @@ import { getAllProducts } from './react-redux/slices/actions/productActions'
 import ProductInfo from "./components/Products/ProductInfo"
 import CreateProduct from "./components/Admin/Products/CreateProduct"
 import Address from './components/Profile/Address'
-import Orders from './components/Profile/Orders'
+import Orders from './pages/Orders'
 import Payments from './components/Profile/Payments'
 import Settings from './components/Profile/Settings'
 import { getLoginedUserProfile } from './react-redux/slices/actions/profileActions'
