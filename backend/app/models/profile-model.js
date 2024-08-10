@@ -34,9 +34,11 @@ const profileSchema = new Schema({
     validate: [arrayLimit, '{PATH} exceeds the limit of 3']
   },
   orders: [{
-    type: Schema.Types.ObjectId,
-    ref: "Order"
-  }],
+    ordersId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Order'
+    }
+}] ,
   gender: {
     type: String,
     enum: ["Male", "Female", "Others"],

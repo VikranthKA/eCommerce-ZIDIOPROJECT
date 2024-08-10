@@ -75,7 +75,7 @@ const ProfileCard = () => {
         </Grid>
       </CardContent>
       <Box style={{ }}>
-        <IconButton color="primary" onClick={()=>setIsEdit(!isEdit)}>
+        <IconButton color="primary" onClick={()=>setIsEdit(true)}>
         Edit  <EditIcon />
         </IconButton>
 

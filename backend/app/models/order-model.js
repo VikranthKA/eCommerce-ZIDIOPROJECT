@@ -5,10 +5,14 @@ const orderSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
     },
-    cart: {
-        type: Schema.Types.ObjectId,
-        ref: 'Cart',
-    },
+    products: [{
+        productId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Product'
+        }
+    }],
+
+    //cart information like this product and these much quantity and other info
     addressId: {
         type: Schema.Types.ObjectId,
         ref: 'Address',

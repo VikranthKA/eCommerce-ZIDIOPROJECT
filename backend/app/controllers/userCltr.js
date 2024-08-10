@@ -28,15 +28,8 @@ userCltr.register = async (req, res) => {
       const encryptedPwd = await bcryptjs.hash(user.password, salt);
       user.password = encryptedPwd
 
-      const userCount = await User.countDocuments()
 
-      if (userCount === 0) {
-        user.role = "SuperAdmin"
-      }else if(userCount <= 5){
-        user.role = "Admin"
-      }else{
-        user.role = "Customer"
-      }
+      user.role = "Customer"
 
       const profile = new Profile({
         userId:user._id
@@ -44,8 +37,6 @@ userCltr.register = async (req, res) => {
       const cart = new Cart({
         userId:user._id
       })
-
-
 
       await user.save()
       await profile.save()

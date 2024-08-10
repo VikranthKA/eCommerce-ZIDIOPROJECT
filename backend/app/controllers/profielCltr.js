@@ -11,34 +11,23 @@ profileCltr.getOne = async (req, res) => {
 
     try {
         const profile = await Profile.findOne({ userId: req.user.id })
-        .populate("userId")
-        .populate("orders")
-        .populate(
-            {
-             path:"orders",
-             populate:{
-             path:"productId",
-             
-             model:"Product",
-             select:"_id name " 
-            },
-            options: {
-                sort: { createdAt: -1 }
-            }
-        })
+            .populate({
+                path: 'orders.ordersId',
+                populate: {
+                    path: 'products.productId',
+                    model: 'Product',
+                    // select: "_id name images"
+                }
+            })
 
- 
-
-
-        
         if (!profile) {
             //  profile is not found 
             return res.status(404).json({ error: "Profile not found" });
-        } 
+        }
         return res.status(200).json(profile);
     } catch (err) {
         console.error(err);
-            return res.status(500).json({ error: "Internal Server Error" });
+        return res.status(500).json({ error: "Internal Server Error" });
     }
 };
 
@@ -53,7 +42,7 @@ profileCltr.update = async (req, res) => {
 
         if (req.body.addresses && req.body.addresses.length <= 3) {
 
-                // addresses is a array of object
+            // addresses is a array of object
             const geocodedAddresses = []
             //loop over array
             for (const address of req.body.addresses) {

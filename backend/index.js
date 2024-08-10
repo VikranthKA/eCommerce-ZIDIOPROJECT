@@ -43,7 +43,7 @@ const { userRegSchema, userLoginSchema } = require("./app/validation/user-valida
 //Controllers
 const userCltr = require("./app/controllers/userCltr")
 const categoryCltr = require("./app/controllers/categoryCltr")
-const productCltr = require("./app/controllers/productCLtr")
+const productCltr = require("./app/controllers/productCltr")
 const cartCltr = require("./app/controllers/cartCltr")
 const orderCltr = require("./app/controllers/orderCltr")
 const profileCltr = require("./app/controllers/profielCltr")
@@ -120,12 +120,13 @@ app.put("/api/cart", authenticateUser, authorizeUser(["Customer"]), cartCltr.add
 
 //order checkout
 app.post("/api/order", authenticateUser, authorizeUser(["Customer"]), orderCltr.create)
+app.get("/api/order",authenticateUser,authorizeUser(["Customer"]),orderCltr.getOrders)
 
 //creating the order using the cart items
 app.post
 
 
-//payment model
+//payment model 
 
 app.post("/api/payment")
 
