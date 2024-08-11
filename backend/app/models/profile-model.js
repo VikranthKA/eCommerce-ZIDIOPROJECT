@@ -13,6 +13,7 @@ const locationSchema = new Schema({
 });
 
 const addressSchema = new Schema({
+  title:String,
   address: {
     type: String,
     required: true

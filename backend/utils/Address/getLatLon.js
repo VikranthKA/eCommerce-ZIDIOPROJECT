@@ -11,7 +11,7 @@ const getCoByGeoApify = async (address) => {
         }
         const location = [mapResponse.data.features[0].properties.lon, mapResponse.data.features[0].properties.lat]
         return {
-            address:searchString,
+            address:`${address.building}, ${address.locality}, ${address.city}, ${address.state}, ${address.pincode}, ${address.country}`,
             location:{
                 type:"Point",
                 coordinates:location

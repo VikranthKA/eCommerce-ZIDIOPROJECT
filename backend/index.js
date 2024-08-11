@@ -88,7 +88,7 @@ app.post("/api/user/register", checkSchema(userRegSchema), userCltr.register)
 app.post("/api/user/login", checkSchema(userLoginSchema), userCltr.login)
 
 //profile
-app.put("/api/profile/:profileId", authenticateUser, profileCltr.update)
+app.put("/api/profile",upload.single("profilePic"), authenticateUser, profileCltr.update)
 app.get("/api/profile",authenticateUser,profileCltr.getOne)
 app.put("/api/profile/address",authenticateUser,profileCltr.addAddress)
 
