@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ExpandMore } from '@mui/icons-material';
 import { Box, Button, Container, Typography, Collapse, CardContent } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ProductCard from '../../Products/ProductCard';
+import ProductCard from '../Products/ProductCard';
 
 function OrderCard({ ...order }) {
     const [expanded, setExpanded] = useState(false);

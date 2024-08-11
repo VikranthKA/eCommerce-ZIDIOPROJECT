@@ -2,7 +2,7 @@ import React from 'react'
 import ProfileSideBar from './../components/Profile/ProfileSideBar'
 import { useAppSelector } from '../react-redux/hooks/reduxHooks'
 import { Container } from '@mui/material'
-import OrderCard from '../components/Profile/Orders/OrderCard'
+import OrderCard from '../components/Orders/OrderCard'
 
 
 
