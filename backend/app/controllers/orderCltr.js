@@ -21,14 +21,36 @@ orderCltr.create = async (req, res) => {
       // Apply your logic to adjust the totalCartAmount
     }
 
-    const orderProducts = cartItems.products.map(cartItem => ({
-      productId: cartItem.productId._id,
-      quantity: cartItem.quantity,
-      isLogo: cartItem.isLogo,
-      licenseKey: cartItem.licenseKey,
-      isRealModelIncluded: cartItem.isRealModelIncluded
-    }));
+    // console.log(cartItems.products[0].quantity,"cart")
 
+    // const orderProducts = cartItems.products.map(cartItem => (
+      
+    //  {
+    //   productId: cartItem.productId._id,
+    //   quantity: cartItem.quantity,
+
+    //   isLogo: cartItem.isLogo,
+    //   licenseKey: cartItem.licenseKey,
+    //   isRealModelIncluded: cartItem.isRealModelIncluded
+    // }));
+
+    const orderProducts = cartItems.products.map(cartItem => {
+      console.log(cartItem.quantity, "cartItem.quantity"); // Debugging
+    
+      return {
+        productId: cartItem.productId._id,
+        quantity: cartItem.quantity, // Ensure this is correctly assigned
+    
+        isLogo: cartItem.isLogo,
+        licenseKey: cartItem.licenseKey,
+        isRealModelIncluded: cartItem.isRealModelIncluded
+      };
+    });
+
+    console.log(orderProducts)
+
+
+    
     const newOrder = new Order({
       userId: req.user.id,
       cartId: cartItems._id,
@@ -45,8 +67,9 @@ orderCltr.create = async (req, res) => {
       });
     }
 
-    const emptyUserCart = await Cart.findByIdAndUpdate(cartItems._id, { $set: { products: [] } });
+    // const emptyUserCart = await Cart.findByIdAndUpdate(cartItems._id, { $set: { products: [] } });
 
+    // const populatedOrdersInfo = await Order.findOne({userId:req.user.id,_id:newOrder._id}).populate("products")
 
     return res.status(201).json({
       msg: "Order created successfully",

@@ -5,12 +5,15 @@ const orderSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
     },
-    products: [{
-        productId: {
-            type: Schema.Types.ObjectId,
-            ref: 'Product'
+    products: [
+        {
+          productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
+          quantity: { type: Object }, // Ensure this is defined correctly in your schema
+          isLogo: Boolean,
+          licenseKey: String,
+          isRealModelIncluded: Boolean
         }
-    }],
+      ],
 
     //cart information like this product and these much quantity and other info
     addressId: {
