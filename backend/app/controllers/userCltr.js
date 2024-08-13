@@ -84,7 +84,7 @@ userCltr.login = async (req, res) => {
           role: user.role
         }
       const token = jwt.sign(tokenData, process.env.JWT_SECRET,{expiresIn:"3d"})
-        res.cookie("jwt",token)
+        res.cookie("jwt_authorization",token)
         return res.status(200).json({
           msg:"Cookie has been set",
           cookie:token

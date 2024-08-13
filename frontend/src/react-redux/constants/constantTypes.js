@@ -51,6 +51,10 @@ export const SET_DELETED_PRODUCT = "deleted/product"
 export const GET_ALL_CARTITEMS_SAGA = "get/cartItems/saga"
 export const SET_CARTITEMS = "set/cartItems"
 
+export const UPDATE_CART_ITEMS_SAGA = "update/cart/items/saga"
+export const SET_UPDATED_CART_ITEMS = "set/updated/cart/items"
+
+
 
 
 

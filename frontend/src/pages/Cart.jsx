@@ -1,31 +1,51 @@
-import React from 'react'
-import { useAppSelector } from '../react-redux/hooks/reduxHooks'
-import { Container } from '@mui/material'
-import ProductCard from '../components/Products/ProductCard'
-import CartCard from '../components/Cart/CartCard'
-
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../react-redux/hooks/reduxHooks';
+import { Box, Button, CardMedia, Container, Divider, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import CartCard from '../components/Cart/CartCard';
+import { getLoginedUserProfile } from '../react-redux/slices/actions/profileActions';
+import { getAllCartItems } from '../react-redux/slices/actions/cartItemsActions';
 
 const Cart = () => {
-    const {cartItems} = useAppSelector((state)=>state.cart )
-    console.log(cartItems,"cart")
+  const { cartItems } = useAppSelector((state) => state.cart);
+  const userData = useAppSelector(state=>state.user)
+
+  const dispatch  = useAppDispatch()
+
+  useEffect(()=>{
+    if(userData?.decodedData?.role){
+      dispatch(getLoginedUserProfile())
+      dispatch(getAllCartItems())
+    }
+  },[userData?.decodedData])
+
   return (
-    <div>
-    <Container>
+    <Container sx={
       {
-        cartItems.products.length > 0 && <div style={{display:"flex",flexDirection:"column",justifyContent:"center",flexWrap:"wrap"}}>
-{cartItems.products.map((product,index) => (
-    <div><CartCard key={index} {...product}/></div>
-))}
-
-
-
-        </div>
+        mt: 6,
+        mb:6
       }
+    }>
+      <TableContainer component={Paper}>
+        <Table sx={{ width:"100%" }} aria-label="cart table">
+          <TableHead sx={{}}>
+            <TableRow>
+              <TableCell align="left"><Typography>Products</Typography></TableCell>
+
+              <TableCell align="left" >
+                <Typography sx={{ ml: 5 }}>Quantity</Typography></TableCell>
+              <TableCell align="left"><Typography>Price (₹)</Typography></TableCell>
+              <TableCell align="left"><Typography>Total (₹)</Typography></TableCell>
+            </TableRow> 
+          </TableHead>
+          <TableBody>
+            {cartItems.products.map((product, index) => (
+              <CartCard key={index} {...product} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Container>
-        
-      
-    </div>  
-  )
-}
+  );
+};
 
 export default Cart

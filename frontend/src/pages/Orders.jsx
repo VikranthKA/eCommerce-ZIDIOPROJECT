@@ -17,7 +17,7 @@ const Orders = () => {
 
             {orders.length > 0 && orders.map((order)=>(
                 <div style={{display:"flex",flexDirection:"column",flexWrap:"wrap"}}>
-                    <OrderCard key={order?._id} {...orders} />
+                    <OrderCard key={order?._id} {...order} />
                 </div>
             ))}
 

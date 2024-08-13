@@ -2,9 +2,10 @@ const jwt = require("jsonwebtoken")
 const UserModel = require("../models/user-model")
 
 const authenticateUser =async (req,res,next)=>{
-    const token = req.cookies.jwt_authorization
-    // const token = req.cookies.jwt
+// return res.status(200).json({data:req.cookies})
+const token = req.cookies.jwt_authorization
     // console.log(token)
+    // const token = req.cookies.jwt
     if(!token){
         return res.status(400).json({errors:"jwt token is missing"})
     }

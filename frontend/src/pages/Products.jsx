@@ -4,7 +4,7 @@ import AllProducts from '../components/Products/AllProducts'
 
 const Products = () => {
   return (
-    <div>
+    <div style={{margin:20}}>
       <AllProducts/>
     </div>
   )

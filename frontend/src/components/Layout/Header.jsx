@@ -1,5 +1,7 @@
 import React from 'react';
 import {TextField,InputAdornment,Box,AppBar,Toolbar,IconButton,Typography,Menu,Container,Avatar,Button,Tooltip,MenuItem} from '@mui/material';
+import Badge from '@mui/material/Badge';
+
 import SearchIcon from '@mui/icons-material/Search';
 
 import MenuIcon from '@mui/icons-material/Menu';
@@ -20,6 +22,7 @@ function Header() {
 
   const navigate = useNavigate();
   const {user} = useAppSelector(state=>state)
+  const {cartItems} = useAppSelector(state=>state.cart)
 
 const dispatch = useAppDispatch()
   const handleOpenNavMenu = (event) => {
@@ -37,6 +40,8 @@ const dispatch = useAppDispatch()
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  
 
 
   return (
@@ -151,8 +156,11 @@ const dispatch = useAppDispatch()
             <>
 
             {user.decodedData.role==="Customer" && <Tooltip title="Cart">
-              <IconButton onClick={() => navigate("/cart")} color="inherit">
-                <ShoppingCartIcon />
+              <IconButton onClick={() => navigate("/cart")} size="large" aria-label="show 4 new mails" color="inherit">
+
+              <Badge badgeContent={cartItems.products.length} color="error">
+                <ShoppingCartIcon   />
+</Badge>
               </IconButton>
             </Tooltip>}
              <Tooltip title="Open Profile">

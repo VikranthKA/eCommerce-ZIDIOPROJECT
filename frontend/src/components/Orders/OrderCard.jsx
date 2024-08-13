@@ -4,6 +4,8 @@ import { Box, Button, Container, Typography, Collapse, CardContent } from '@mui/
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ProductCard from '../Products/ProductCard';
 
+
+ 
 function OrderCard({ ...order }) {
     const [expanded, setExpanded] = useState(false);
 
@@ -11,19 +13,15 @@ function OrderCard({ ...order }) {
     setExpanded(!expanded);
   };
 
- console.log(order[0].ordersId,"order")
- 
-
-
   return (
     <Container sx={{ mt: 2, boxShadow: 2, width: '100%', height: 'auto', p: 2, borderRadius: '6px' }} key={order?.ordersId?._id}>
       <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' ,mt:1}}>
-        <Typography>Total Amount: {order[0]?.ordersId?.totalAmount}</Typography>
-        <Typography>Currency: {order[0]?.ordersId?.currency}</Typography>
+        <Typography>Total Amount: {order?.ordersId?.totalAmount}</Typography>
+        <Typography>Currency: {order?.ordersId?.currency}</Typography><br/>
         <Typography>
-          Status {order[0]?.ordersId?.paymentStatus ? <h3>Completed</h3> : <Button >Complete Payment</Button>}
+          Status {order?.ordersId?.paymentStatus ? <h3>Completed</h3> : <Button >Complete Payment</Button>}
         </Typography>
-        <Typography>Ordered At: {new Date(order[0]?.ordersId?.createdAt).toLocaleString()}</Typography>
+        <Typography>Ordered At: {new Date(order?.ordersId?.createdAt).toLocaleString()}</Typography>
         <ExpandMore
           expand={expanded ? 1 : 0}
           onClick={handleExpandClick}
@@ -36,7 +34,7 @@ function OrderCard({ ...order }) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Products:</Typography>
-          {order[0]?.ordersId?.products?.map((product) => (
+          {order?.ordersId?.products?.map((product) => (
             <ProductCard key={product?.productId._id} {...product?.productId} />
           ))}
         </CardContent>

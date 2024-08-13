@@ -55,7 +55,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
-    mt:15,
+    mb:100,
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
@@ -103,19 +103,21 @@ const sideBarLowerElements = [
 
 ]
 
-
-
 export default function ProfileSideBar() {
-  const [open, setOpen] = React.useState(true)
+  const [open, setOpen] = React.useState(false)
 
   return (
-    <Box style={{ display: 'flex',marginTop:"1px"}}>
-      <CssBaseline style={{marginTop:"63px"}}/>
+    <Box sx={{ display: 'flex',}}>
+      <CssBaseline sx={{}}/>
      
-      <Drawer variant="permanent" open={open}  style={{marginTop:"63px"}}>
+      <Drawer variant="permanent" open={open}    sx={{
+    '& .MuiDrawer-paper': {
+      marginTop: '68px',
+    },
+  }} id="drawer">
         <DrawerHeader style={{
           
-        }}>
+        }} id="drawerHeader">
           <IconButton            
            onClick={()=>setOpen(!open)}
           >

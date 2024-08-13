@@ -5,7 +5,7 @@ import ProfileCard from '../../components/Profile/ProfileCard'
 const Profile = () => {
   return (
 <>
-<div > 
+<div style={{}}> 
 <ProfileSideBar/>
 
 <ProfileCard/>
