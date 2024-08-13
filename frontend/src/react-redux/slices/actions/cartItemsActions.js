@@ -1,4 +1,4 @@
-import { GET_ALL_CARTITEMS_SAGA, SET_CARTITEMS, SET_UPDATED_CART_ITEMS, UPDATE_CART_ITEMS_SAGA } from "../../constants/constantTypes";
+import { GET_ALL_CARTITEMS_SAGA, SET_CARTITEMS, UPDATE_CART_ITEMS_SAGA } from "../../constants/constantTypes";
 
 export const getAllCartItems=()=>({
     type:GET_ALL_CARTITEMS_SAGA
@@ -17,14 +17,4 @@ export const updateCartItems = (productId,sc_id,count)=>{
         }
     }
 
-}
-
-export const setUpdatedCartItems = (updatedproductItem,quantity)=>{
-    return{
-        type:SET_UPDATED_CART_ITEMS,
-        payload:{
-            updatedproductItem,
-            quantity
-        }
-    }
 }

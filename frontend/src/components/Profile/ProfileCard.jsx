@@ -84,9 +84,9 @@ const ProfileCard = () => {
     </Card>
 
     {
-      isEdit && <>
+      isEdit && <Box sx={{ml:10}}>
     I am Form
-      </>
+      </Box>
     }
     </>
   );

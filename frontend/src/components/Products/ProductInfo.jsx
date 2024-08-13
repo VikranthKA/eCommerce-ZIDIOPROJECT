@@ -10,6 +10,7 @@ import InstagramIcon from '@mui/icons-material/Instagram'
 import CategoryIcon from '@mui/icons-material/Category';
 import PercentIcon from '@mui/icons-material/Percent';
 import { productEditId } from '../../react-redux/slices/actions/productActions'
+import { updateCartItems } from '../../react-redux/slices/actions/cartItemsActions'
 
 const ProductInfo = () => {
     const [displayProduct, setDisplayProduct] = useState(null)
@@ -36,7 +37,7 @@ const ProductInfo = () => {
     }
 
     const handleAddToCart = () => {
-        console.log(quantity, selectedId)
+        dispatch(updateCartItems(productId, selectedId,quantity))
     }
 
     const handleSizeAndColorChange = (e) => {
@@ -58,7 +59,6 @@ const ProductInfo = () => {
                         alt="Product Image"
                         sx={{ objectFit: 'cover', width: "40%", borderRadius: "5px" }}
                     />
-                    {/* <Container sx={{boxShadow:"3"}}> */}
 
                     <Box sx={{ ml: 15, width: "60%" }}>
                         <Typography variant="h5">

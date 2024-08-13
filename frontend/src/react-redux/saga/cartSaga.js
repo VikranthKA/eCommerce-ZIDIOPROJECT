@@ -1,4 +1,4 @@
-import { GET_ALL_CARTITEMS_SAGA } from "../constants/constantTypes";
+import { GET_ALL_CARTITEMS_SAGA, UPDATE_CART_ITEMS_SAGA } from "../constants/constantTypes";
 import { call, put, takeLatest } from 'redux-saga/effects';
 import axios from "../../Utils/api_resources/axios"
 import { setAllCartItems } from "../slices/actions/cartItemsActions";
@@ -23,4 +23,25 @@ function* fetchCartSaga() {
   
   export function* cartAllSaga() {
     yield takeLatest(GET_ALL_CARTITEMS_SAGA, fetchCartSaga);
+  }
+
+
+  function* UpdateNewCartProductSaga(action) {
+    // console.log(action.payload)
+    // return "Working"
+    try {
+      const {data} = yield call(axios.put, '/api/cart',action.payload,config);
+  
+      if (data) {
+        console.log(data,"cart")
+        yield put(setAllCartItems(data.cart))
+      } 
+    } catch (error) {
+      console.log(error,"saga")
+    }
+  }
+  
+  
+  export function* setCartItemsSaga() {
+    yield takeLatest(UPDATE_CART_ITEMS_SAGA, UpdateNewCartProductSaga);
   }
