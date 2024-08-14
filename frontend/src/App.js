@@ -26,6 +26,7 @@ import Settings from './components/Profile/Settings'
 import { getLoginedUserProfile } from './react-redux/slices/actions/profileActions'
 import { getAllCartItems } from './react-redux/slices/actions/cartItemsActions'
 import Cart from './pages/Cart'
+import { getAllCategory } from './react-redux/slices/actions/categoryActions'
 
 
 
@@ -36,6 +37,7 @@ const App = () => {
   useEffect(()=>{
     (async()=>{
       dispatch(getAllProducts())
+      dispatch(getAllCategory())
     })()
     },[])
   

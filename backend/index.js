@@ -117,6 +117,7 @@ app.get("/api/products", productCltr.getAll)
 app.get("/api/cart", authenticateUser, authorizeUser(["Customer"]), cartCltr.cartItems)
 //Adding the products to Cart
 app.put("/api/cart", authenticateUser, authorizeUser(["Customer"]), cartCltr.addProducts)
+app.put("/api/cart/:productId",authenticateUser, authorizeUser(["Customer"]),cartCltr.removeProduct)
 
 
 //order checkout

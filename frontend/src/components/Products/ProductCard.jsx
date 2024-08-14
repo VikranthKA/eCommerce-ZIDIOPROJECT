@@ -27,14 +27,14 @@ const ProductCard = ({ ...product }) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 250, margin: 'auto', mt: 5,boxShadow: 3 ,height:350}} key={product._id}>
+    <Card sx={{ width:"250px",maxWidth: 250, margin: 'auto', mt: 5,boxShadow: 3 ,height:350}} key={product._id}>
       <Link to={`/product/${product._id}`}  style={{ textDecoration: 'none'}}>
       <CardMedia
         component="img"
         height="194"
         image={product?.images ? product?.images : image1}
         alt="Product Image"
-        sx={{ objectFit: 'cover' }}
+        sx={{ objectFit: 'cover',}}
       />
       <CardContent>
         <Container>

@@ -86,35 +86,29 @@ cartCltr.addProducts = async (req, res) => {
     }
 
     try {
-        // Check if the product exists
         const isProductPresent = await Product.findById(productId);
         if (!isProductPresent) {
             return res.status(404).json({ msg: "Product not found" });
         }
 
-        // Check if the size and color combination exists and has enough stock
         const isSizeAndColorPresent = isProductPresent.sizesAndColors.find((sc) => sc._id.toString() === sc_id);
         if (!isSizeAndColorPresent || isSizeAndColorPresent.stock < count) {
             return res.status(400).json({ msg: "Size and color combination not found or insufficient stock" });
         }
 
-        // Retrieve the user's cart
         let cart = await Cart.findOne({ userId: req.user.id });
         if (!cart) {
             cart = new Cart({ userId: req.user.id, products: [] });
         }
 
-        // Check if the product with the specific size and color already exists in the cart
         const existingProductIndex = cart.products.findIndex(product =>
             product.productId.toString() === productId &&
             product.quantity.sc_id.toString() === sc_id
         );
 
         if (existingProductIndex > -1) {
-            // Update the count to the value sent by the frontend
             cart.products[existingProductIndex].quantity.count = count;
         } else {
-            // Add the new product to the cart
             cart.products.push({
                 productId,
                 quantity: {
@@ -124,7 +118,6 @@ cartCltr.addProducts = async (req, res) => {
             });
         }
 
-        // Save the updated cart
         const updatedUserCart = await Cart.findOneAndUpdate(
             { userId: req.user.id },
             { $set: { products: cart.products } },
@@ -140,10 +133,44 @@ cartCltr.addProducts = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: 'Something went wrong' });
+        return res.status(500).json({ error: 'Something went wrong' })
     }
 }
 
+cartCltr.removeProduct = async(req,res)=>{
+    try {
+
+        const {productId,sc_id} = req.params
+        console.log(productId)
+        const cartItems = await Cart.findOne({userId:req.user.id}).populate({
+            path: "products.productId",
+            select: "_id"
+        })
+        const removeProduct = cartItems.products.filter(product=>product.productId._id.toString()!==productId)
+        const udpatedCartItems =  await Cart.findOneAndUpdate(
+            { userId: req.user.id },
+            { $set: { products: removeProduct }},
+            { new: true }
+        ).populate({
+            path: "products.productId",
+            select: "sizesAndColors _id name currency images discount"
+        });
+        console.log(removeProduct)
+        return res.status(200).json({
+            msg:"Product removed from the Cart",
+            data:udpatedCartItems
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            msg:"Error removing the product",
+            error:error
+        })
+    }
+}
+
+
+//add the stock remaning in the product while send ing to the FE
 cartCltr.cartItems = async(req,res)=>{
     try {
         const cartItems = await Cart.findOne({userId:req.user.id}).populate("products.productId")

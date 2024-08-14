@@ -8,6 +8,7 @@ import UVP from '../UniqueValueProposition/UVP';
 import "../../pages/CSS/Home.css";
 import ProductCard from "../Products/ProductCard"
 import {useAppDispatch,useAppSelector} from "../../react-redux/hooks/reduxHooks"
+import AllProducts from '../Products/AllProducts';
 
 const Home = () => {
   
@@ -21,7 +22,8 @@ const Home = () => {
 
   return (
     <>
-    Home page for Customer and non-authenticated users</>
+    <AllProducts/></>
+
     // <div >
     //   <AppBar position="static">
     //     <Toolbar sx={{ flexGrow: 1, bgcolor: 'electricblue',minHeight:"30px"}}>
