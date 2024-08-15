@@ -19,7 +19,8 @@ const Cart = () => {
   },[userData?.decodedData])
 
   return (
-    <Container sx={
+    <>
+   {cartItems.products.length > 0 ? <Container sx={
       {
         mt: 6,
         mb:6
@@ -44,7 +45,8 @@ const Cart = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </Container>
+    </Container> : <h1>Cart Empty Add some recomended products</h1>}
+    </>
   );
 };
 

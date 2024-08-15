@@ -46,11 +46,12 @@ const cartReducers =(state=initialState,action)=>{
         //         })
         //     }
         case SET_REMOVED_PRODUCT_FROM_CART:
+            console.log(action.payload.data._id,"action")
             return {
                 ...state,
                 cartItems:{
                     ...state.cartItems,
-                   products: state.cartItems.products.filter(product=>product.productId._id!==action.payload.data.productId)
+                   products: state.cartItems.products.filter(product=>product.productId._id!==action.payload.data._id)
 
                 }
             }

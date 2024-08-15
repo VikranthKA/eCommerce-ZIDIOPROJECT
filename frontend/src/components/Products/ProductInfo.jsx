@@ -54,14 +54,14 @@ const ProductInfo = () => {
                 <Box sx={{ m: 2, display: "flex" }}>
                     <CardMedia
                         component="img"
-                        height="300"
+                        height="440"
                         image={displayProduct.images ? displayProduct.images : image1}
                         alt="Product Image"
                         sx={{ objectFit: 'cover', width: "40%", borderRadius: "5px" }}
                     />
 
                     <Box sx={{ ml: 15, width: "60%" }}>
-                        <Typography variant="h5">
+                        <Typography variant="h4" sx={{m:1,mt:2,mb:2}}>
                             {displayProduct?.name}
                         </Typography>
                         {
