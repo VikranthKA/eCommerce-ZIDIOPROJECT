@@ -6,9 +6,8 @@ const Profile = () => {
   return (
 <>
 <div style={{}}> 
-<ProfileSideBar/>
-
-<ProfileCard/>
+  <ProfileSideBar/>
+  <ProfileCard/>
 </div>
 </>
   )

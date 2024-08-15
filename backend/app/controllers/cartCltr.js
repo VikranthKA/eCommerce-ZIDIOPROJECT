@@ -137,37 +137,46 @@ cartCltr.addProducts = async (req, res) => {
     }
 }
 
-cartCltr.removeProduct = async(req,res)=>{
+cartCltr.removeProduct = async (req, res) => {
     try {
-
-        const {productId,sc_id} = req.params
-        console.log(productId)
-        const cartItems = await Cart.findOne({userId:req.user.id}).populate({
-            path: "products.productId",
-            select: "_id"
-        })
-        const removeProduct = cartItems.products.filter(product=>product.productId._id.toString()!==productId)
-        const udpatedCartItems =  await Cart.findOneAndUpdate(
-            { userId: req.user.id },
-            { $set: { products: removeProduct }},
-            { new: true }
-        ).populate({
-            path: "products.productId",
-            select: "sizesAndColors _id name currency images discount"
-        });
-        console.log(removeProduct)
-        return res.status(200).json({
-            msg:"Product removed from the Cart",
-            data:udpatedCartItems
-        })
+      const productId = req.params.productId;
+      console.log(productId, req.params, "params");
+  
+      const cartItems = await Cart.findOne({ userId: req.user.id }).populate({
+        path: "products.productId",
+        select: "_id"
+      });
+  
+      const removeProduct = cartItems.products.filter(product => 
+        product.productId._id.toString() !== productId
+      );
+  
+      console.log(removeProduct.length, "removeProduct");
+  
+      const updatedCartItems = await Cart.findOneAndUpdate(
+        { userId: req.user.id },
+        { $set: { products: removeProduct }},
+        { new: true }
+      ).populate({
+        path: "products.productId",
+        select: "sizesAndColors _id name currency images discount"
+      });
+  
+      return res.status(200).json({
+        msg: "Product removed from the Cart",
+        productId,
+        data: updatedCartItems
+      });
+  
     } catch (error) {
-        console.log(error)
-        return res.status(500).json({
-            msg:"Error removing the product",
-            error:error
-        })
+      console.log(error);
+      return res.status(500).json({
+        msg: "Error removing the product",
+        error: error
+      });
     }
-}
+  };
+  
 
 
 //add the stock remaning in the product while send ing to the FE

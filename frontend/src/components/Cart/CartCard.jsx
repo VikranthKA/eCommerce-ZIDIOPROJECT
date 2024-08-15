@@ -3,7 +3,7 @@ import { Box, Button, CardMedia, TableCell, TableRow, Typography } from '@mui/ma
 import image1 from "../../Assests/image1.jpg";
 import { Delete } from '@mui/icons-material';
 import { useAppDispatch } from '../../react-redux/hooks/reduxHooks';
-import { updateCartItems } from '../../react-redux/slices/actions/cartItemsActions';
+import { removeProductFromCart, updateCartItems } from '../../react-redux/slices/actions/cartItemsActions';
 
 function findTheSizeAndColor(arr, id) {
   return arr.find((sz) => sz._id === id)
@@ -38,6 +38,8 @@ const CartCard = ({ ...product }) => {
     });
   }, [dispatch, product.productId._id, product.quantity.sc_id])
 
+
+
   return (
     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
       <TableCell align="left">
@@ -60,7 +62,7 @@ const CartCard = ({ ...product }) => {
         <Box sx={{ display: "flex", alignItems: "center", mr: 0 }}>
           <Button sx={{ fontSize: "2rem" }} onClick={handleIncrease}>+</Button>
           <Typography sx={{ mx: 1 }}>{cartCount}</Typography>
-         <Button sx={{ fontSize: "2rem" }} onClick={handleDecrease}>-</Button> <Button><Delete /></Button> 
+         <Button sx={{ fontSize: "2rem" }} onClick={handleDecrease}>-</Button> <Button onClick={()=>dispatch(removeProductFromCart(product.productId._id))}><Delete /></Button> 
           
           
         </Box>

@@ -6,23 +6,16 @@ import {
     updateCategorySaga
   } from "../saga/categorySaga"
 import { productAllSaga, setNewCreatedProductSaga, setUpdatedProductSaga } from '../saga/productSaga'
-import { setUserProfile } from '../saga/profileSaga'
-import { cartAllSaga, setCartItemsSaga } from '../saga/cartSaga'
+import { setUpdatedUserProfile, setUserProfile } from '../saga/profileSaga'
+import { cartAllSaga, setCartItemsSaga, setRemovedProductFromCartSaga } from '../saga/cartSaga'
 
 
 
 export default function* rootSaga(){
     yield all([
-        categoryAllSaga(),
-        createCategorySaga(),
-        updateCategorySaga(),
-        deleteCategorySaga(),
-        productAllSaga(),
-        setNewCreatedProductSaga(),
-        setUpdatedProductSaga(),
-        setUserProfile(),
-        cartAllSaga(),
-        setCartItemsSaga()
-
+        categoryAllSaga(),createCategorySaga(),updateCategorySaga(),deleteCategorySaga(),
+        productAllSaga(),setNewCreatedProductSaga(),setUpdatedProductSaga(),
+        setUserProfile(),setUpdatedUserProfile(),
+        cartAllSaga(),setCartItemsSaga(),setRemovedProductFromCartSaga()
     ])
 }

@@ -1,9 +1,17 @@
-import { SET_CARTITEMS, SET_UPDATED_CART_ITEMS } from "../../constants/constantTypes"
+import { SET_CARTITEMS, SET_REMOVED_PRODUCT_FROM_CART, SET_UPDATED_CART_ITEMS } from "../../constants/constantTypes"
 
 
 
 const initialState ={
-    cartItems:[]
+    cartItems:{
+        _id:"",
+        userId:null,
+        updatedAt:"",
+        createdAt:"",
+
+
+
+    }
 }
 
 
@@ -12,7 +20,10 @@ const cartReducers =(state=initialState,action)=>{
         case SET_CARTITEMS:
             return {
                 ...state,
-                cartItems:action.payload
+                cartItems:{
+                    ...state.cartItems,
+                    ...action.payload
+                }
             }
         // case SET_UPDATED_CART_ITEMS:
         //     return{
@@ -34,6 +45,15 @@ const cartReducers =(state=initialState,action)=>{
         //             }
         //         })
         //     }
+        case SET_REMOVED_PRODUCT_FROM_CART:
+            return {
+                ...state,
+                cartItems:{
+                    ...state.cartItems,
+                   products: state.cartItems.products.filter(product=>product.productId._id!==action.payload.data.productId)
+
+                }
+            }
         
         default:
             return state;

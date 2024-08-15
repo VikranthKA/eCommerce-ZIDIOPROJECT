@@ -18,10 +18,11 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { blue, deepPurple } from '@mui/material/colors';
-import { useAppSelector } from '../../react-redux/hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../react-redux/hooks/reduxHooks';
 import { Cancel, Upload } from '@mui/icons-material'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { updateUserProfile } from '../../react-redux/slices/actions/profileActions';
 
 const initialValues = {
   ProfilePic: null,
@@ -37,6 +38,7 @@ const ProfileCard = () => {
 
 
   const { profile } = useAppSelector((state) => state.profile);
+  const dispatch = useAppDispatch()
   const formik = useFormik({
     initialValues: initialFormValues,
     enableReinitialize: true,
@@ -61,9 +63,8 @@ const ProfileCard = () => {
       for (let [key, value] of formData.entries()) {
         console.log(`${key}: ${value}`);
       }
+      dispatch(updateUserProfile(formData))
 
-      // You can send `formData` to the server using fetch or axios
-      // e.g., axios.post('/api/profile', formData)
     },
   });
 
@@ -224,17 +225,21 @@ const ProfileCard = () => {
                 {isEdit && 
                 <Box sx={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
                   
-                  <Chip label="success" color="success" type='submit' sx={{onClick:"color:blue"}} variant="outlined" >Submit</Chip>
-                  <Chip icon={
+                  <Button type='submit' onClick={()=>{
+                    setTimeout(()=>{setIsEdit(false)},3000)
+                  }}>
+                    <Chip label="success" color="success"  sx={{onClick:"color:blue"}} variant="outlined" >Submit</Chip>
+                    </Button>
+                  <Chip  sx={{mt:"7px"}} icon={
                   <IconButton
                     color="error"
                     onClick={() => setIsEdit(false)}
-                    sx={{ mt: { xs: 2, sm: 0 } }}
+                    sx={{  }}
                   >
                     <Cancel fontSize="small" />
 
                   </IconButton>
-                  } label="With Icon" variant="outlined" />
+                  } label="Cancel" variant="outlined" />
                 </Box>}
               </Grid>
 

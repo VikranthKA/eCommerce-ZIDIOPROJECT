@@ -1,4 +1,4 @@
-import { ERROR_IN_USER_PROFILE, GET_LOGINED_PROFILE_SAGA, SET_USER_PROFILE } from "../../constants/constantTypes"
+import { ERROR_IN_USER_PROFILE, GET_LOGINED_PROFILE_SAGA, SET_USER_PROFILE, UPDATE_USER_PROFILE_SAGA } from "../../constants/constantTypes"
 
 
 export const getLoginedUserProfile = () => {
@@ -20,4 +20,10 @@ export const setErrorInUserProfile = (error) => {
         payload: error
     }
 }
+
+export const updateUserProfile = (formData)=>({
+    type:UPDATE_USER_PROFILE_SAGA,
+    payload:formData
+})
+
 

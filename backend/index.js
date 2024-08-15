@@ -88,9 +88,9 @@ app.post("/api/user/register", checkSchema(userRegSchema), userCltr.register)
 app.post("/api/user/login", checkSchema(userLoginSchema), userCltr.login)
 
 //profile
-app.put("/api/profile",upload.single("profilePic"), authenticateUser, profileCltr.update)
-app.get("/api/profile",authenticateUser,profileCltr.getOne)
-app.put("/api/profile/address",authenticateUser,profileCltr.addAddress)
+app.put("/api/profile",upload.single("profilePic"), authenticateUser,authorizeUser(["SuperAdmin", "Customer"]),profileCltr.update)
+app.get("/api/profile",authenticateUser,authorizeUser(["SuperAdmin", "Customer"]),profileCltr.getOne)
+app.put("/api/profile/address",authenticateUser,authorizeUser(["Customer",]),profileCltr.addAddress)
 
 //updating the existing the profile with new information
 app.put("/api/profile", checkSchema)

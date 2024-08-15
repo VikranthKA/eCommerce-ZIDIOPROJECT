@@ -54,6 +54,11 @@ export const SET_CARTITEMS = "set/cartItems"
 export const UPDATE_CART_ITEMS_SAGA = "update/cart/items/saga"
 export const SET_UPDATED_CART_ITEMS = "set/updated/cart/items"
 
+export const REMOVE_PRODUCT_FROM_CART_SAGA = "remove/product/from/cart"
+export const SET_REMOVED_PRODUCT_FROM_CART = "set/removed/product/from/cart"
+
+export const UPDATE_USER_PROFILE_SAGA = "update/user/profile/saga"
+export const SET_UPDATED_USER_PROFILE = "set/updated/user/profile"
 
 
 
