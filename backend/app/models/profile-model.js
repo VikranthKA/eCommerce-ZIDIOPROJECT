@@ -13,11 +13,14 @@ const locationSchema = new Schema({
 });
 
 const addressSchema = new Schema({
-  title:String,
-  address: {
-    type: String,
-    required: true
-  },
+  title: String,
+
+  building: String,
+  locality: String,
+  city: String,
+  state: String,
+  pincode: Number,
+  country: String,
   location: locationSchema
 });
 
@@ -36,10 +39,10 @@ const profileSchema = new Schema({
   },
   orders: [{
     ordersId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Order'
+      type: Schema.Types.ObjectId,
+      ref: 'Order'
     }
-}] ,
+  }],
   gender: {
     type: String,
     enum: ["Male", "Female", "Others"],

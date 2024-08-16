@@ -1,14 +1,22 @@
 import React from 'react'
 import ProfileSideBar from '../ProfileSideBar'
 import { Container } from '@mui/material'
-import AddressForm from './AddressForm'
+import { useAppSelector } from '../../../react-redux/hooks/reduxHooks'
+import AdddressCard from './AdddressCard'
 
 const Address = () => {
+  const {profile} = useAppSelector(state=>state.profile)
   return (
     <div style={{display:"flex"}}>
         <ProfileSideBar/>
         <Container>
-           <AddressForm/>
+          {
+            profile.addresses.map((address)=>(
+              <AdddressCard key={address._id} {...address}/>
+            ))
+            
+          }
+
         </Container>
 
      

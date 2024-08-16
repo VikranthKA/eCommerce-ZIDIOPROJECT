@@ -1,4 +1,4 @@
-import { ERROR_IN_USER_PROFILE, GET_LOGINED_PROFILE_SAGA, SET_USER_PROFILE, UPDATE_USER_PROFILE_SAGA } from "../../constants/constantTypes"
+import { ADD_NEW_PROFILE_ADDRESS_SAGA, ERROR_IN_USER_PROFILE, GET_LOGINED_PROFILE_SAGA, SET_CREATED_ADDRESS_USER_PROFILE, SET_UPDATED_ADDRESS_FOR_USER_PROFILE, SET_USER_PROFILE, UPDATE_ADDRESS_USER_PROFILE_SAGA, UPDATE_USER_PROFILE_SAGA } from "../../constants/constantTypes"
 
 
 export const getLoginedUserProfile = () => {
@@ -24,6 +24,27 @@ export const setErrorInUserProfile = (error) => {
 export const updateUserProfile = (formData)=>({
     type:UPDATE_USER_PROFILE_SAGA,
     payload:formData
+})
+
+
+export const addNewAddressForUserProfile = (formData)=>({
+    type:ADD_NEW_PROFILE_ADDRESS_SAGA,
+    payload:formData
+})
+
+export const setCreatedAddressForUserProfile = (data)=>({
+    type:SET_CREATED_ADDRESS_USER_PROFILE,
+    payload:data
+})
+
+export const updateTheUserProfileAddress = (formData)=>({ 
+    type:UPDATE_ADDRESS_USER_PROFILE_SAGA,
+    payload:formData
+})
+
+export const setUpdatedUserProfileAddress = (data)=>({
+    type:SET_UPDATED_ADDRESS_FOR_USER_PROFILE,
+    payload:data
 })
 
 

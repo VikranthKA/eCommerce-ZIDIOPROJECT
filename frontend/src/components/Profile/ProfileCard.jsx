@@ -54,7 +54,7 @@ const ProfileCard = () => {
     }),
     onSubmit: (values) => {
       const formData = new FormData();
-      formData.append('ProfilePic', values.ProfilePic);
+      formData.append('profilePic', values.ProfilePic);
       formData.append('gender', values.gender);
       formData.append('username', values.username);
       formData.append('email', values.email);
@@ -69,7 +69,7 @@ const ProfileCard = () => {
   });
 
   const handleFileChange = (event) => {
-    formik.setFieldValue('ProfilePic', event.currentTarget.files[0]);
+    formik.setFieldValue('ProfilePic', event.currentTarget.files[0])
   };
 
   const {
@@ -102,7 +102,7 @@ const ProfileCard = () => {
 
   return (
     <>
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={formik.handleSubmit} enctype="multipart/form-data">
 
         <Card
           sx={{
@@ -114,14 +114,13 @@ const ProfileCard = () => {
             textAlign: 'center',
           }}
         >
-          {isEdit ? <> <Avatar variant="contained" component="label" sx={{ bgcolor: blue, width: 120, height: 120, margin: '0 auto' }}
+          {isEdit ? <> <Avatar variant="contained" component="label" sx={{ bgcolor: "#3ba1c5", width: 120, height: 120, margin: '0 auto' }}
           ><Upload />
             <input
               type="file"
               hidden
               accept="image/*"
               onChange={handleFileChange}
-              style={{ bgcolor: "blue" }}
             />
           </Avatar>
             {formik.errors.ProfilePic && formik.touched.ProfilePic && (
@@ -132,7 +131,7 @@ const ProfileCard = () => {
             {profilePic ? <Avatar
               alt={username}
               src={profilePic}
-              sx={{ width: 120, height: 120, margin: '0 auto' }}
+              sx={{ width: 120, height: 120,ml:5}}
             /> : <Avatar sx={{ bgcolor: deepPurple[500], width: 120, height: 120 }}>
               {username.charAt(0).toUpperCase()}
             </Avatar>}
@@ -151,7 +150,7 @@ const ProfileCard = () => {
               {!isEdit && <IconButton
                 color=""
                 onClick={() => setIsEdit(true)}
-                sx={{ mt: { xs: 2, sm: 0 } }}
+                sx={{ mt: { xs: 2, sm: 0,left:0 } }}
                 > <EditIcon fontSize="small" /> </IconButton>
                 }
 

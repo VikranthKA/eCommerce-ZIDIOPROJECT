@@ -43,18 +43,18 @@ const userRegistration = {
         }
     },
     password: passwordSchema,
-    phoneNumber: {
-        notEmpty: {
-            errorMessage: "Number cannot be empty"
-        },
-        isLength: {
-            options: { min: 10, max: 10 },
-            errorMessage: "Mobile Number should be 10 digits long"
-        },
-        isNumeric: {
-            errorMessage: "Mobile Number should be numeric"
-        }
-    }
+    // phoneNumber: {
+    //     notEmpty: {
+    //         errorMessage: "Number cannot be empty"
+    //     },
+    //     isLength: {
+    //         options: { min: 10, max: 10 },
+    //         errorMessage: "Mobile Number should be 10 digits long"
+    //     },
+    //     isNumeric: {
+    //         errorMessage: "Mobile Number should be numeric"
+    //     }
+    // }
 };
 
 const userLogin = {

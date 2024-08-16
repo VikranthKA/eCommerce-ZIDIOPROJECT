@@ -57,8 +57,8 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, cb) => {
         const uniqueDateName = `${Date.now()}__${file.originalname}`
-        cb(null, uniqueDateName)
-        // cb(null,Date.now()+file.filename+"__"+Date.now()+path.extname(file.originalname))
+        // cb(null, uniqueDateName)
+        cb(null,Date.now()+file.filename+"__"+Date.now()+path.extname(file.originalname))
     }
 })
 
@@ -98,8 +98,8 @@ app.put("/api/profile", checkSchema)
 
 //category
 app.post("/api/category",authenticateUser, authorizeUser(["SuperAdmin", "Admin"]), upload.single("image"), categoryCltr.create) 
-app.put("/api/category/:categoryId",authenticateUser, authorizeUser(["SuperAdmin", "Admin"]),upload.single('image'),categoryCltr.update)
-app.get("/api/category",authenticateUser,authorizeUser(["SuperAdmin"]),categoryCltr.getAll)
+app.put("/api/category/:categoryId",authenticateUser, authorizeUser(["SuperAdmin"]),upload.single('image'),categoryCltr.update)
+app.get("/api/category",authenticateUser,authorizeUser(["SuperAdmin","Customer"]),categoryCltr.getAll)
 app.delete("/api/category/:categoryId",authenticateUser,authorizeUser(["SuperAdmin"]),categoryCltr.delete)
 
 //product

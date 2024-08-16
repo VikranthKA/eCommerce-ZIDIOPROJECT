@@ -34,7 +34,9 @@ profileCltr.getOne = async (req, res) => {
 
 profileCltr.update = async (req, res) => {
     try {
-        const body = _.pick(req.body, ["profilePic", "gender", "username", "email", "phoneNumber"]);
+        const body = _.pick(req.body, ["gender", "username", "email", "phoneNumber"]);
+
+        console.log(req.file, "file")
 
         const updatedProfile = {};
         const updateUser = {};
@@ -43,7 +45,8 @@ profileCltr.update = async (req, res) => {
             updatedProfile.gender = body.gender;
         }
 
-        if (req.file) {
+        if (req?.file) {
+            console.log(req.file, "file")
             const uploaded = await cloudinary.uploader.upload(req.file.path);
             updatedProfile.profilePic = uploaded.secure_url;
         }
@@ -72,7 +75,7 @@ profileCltr.update = async (req, res) => {
                 updatedProfile,
                 { new: true }
             ).populate("userId");
-            
+
             return res.status(201).json({
                 msg: "Profile Updated Successfully",
                 data: profile
@@ -87,9 +90,7 @@ profileCltr.update = async (req, res) => {
 
 
 profileCltr.addAddress = async (req, res) => {
-
     try {
-      
         const profile = await Profile.findOne({ userId: req.user.id });
 
         if (!profile) {
@@ -100,22 +101,21 @@ profileCltr.addAddress = async (req, res) => {
             return res.status(400).json({ error: "Address limit exceeded" });
         }
 
-        // it return new address object
-        const addressData = await getCoByGeoApify(req.body.address)
 
-       addressData.title = req.body.title
+        // Retrieve the address object with coordinates
+        const addressData = await getCoByGeoApify(req.body.address);
 
-        profile.addresses.push(addressData)
+        // Push the addressData into the addresses array
+        profile.addresses.push(addressData);
 
-        const updatedProfile = await profile.save()
+        // Save the updated profile
+        const updatedProfile = await profile.save();
 
-        return res.json({
-            data: updatedProfile
-        });
+        return res.json({ data: updatedProfile });
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Server error" });
+        res.status(500).json({ error: error.message });
     }
 };
 

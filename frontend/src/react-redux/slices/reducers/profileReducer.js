@@ -1,4 +1,4 @@
-import { ERROR_IN_USER_PROFILE, SET_USER_PROFILE } from "../../constants/constantTypes"
+import { ERROR_IN_USER_PROFILE, SET_CREATED_ADDRESS_USER_PROFILE, SET_USER_PROFILE } from "../../constants/constantTypes"
 
 
 
@@ -20,7 +20,6 @@ const profileReducers =(state=initialState,action)=>{
                 ...state,
                 profileError:action.payload
             }
-
         default:
             return state;
     }

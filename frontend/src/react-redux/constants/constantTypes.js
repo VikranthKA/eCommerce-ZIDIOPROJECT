@@ -60,6 +60,11 @@ export const SET_REMOVED_PRODUCT_FROM_CART = "set/removed/product/from/cart"
 export const UPDATE_USER_PROFILE_SAGA = "update/user/profile/saga"
 export const SET_UPDATED_USER_PROFILE = "set/updated/user/profile"
 
+export const ADD_NEW_PROFILE_ADDRESS_SAGA = "add/new/user/profile/address/saga"
+export const SET_CREATED_ADDRESS_USER_PROFILE = "set/created/address/user/profile"
+export const UPDATE_ADDRESS_USER_PROFILE_SAGA = "update/address/user/profile/saga"
+export const SET_UPDATED_ADDRESS_FOR_USER_PROFILE = "set/updated/address/for/user/profile"
+
 
 
 
