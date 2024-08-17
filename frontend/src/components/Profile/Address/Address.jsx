@@ -9,7 +9,7 @@ const Address = () => {
   return (
     <div style={{display:"flex"}}>
         <ProfileSideBar/>
-        <Container>
+        <Container sx={{display:"flex",justifyContent:"space-around",flexWrap:"wrap"}}>
           {
             profile.addresses.map((address)=>(
               <AdddressCard key={address._id} {...address}/>

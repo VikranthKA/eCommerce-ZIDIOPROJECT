@@ -52,7 +52,7 @@ function* fetchCartSaga() {
       const {data} = yield call(axios.put, `/api/cart/${action.payload}`,config);
   
       if (data) {
-        // console.log(data,"data")
+        console.log(data,"Saga")
         yield put(setRemovedProductFromCart(data))
       } 
     } catch (error) {

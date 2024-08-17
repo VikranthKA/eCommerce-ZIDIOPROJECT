@@ -19,6 +19,7 @@ const CartCard = ({ ...product }) => {
     setCartCount(product.quantity.count)
   }, [product.productId, product.quantity])
 
+
   const handleIncrease = useCallback(() => {
     setCartCount((prevCount) => {
       const newCount = prevCount + 1;
@@ -71,7 +72,11 @@ const CartCard = ({ ...product }) => {
         <Typography>{updateProduct?.price || product.productId.sizesAndColors[0]?.price}</Typography>
       </TableCell>
       <TableCell align="left">
-        {updateProduct?.price ? <Typography>{updateProduct.price * cartCount}</Typography> : "Loading..."}
+        {product?.productId?.discount ? <Typography>{product?.productId?.discount }%</Typography> : "Loading..."}
+      </TableCell>
+      <TableCell align="left">
+
+        {updateProduct?.price ? <Typography>{cartCount*(updateProduct.price *  (1 - product?.productId?.discount/ 100)).toFixed(2)}</Typography> : "Loading..."}
       </TableCell>
     </TableRow>
   )

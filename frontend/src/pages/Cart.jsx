@@ -4,6 +4,8 @@ import { Box, Button, CardMedia, Container, Divider, Typography, Table, TableBod
 import CartCard from '../components/Cart/CartCard';
 import { getLoginedUserProfile } from '../react-redux/slices/actions/profileActions';
 import { getAllCartItems } from '../react-redux/slices/actions/cartItemsActions';
+import OrderCheckOut from '../components/Orders/OrderCheckOut';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const { cartItems } = useAppSelector((state) => state.cart);
@@ -18,10 +20,12 @@ const Cart = () => {
     }
   },[userData?.decodedData])
 
+  const navigate = useNavigate()
+
   return (
     <>
-   {cartItems.products.length > 0 ? <Container sx={
-      {
+   {cartItems.products.length > 0 ? <><Container sx={
+      { 
         mt: 6,
         mb:6
       }
@@ -35,7 +39,9 @@ const Cart = () => {
               <TableCell align="left" >
                 <Typography sx={{ ml: 5 }}>Quantity</Typography></TableCell>
               <TableCell align="left"><Typography>Price (₹)</Typography></TableCell>
+              <TableCell align="left"><Typography>Discount (%)</Typography></TableCell> 
               <TableCell align="left"><Typography>Total (₹)</Typography></TableCell>
+
             </TableRow> 
           </TableHead>
           <TableBody>
@@ -45,7 +51,11 @@ const Cart = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </Container> : <h1>Cart Empty Add some recomended products</h1>}
+      <Button onClick={()=>navigate("/checkout")}>CheckOut</Button>
+    </Container>
+
+    
+ </>: <h1>Cart Empty Add some recomended products</h1>}
     </>
   );
 };

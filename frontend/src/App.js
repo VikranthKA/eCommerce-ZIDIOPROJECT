@@ -27,6 +27,7 @@ import { getLoginedUserProfile } from './react-redux/slices/actions/profileActio
 import { getAllCartItems } from './react-redux/slices/actions/cartItemsActions'
 import Cart from './pages/Cart'
 import { getAllCategory } from './react-redux/slices/actions/categoryActions'
+import OrderCheckOut from './components/Orders/OrderCheckOut'
 
 
 
@@ -69,6 +70,7 @@ const App = () => {
 
 
 
+
         </Route>
 
         <Route element={<PrivateRoute roles={["SuperAdmin"]}/>}>
@@ -83,6 +85,9 @@ const App = () => {
           <Route path='/orders' element={<Orders/>} />
           <Route path='/payment' element={<Payments/>} />
           <Route path='/cart' element={<Cart/>} />
+          <Route path='/checkout' element={<OrderCheckOut/>} />
+
+          
 
 
 

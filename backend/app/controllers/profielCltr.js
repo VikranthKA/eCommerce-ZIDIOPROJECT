@@ -119,6 +119,34 @@ profileCltr.addAddress = async (req, res) => {
     }
 };
 
+profileCltr.updateAddress = async (req, res) => {
+    const { addressId } = req.params
+    try {
+        const profile = await Profile.findOne({ userId: req.user.id });
+
+        if (!profile) {
+            return res.status(404).json({ error: "Profile not found" });
+        }
+
+        const addressIndex = profile.addresses.findIndex(address => address._id.toString() === addressId)
+        if (addressIndex === -1) return res.json({
+            msg: "Address Not found"
+        })
+
+        const addressData = await getCoByGeoApify(req.body.address);
+
+        profile.addresses[addressIndex] = { ...profile.addresses[addressIndex]._doc, ...addressData }
+
+        await profile.save()
+
+        return res.json({ data: profile, msg: "Updated Successfully" });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+
+    }
+}
+
 
 
 

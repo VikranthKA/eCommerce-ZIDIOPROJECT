@@ -9,6 +9,8 @@ const orderCltr = {}
 orderCltr.create = async (req, res) => {
   try {
     let { addressIndex } = req.body;
+    console.log(addressIndex,"i")
+    // return res.json(addressIndex)
 
     const cartItems = await Cart.findOne({ userId: req.user.id }).populate("products.productId");
     const profile = await Profile.findOne({ userId: req.user.id });
@@ -21,25 +23,11 @@ orderCltr.create = async (req, res) => {
       // Apply your logic to adjust the totalCartAmount
     }
 
-    // console.log(cartItems.products[0].quantity,"cart")
-
-    // const orderProducts = cartItems.products.map(cartItem => (
-      
-    //  {
-    //   productId: cartItem.productId._id,
-    //   quantity: cartItem.quantity,
-
-    //   isLogo: cartItem.isLogo,
-    //   licenseKey: cartItem.licenseKey,
-    //   isRealModelIncluded: cartItem.isRealModelIncluded
-    // }));
-
     const orderProducts = cartItems.products.map(cartItem => {
-      console.log(cartItem.quantity, "cartItem.quantity"); // Debugging
     
       return {
         productId: cartItem.productId._id,
-        quantity: cartItem.quantity, // Ensure this is correctly assigned
+        quantity: cartItem.quantity, 
     
         isLogo: cartItem.isLogo,
         licenseKey: cartItem.licenseKey,
@@ -47,7 +35,6 @@ orderCltr.create = async (req, res) => {
       };
     });
 
-    console.log(orderProducts)
 
 
     
@@ -69,11 +56,11 @@ orderCltr.create = async (req, res) => {
 
     // const emptyUserCart = await Cart.findByIdAndUpdate(cartItems._id, { $set: { products: [] } });
 
-    // const populatedOrdersInfo = await Order.findOne({userId:req.user.id,_id:newOrder._id}).populate("products")
+    const populatedOrdersInfo = await Order.findOne({userId:req.user.id,_id:newOrder._id}).populate("products")
 
     return res.status(201).json({
       msg: "Order created successfully",
-      order: newOrder
+      order: populatedOrdersInfo
     });
 
   } catch (error) {

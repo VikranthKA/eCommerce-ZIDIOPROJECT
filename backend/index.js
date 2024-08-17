@@ -91,6 +91,7 @@ app.post("/api/user/login", checkSchema(userLoginSchema), userCltr.login)
 app.put("/api/profile",upload.single("profilePic"), authenticateUser,authorizeUser(["SuperAdmin", "Customer"]),profileCltr.update)
 app.get("/api/profile",authenticateUser,authorizeUser(["SuperAdmin", "Customer"]),profileCltr.getOne)
 app.put("/api/profile/address",authenticateUser,authorizeUser(["Customer",]),profileCltr.addAddress)
+app.put("/api/profile/address/:addressId",authenticateUser,authorizeUser(["Customer",]),profileCltr.updateAddress)
 
 //updating the existing the profile with new information
 app.put("/api/profile", checkSchema)

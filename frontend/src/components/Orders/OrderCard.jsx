@@ -3,6 +3,7 @@ import { ExpandMore } from '@mui/icons-material';
 import { Box, Button, Container, Typography, Collapse, CardContent } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ProductCard from '../Products/ProductCard';
+import CheckOutCard from './CheckOutCard';
 
 
  
@@ -35,7 +36,7 @@ function OrderCard({ ...order }) {
         <CardContent>
           <Typography paragraph>Products:</Typography>
           {order?.ordersId?.products?.map((product) => (
-            <ProductCard key={product?.productId._id} {...product?.productId} />
+            <CheckOutCard product={product} />
           ))}
         </CardContent>
       </Collapse>

@@ -3,7 +3,7 @@ import { TextField, Button, Grid, Typography, Box } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useAppDispatch } from "../../../react-redux/hooks/reduxHooks"
-import { addNewAddressForUserProfile } from '../../../react-redux/slices/actions/profileActions';
+import { addNewAddressForUserProfile, updateTheUserProfileAddress } from '../../../react-redux/slices/actions/profileActions';
 
 const AddressForm = ({ address, isEdit,setIsEdit }) => {
     const [initialValues, setInitialValues] = useState({
@@ -55,7 +55,13 @@ const AddressForm = ({ address, isEdit,setIsEdit }) => {
         }),
         onSubmit: (values) => {
             console.log('Form data', values);
-            dispatch(addNewAddressForUserProfile(values))
+            if(address?._id){
+                dispatch(updateTheUserProfileAddress(values,address._id))
+                setIsEdit(false)
+            }else{
+                dispatch(addNewAddressForUserProfile(values))
+
+            }
             setInitialValues({
                 address: {
                     title: '',

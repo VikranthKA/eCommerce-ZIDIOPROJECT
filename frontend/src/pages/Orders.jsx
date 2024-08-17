@@ -15,11 +15,12 @@ const Orders = () => {
         <ProfileSideBar/>
         <Container>
 
-            {orders.length > 0 && orders.map((order)=>(
+
+            {orders.length > 0 ?<> {orders.map((order)=>(
                 <div style={{display:"flex",flexDirection:"column",flexWrap:"wrap"}}>
                     <OrderCard key={order?._id} {...order} />
                 </div>
-            ))}
+            ))}</> : <h1>Buy your first Product </h1>}
 
         </Container>
     </div>

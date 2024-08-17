@@ -1,4 +1,4 @@
-import { ADD_NEW_PROFILE_ADDRESS_SAGA, ERROR_IN_USER_PROFILE, GET_LOGINED_PROFILE_SAGA, SET_CREATED_ADDRESS_USER_PROFILE, SET_UPDATED_ADDRESS_FOR_USER_PROFILE, SET_USER_PROFILE, UPDATE_ADDRESS_USER_PROFILE_SAGA, UPDATE_USER_PROFILE_SAGA } from "../../constants/constantTypes"
+import { ADD_NEW_PROFILE_ADDRESS_SAGA, ERROR_IN_USER_PROFILE, GET_LOGINED_PROFILE_SAGA, SET_CREATED_ADDRESS_USER_PROFILE, SET_USER_PROFILE, UPDATE_ADDRESS_USER_PROFILE_SAGA, UPDATE_USER_PROFILE_SAGA } from "../../constants/constantTypes"
 
 
 export const getLoginedUserProfile = () => {
@@ -37,14 +37,11 @@ export const setCreatedAddressForUserProfile = (data)=>({
     payload:data
 })
 
-export const updateTheUserProfileAddress = (formData)=>({ 
+export const updateTheUserProfileAddress = (formData,addressId)=>({ 
     type:UPDATE_ADDRESS_USER_PROFILE_SAGA,
-    payload:formData
+    payload:{formData,addressId}
 })
 
-export const setUpdatedUserProfileAddress = (data)=>({
-    type:SET_UPDATED_ADDRESS_FOR_USER_PROFILE,
-    payload:data
-})
+
 
 

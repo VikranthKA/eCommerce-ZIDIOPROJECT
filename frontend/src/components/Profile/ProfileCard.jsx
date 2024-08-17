@@ -22,7 +22,7 @@ import { useAppDispatch, useAppSelector } from '../../react-redux/hooks/reduxHoo
 import { Cancel, Upload } from '@mui/icons-material'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { updateUserProfile } from '../../react-redux/slices/actions/profileActions';
+import { getLoginedUserProfile, updateUserProfile } from '../../react-redux/slices/actions/profileActions';
 
 const initialValues = {
   ProfilePic: null,
@@ -78,11 +78,15 @@ const ProfileCard = () => {
     phoneNumber,
     role,
     isActive,
-  } = profile.userId
+  } = profile?.userId
 
   const { profilePic, gender, _id } = profile
 
   console.log(profile, "profile")
+
+  useEffect(()=>{
+    dispatch(getLoginedUserProfile())
+  },[])
 
   useEffect(() => {
     if (Object.keys(profile).length > 0) {
@@ -227,7 +231,7 @@ const ProfileCard = () => {
                   <Button type='submit' onClick={()=>{
                     setTimeout(()=>{setIsEdit(false)},3000)
                   }}>
-                    <Chip label="success" color="success"  sx={{onClick:"color:blue"}} variant="outlined" >Submit</Chip>
+                    <Chip label="Update" color="success"  sx={{onClick:"color:blue"}} variant="outlined" />
                     </Button>
                   <Chip  sx={{mt:"7px"}} icon={
                   <IconButton

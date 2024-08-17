@@ -44,7 +44,8 @@ const ProductCard = ({ ...product }) => {
             <Chip label={product?.categoryId?.name} color="primary" />
           </Typography>
         </Box>
-{ product?.sizesAndColors?.length &&       <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-around' }}>
+      { product?.sizesAndColors?.length &&     
+       <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-around' }}>
           <Typography variant="h5" color="text.secondary" sx={{ textDecoration: 'line-through' }}>
             {console.log(product?.sizesAndColors[0]?.price)}
             ₹{product?.sizesAndColors[0]?.price}
