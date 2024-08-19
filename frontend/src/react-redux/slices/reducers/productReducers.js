@@ -25,7 +25,7 @@ const productReducers =(state=initialState,action)=>{
         case SET_CREATED_PRODUCT:
             return {
                 ...state,
-                products:[action.payload,...state]
+                products:[action.payload,...state.products]
             }
         case SET_UPDATED_PRODUCT:
             return {

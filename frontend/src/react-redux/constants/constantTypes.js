@@ -57,6 +57,8 @@ export const SET_UPDATED_CART_ITEMS = "set/updated/cart/items"
 export const REMOVE_PRODUCT_FROM_CART_SAGA = "remove/product/from/cart"
 export const SET_REMOVED_PRODUCT_FROM_CART = "set/removed/product/from/cart"
 
+export const EMPTY_USER_CART = "empty/user/cart"
+
 export const UPDATE_USER_PROFILE_SAGA = "update/user/profile/saga"
 export const SET_UPDATED_USER_PROFILE = "set/updated/user/profile"
 
@@ -66,6 +68,8 @@ export const UPDATE_ADDRESS_USER_PROFILE_SAGA = "update/address/user/profile/sag
 
 export const CREATE_ORDER_SAGA = "create/order/saga"
 
+export const CREATE_PAYMENT_FOR_ORDER_SAGA = "create/payment/for/order"
+export const UPDATE_PAYMENT_AS_TRUE = "update/the/payment/order"
 
 
 

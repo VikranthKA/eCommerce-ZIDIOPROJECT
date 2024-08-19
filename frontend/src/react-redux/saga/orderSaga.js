@@ -8,6 +8,7 @@ import { setFoundUserProfile } from "../slices/actions/profileActions";
 
 function* fetchCreateOrder(action) {
     try {
+      console.log(action.payload,"addressIndex")
       const {data} = yield call(axios.post,'/api/order',action.payload,config);
   
       if (data) {

@@ -8,7 +8,8 @@ const orderCltr = {}
 
 orderCltr.create = async (req, res) => {
   try {
-    let { addressIndex } = req.body;
+    let { selectedValue } = req.body
+    const addressIndex = selectedValue
     console.log(addressIndex,"i")
     // return res.json(addressIndex)
 
@@ -77,7 +78,7 @@ orderCltr.create = async (req, res) => {
 orderCltr.getOrders = async (req, res) => {
 
   try {
-    const userOrders = await Order.find({ userId: req.user.id }).sort({ createdAt: -1 })
+    const userOrders = await Order.find({ userId: req.user.id })
 
     return res.json({
       msg: "Fetched data successfully",

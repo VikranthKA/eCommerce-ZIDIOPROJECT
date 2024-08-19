@@ -72,6 +72,7 @@ const ProfileCard = () => {
     formik.setFieldValue('ProfilePic', event.currentTarget.files[0])
   };
 
+  
   const {
     username,
     email,

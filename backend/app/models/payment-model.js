@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose")
 
 const paymentSchema = new Schema({
-    customerId: {
+    userId: {
         type: Schema.Types.ObjectId,
         ref: "User"
     },
@@ -13,8 +13,8 @@ const paymentSchema = new Schema({
     amount: Number,
     paymentType: {
         type:String,
-        default:["ONLINE"],
-        enum:["ONLINE","COD"]
+        default:["card"],
+        enum:["card","COD"]
 
     },
     transaction_Id: String,

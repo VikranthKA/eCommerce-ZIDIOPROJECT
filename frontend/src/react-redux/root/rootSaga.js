@@ -4,6 +4,7 @@ import { productAllSaga, setNewCreatedProductSaga, setUpdatedProductSaga } from 
 import { setNewUserProfileAddressSaga, setUpdatedUserProfile, setUserProfile, setUpdateProfileAddressSaga } from '../saga/profileSaga'
 import { cartAllSaga, setCartItemsSaga, setRemovedProductFromCartSaga } from '../saga/cartSaga'
 import { createUserOrderSaga } from '../saga/orderSaga'
+import { makePaymentSaga, updatePaymentOrderSaga } from '../saga/paymentSaga'
 
 
 export default function* rootSaga(){
@@ -14,5 +15,6 @@ export default function* rootSaga(){
         setNewUserProfileAddressSaga(),setUpdateProfileAddressSaga(),
                          cartAllSaga(),           setCartItemsSaga(),setRemovedProductFromCartSaga(),
                  createUserOrderSaga(),
+                     makePaymentSaga(),     updatePaymentOrderSaga()
     ]) 
 }

@@ -29,7 +29,7 @@ const CheckOutCard = ({product,index}) => {
                   </Typography>
                 </Box>
                 <Box sx={{ ml: 'auto' }}>
-                  <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                  <Typography variant="h6" sx={{}}>
                     ₹{(findTheSizeAndColor(product?.productId?.sizesAndColors, product?.quantity?.sc_id)?.price * (1 - product?.productId?.discount / 100)).toFixed(2)}
                   </Typography>
                 </Box>

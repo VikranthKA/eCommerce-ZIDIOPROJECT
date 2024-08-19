@@ -4,15 +4,24 @@ import { Box, Button, Container, Typography, Collapse, CardContent } from '@mui/
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ProductCard from '../Products/ProductCard';
 import CheckOutCard from './CheckOutCard';
+import { useAppDispatch } from '../../react-redux/hooks/reduxHooks';
+import { startPayment } from '../../react-redux/slices/actions/paymentAction';
 
 
  
 function OrderCard({ ...order }) {
     const [expanded, setExpanded] = useState(false);
+    const card = "card"
+    const dispatch = useAppDispatch()
 
       const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+    const handlePayment = (orderId) => {
+    console.log("payment");
+    dispatch(startPayment(orderId, {card}));
+  }
 
   return (
     <Container sx={{ mt: 2, boxShadow: 2, width: '100%', height: 'auto', p: 2, borderRadius: '6px' }} key={order?.ordersId?._id}>
@@ -20,7 +29,7 @@ function OrderCard({ ...order }) {
         <Typography>Total Amount: {order?.ordersId?.totalAmount}</Typography>
         <Typography>Currency: {order?.ordersId?.currency}</Typography><br/>
         <Typography>
-          Status {order?.ordersId?.paymentStatus ? <h3>Completed</h3> : <Button >Complete Payment</Button>}
+          Status {order?.ordersId?.paymentStatus ? <h3>Completed</h3> : <Button onClick={()=>handlePayment(order?.ordersId?._id)}>Complete Payment</Button>}
         </Typography>
         <Typography>Ordered At: {new Date(order?.ordersId?.createdAt).toLocaleString()}</Typography>
         <ExpandMore
@@ -35,9 +44,11 @@ function OrderCard({ ...order }) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Products:</Typography>
+          <Box>
           {order?.ordersId?.products?.map((product) => (
             <CheckOutCard product={product} />
           ))}
+          </Box>
         </CardContent>
       </Collapse>
     </Container>

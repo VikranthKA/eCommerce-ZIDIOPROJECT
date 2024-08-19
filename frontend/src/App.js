@@ -28,6 +28,8 @@ import { getAllCartItems } from './react-redux/slices/actions/cartItemsActions'
 import Cart from './pages/Cart'
 import { getAllCategory } from './react-redux/slices/actions/categoryActions'
 import OrderCheckOut from './components/Orders/OrderCheckOut'
+import Success from './pages/Payment/Success'
+import Cancel from './pages/Payment/Cancel'
 
 
 
@@ -63,21 +65,14 @@ const App = () => {
         <Route path="/register" element={<Register/>}/>
         <Route path="/product/:productId" element={<ProductInfo/>}/>
 
-
         <Route element={<PrivateRoute roles={['Admin','Customer',"SuperAdmin"]}/>}>
           <Route path='/profile' element={<Profile/>} />
           <Route path='/settings' element={<Settings/>} />
-
-
-
-
         </Route>
 
         <Route element={<PrivateRoute roles={["SuperAdmin"]}/>}>
           <Route path='/product/edit/:productId' element={<CreateProduct/>} />
           <Route path='/coupon' element={<p>Coupon page yet to create</p>} />
-
-
         </Route>
 
         <Route element={<PrivateRoute roles={["Customer"]}/>}>
@@ -86,18 +81,9 @@ const App = () => {
           <Route path='/payment' element={<Payments/>} />
           <Route path='/cart' element={<Cart/>} />
           <Route path='/checkout' element={<OrderCheckOut/>} />
-
-          
-
-
-
-
+          <Route path='/cancel' element={<Cancel/>}/>
+          <Route path='/success' element={<Success/>}/>
         </Route>
-
-
-
-
-
 
       </Routes>
       <ToastContainer/>

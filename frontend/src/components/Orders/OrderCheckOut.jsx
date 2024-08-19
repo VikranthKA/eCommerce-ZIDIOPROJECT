@@ -1,26 +1,41 @@
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Button, Card, Container, Typography, Grid, Divider, Box } from '@mui/material';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../react-redux/hooks/reduxHooks';
-import image1 from "../../Assests/image1.jpg";
 import { createUserOrder } from '../../react-redux/slices/actions/orderActions';
 import CheckOutCard from './CheckOutCard';
-
+import axios from '../../Utils/api_resources/axios';
+import {config} from "../../Utils/api_resources/config"
+import { useNavigate } from 'react-router-dom';
 
 const OrderCheckOut = () => {
-  const [selectedValue, setSelectedValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState();
   const {products} = useAppSelector(state=>state.cart.cartItems)
   const { profile } = useAppSelector(state => state.profile);
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const stripeId = localStorage.getItem("stripeId");
+        const response = await axios.delete(`/api/delete-payment/${stripeId}`, config);
+        if (response) localStorage.removeItem("stripeId");
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, [])
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
 dispatch(createUserOrder({selectedValue}))
+navigate("/orders")
     console.log("Selected Value:", {selectedValue});
   };
-
+ 
   const findTheSizeAndColor = (arr, id) => {
     return arr.find((sz) => sz._id === id);
   };
@@ -34,6 +49,8 @@ dispatch(createUserOrder({selectedValue}))
     return value.toFixed(2);
   }, [products]);
 
+
+
   return (
     <Container maxWidth="md" sx={{ mt: 4 }}>
       <Card sx={{ p: 3, boxShadow: 3 }}>
@@ -43,10 +60,12 @@ dispatch(createUserOrder({selectedValue}))
         <Divider sx={{ mb: 3 }} />
         
         <Grid container spacing={2}>
+          <Box sx={{display:"flex",flexDirection:"column",ml:3}}>
           {products.map((product, index) => (
             <CheckOutCard product={product} index={index}/>
  
           ))}
+          </Box>
         </Grid>
 
         <Box sx={{ mt: 3 }}>
@@ -94,4 +113,4 @@ dispatch(createUserOrder({selectedValue}))
   );
 };
 
-export default OrderCheckOut;
+export default OrderCheckOut

@@ -21,6 +21,8 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import { Link } from 'react-router-dom';
+import { getLoginedUserProfile } from '../../react-redux/slices/actions/profileActions';
+import { useAppDispatch, useAppSelector } from '../../react-redux/hooks/reduxHooks';
 
 const drawerWidth = 199;
 
@@ -72,6 +74,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 
+
 const sideBarTopElements = [
   
     {
@@ -105,6 +108,15 @@ const sideBarLowerElements = [
 
 export default function ProfileSideBar() {
   const [open, setOpen] = React.useState(false)
+  const dispatch  = useAppDispatch()
+  const userData = useAppSelector(state=>state.user)
+
+
+React.useEffect(()=>{
+  if(userData?.decodedData?.role){
+    dispatch(getLoginedUserProfile())
+  }
+},[userData?.decodedData])
 
   return (
     <Box sx={{ display: 'flex',}}>

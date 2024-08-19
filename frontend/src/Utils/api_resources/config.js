@@ -2,7 +2,7 @@ import Cookies from "universal-cookie";
 
 const cookies = new Cookies()
 
-export const config={
+export const config ={
     headers:{
         Authorization:cookies.get("jwt_authorization"),
         'Content-Type':'application/json',
@@ -18,6 +18,15 @@ export const fileConfig = {
     },
     withCredentials: true,
 }
+
+export const paymentConfig = {
+    headers: {
+        Authorization: cookies.get("jwt_authorization"),
+'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    withCredentials: true,
+}
+
 
 
 

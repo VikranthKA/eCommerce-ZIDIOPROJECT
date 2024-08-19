@@ -51,7 +51,10 @@ const Cart = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Button onClick={()=>navigate("/checkout")}>CheckOut</Button>
+      <Box sx={{display:"flex",justifyContent:"right",m:3,}}>
+
+      <Button variant="contained" size="medium" onClick={()=>navigate("/checkout")}>CheckOut</Button>
+      </Box>
     </Container>
 
     

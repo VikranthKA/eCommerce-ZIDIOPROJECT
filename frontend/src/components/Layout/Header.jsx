@@ -10,6 +10,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../react-redux/hooks/reduxHooks'
 import { verifyLogout } from '../../react-redux/slices/actions/userActions';
+import { deepPurple } from '@mui/material/colors';
 
 const pages = ['Products'];
 const loginRegister = ["Login","Register"]
@@ -23,6 +24,7 @@ function Header() {
   const navigate = useNavigate();
   const {user} = useAppSelector(state=>state)
   const {cartItems} = useAppSelector(state=>state.cart)
+  const {profile} = useAppSelector(state=>state.profile)
 
 const dispatch = useAppDispatch()
   const handleOpenNavMenu = (event) => {
@@ -45,7 +47,7 @@ const dispatch = useAppDispatch()
 
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{position:"sticky"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -158,15 +160,20 @@ const dispatch = useAppDispatch()
             {user.decodedData.role==="Customer" && <Tooltip title="Cart">
               <IconButton onClick={() => navigate("/cart")} size="large" aria-label="show 4 new mails" color="inherit">
 
-              <Badge badgeContent={cartItems.products.length} color="error">
+              <Badge badgeContent={cartItems?.products?.length} color="error">
                 <ShoppingCartIcon   />
 </Badge>
               </IconButton>
             </Tooltip>}
              <Tooltip title="Open Profile">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
+              {profile?.profilePic ? <Avatar
+              alt={profile?.username}
+              src={profile?.profilePic}
+              sx={{ width: 50, height: 50,}}
+            /> : <Avatar sx={{ bgcolor: deepPurple[500], width: 50, height: 50 }}>
+              {profile?.username?.charAt(0)?.toUpperCase()}
+            </Avatar>}              </IconButton>
             </Tooltip>
             </> : <>
               {loginRegister.map((ele)=>(

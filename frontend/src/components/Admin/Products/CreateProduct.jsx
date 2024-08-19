@@ -157,6 +157,24 @@
 //             helperText={formik.errors.currency}
 //             sx={{ mb: 3 }}
 //           />
+//           <FormControl fullWidth sx={{ mb: 3 }} error={Boolean(formik.errors.categoryId && formik.touched.categoryId)}>
+//             <InputLabel>Category</InputLabel>
+//             <Select
+//               label="Category"
+//               name="categoryId"
+//               value={formik.values.categoryId}
+//               onChange={formik.handleChange}
+//             >
+//               {categories.map((category) => (
+//                 <MenuItem key={category?._id} value={category?._id}>
+//                   {category?.name}
+//                 </MenuItem>
+//               ))}
+//             </Select>
+//             {formik.errors.categoryId && formik.touched.categoryId && (
+//               <FormHelperText>{formik.errors.categoryId}</FormHelperText>
+//             )}
+//           </FormControl>
 
 
 //           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', mb: 3 }}>
@@ -379,9 +397,7 @@ import { getAllCategory } from '../../../react-redux/slices/actions/categoryActi
 const validationSchema = Yup.object({
   name: Yup.string().required('Name is required'),
   description: Yup.string().required('Description is required'),
-  minPrice: Yup.number().min(0, 'Minimum price cannot be negative').required('Minimum price is required'),
   currency: Yup.string().required('Currency is required'),
-  totalStock: Yup.number().min(0, 'Total stock cannot be negative').required('Total stock is required'),
   categoryId: Yup.string().required('Select a Category'),
   sizesAndColors: Yup.array()
     .of(
@@ -428,18 +444,16 @@ const ProductForm = () => {
   const { productId } = useParams();
   const dispatch = useAppDispatch();
 
-
-
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false)
   const [initialFormValues, setInitialFormValues] = useState(initialValues);
 
   useEffect(()=>{
       dispatch(getAllCategory())
-  },[])
+  },[ ])
 
   useEffect(() => {
     if (productId && products.products.length > 0) {
-      const editProduct = products.products.find((product) => product._id === productId);
+      const editProduct = products.products.find((product) => product._id === productId)
       if (editProduct) {
         setInitialFormValues({
           name: editProduct.name,
@@ -462,6 +476,7 @@ const ProductForm = () => {
     enableReinitialize: true,
     validationSchema,
     onSubmit: async (values) => {
+      console.log("form")
       try {
         const formData = new FormData();
         Object.keys(values).forEach((key) => {
@@ -473,7 +488,7 @@ const ProductForm = () => {
             formData.append(key, values[key]);
           }
         });
-
+        console.log("in form")
         if (isEditing) {
           console.log("edit",...formData)
           dispatch(updateProductSaga(formData, productId));
@@ -482,7 +497,7 @@ const ProductForm = () => {
           dispatch(createNewProduct(formData));
         }
 
-        toast.success('Product saved successfully');
+        toast.success('Product saved successfully')
       } catch (error) {
         toast.error('Error saving product');
         console.error(error);
@@ -563,7 +578,24 @@ const ProductForm = () => {
             )}
           </Box>
 
-
+                   <FormControl fullWidth sx={{ mb: 3 }} error={Boolean(formik.errors.categoryId && formik.touched.categoryId)}>
+             <InputLabel>Category</InputLabel>
+            <Select
+               label="Category"
+               name="categoryId"
+               value={formik.values.categoryId}
+            onChange={formik.handleChange}
+             >
+               {categories.map((category) => (
+                 <MenuItem key={category?._id} value={category?._id}>
+                   {category?.name}
+                 </MenuItem>
+               ))}
+             </Select>
+             {formik.errors.categoryId && formik.touched.categoryId && (
+               <FormHelperText>{formik.errors.categoryId}</FormHelperText>
+             )}
+           </FormControl> 
 
 
           <FieldArray name="sizesAndColors">
@@ -650,10 +682,6 @@ const ProductForm = () => {
               </Box>
             )}
           </FieldArray>
-
-
-
-
           <TextField
             fullWidth
             label="Discount"
@@ -692,16 +720,17 @@ const ProductForm = () => {
             helperText={formik.errors.madeFrom}
             sx={{ mb: 3 }}
           />
-
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button
-              color="primary"
-              variant="contained"
+     <Button
               type="submit"
-            >
+              variant="contained"
+              color="primary"
+              onClick={()=>{
+                console.log("clicked")
+              }}
+              
+             >
               {isEditing ? 'Update Product' : 'Create Product'}
-            </Button>
-          </Box>
+              </Button>
         </form>
       </FormikProvider>
     </Container>

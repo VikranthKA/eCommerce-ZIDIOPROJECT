@@ -8,7 +8,7 @@ import OrderCard from '../components/Orders/OrderCard'
 
 const Orders = () => {
 
-  const orders = useAppSelector((state)=>state.profile.profile.orders)
+  const orders = useAppSelector((state)=>state?.profile?.profile?.orders)
   console.log(orders)
   return (
     <div style={{display:"flex"}}> 
@@ -16,7 +16,7 @@ const Orders = () => {
         <Container>
 
 
-            {orders.length > 0 ?<> {orders.map((order)=>(
+            {orders?.length > 0 ?<> {orders.map((order)=>(
                 <div style={{display:"flex",flexDirection:"column",flexWrap:"wrap"}}>
                     <OrderCard key={order?._id} {...order} />
                 </div>

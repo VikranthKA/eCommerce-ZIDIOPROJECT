@@ -1,4 +1,4 @@
-import { SET_CARTITEMS, SET_REMOVED_PRODUCT_FROM_CART, SET_UPDATED_CART_ITEMS } from "../../constants/constantTypes"
+import { EMPTY_USER_CART, SET_CARTITEMS, SET_REMOVED_PRODUCT_FROM_CART, SET_UPDATED_CART_ITEMS } from "../../constants/constantTypes"
 
 
 
@@ -55,6 +55,11 @@ const cartReducers =(state=initialState,action)=>{
                    products: state.cartItems.products.filter(product=>product.productId._id!==action.payload.productId)
 
                 }
+            }
+        case EMPTY_USER_CART:
+            return {
+                ...state,
+                cartItems:[]
             }
         
         default:

@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { TextField, Button, Grid, Typography, Box } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useAppDispatch } from "../../../react-redux/hooks/reduxHooks"
+import { useAppDispatch, useAppSelector } from "../../../react-redux/hooks/reduxHooks"
 import { addNewAddressForUserProfile, updateTheUserProfileAddress } from '../../../react-redux/slices/actions/profileActions';
 
 const AddressForm = ({ address, isEdit,setIsEdit }) => {
+    const {profile} = useAppSelector(state=>state.profile)
     const [initialValues, setInitialValues] = useState({
         address: {
             title: '',
@@ -20,24 +21,22 @@ const AddressForm = ({ address, isEdit,setIsEdit }) => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        console.log(Object.keys(address).length > 0)
-        if (Object.keys(address).length > 0) {
-            console.log("inLoop")
+        if (Object.keys(profile?.addresses
+        )?.length > 0) {
             setInitialValues({
                 address: {
-                    title: address.title,
-                    building: address.building,
-                    locality: address.locality,
-                    city: address.city,
-                    state: address.state,
-                    pincode: address.pincode,
-                    country: address.country
+                    title: address?.title,
+                    building: address?.building,
+                    locality: address?.locality,
+                    city: address?.city,
+                    state: address?.state,
+                    pincode: address?.pincode,
+                    country: address?.country
                 }
             })
         }
-    }, [isEdit,address  ])
+    }, [isEdit,address])
 
-    console.log(useFormik,"formik")
 
     const formik = useFormik({
         initialValues,
@@ -187,7 +186,7 @@ const AddressForm = ({ address, isEdit,setIsEdit }) => {
 
                     <Grid container justifyContent="center" sx={{ mt: 2 }}>
                         <Grid item xs={3} sx={{display:"flex",justifyContent:"space-between"}}>
-                            <Button color="primary" variant="contained"  type="submit">
+                            <Button color="primary" variant="contained"  type="submit" >
                                 Add Address
                             </Button>
                             {
