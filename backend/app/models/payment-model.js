@@ -14,7 +14,7 @@ const paymentSchema = new Schema({
     paymentType: {
         type:String,
         default:["card"],
-        enum:["card","COD"]
+        enum:["card"]
 
     },
     transaction_Id: String,

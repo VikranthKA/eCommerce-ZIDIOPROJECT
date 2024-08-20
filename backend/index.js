@@ -39,6 +39,7 @@ const { authenticateUser, authorizeUser } = require("./app/middlewares/auth")
 //validations
 const categoryValidationSchema = require("./app/validation/category-validation")
 const { userRegSchema, userLoginSchema } = require("./app/validation/user-validation")
+const { reviewSchema } = require("./app/validation/review-validation")
 
 //Controllers
 const userCltr = require("./app/controllers/userCltr")
@@ -48,7 +49,6 @@ const cartCltr = require("./app/controllers/cartCltr")
 const orderCltr = require("./app/controllers/orderCltr")
 const profileCltr = require("./app/controllers/profielCltr")
 const reviewCltr = require("./app/controllers/reviewCltr")
-const { reviewSchema } = require("./app/validation/review-validation")
 const paymentCltr = require("./app/controllers/paymentCltr")
 
 
@@ -80,6 +80,7 @@ app.use(express.static("public")) // public visible when in local file
 
 
 //user
+
 
 
 // register
@@ -114,6 +115,8 @@ app.put("/api/product/:productId", upload.single("images"), authenticateUser, au
 //get all products
 app.get("/api/products", productCltr.getAll)
 
+app.get("/api/product/:productId",productCltr.getOne)
+
 
 //cart
 app.get("/api/cart", authenticateUser, authorizeUser(["Customer"]), cartCltr.cartItems)
@@ -136,11 +139,11 @@ app.post("/api/order/:orderId/payment",authenticateUser,authorizeUser(["Customer
 app.put("/api/order/update-payment",authenticateUser,authorizeUser(["Customer"]),paymentCltr.updatedPayment)
 
 //review model
-app.post("/api/product/:productId/review",upload.array("images",10),authenticateUser,authorizeUser(['Customer',"SuperAdmin"]),reviewCltr.createReviewForProduct)
-app.put("/api/product/:productId/review/:reviewId",upload.array("images",10), authenticateUser, authorizeUser(['Customer',"SuperAdmin"]),reviewCltr.updateReviewForProduct);
+app.post("/api/product/:productId/review",upload.array("images",3),authenticateUser,authorizeUser(['Customer',"SuperAdmin"]),reviewCltr.createReviewForProduct)
+app.put("/api/product/:productId/review/:reviewId",upload.array("images",3), authenticateUser, authorizeUser(['Customer',"SuperAdmin"]),reviewCltr.updateReviewForProduct);
 app.delete("/api/product/:productId/review/:reviewId", authenticateUser, authorizeUser(['Customer',"SuperAdmin"]),reviewCltr.deleteReviewForProduct )
 
- 
+
 
 
 

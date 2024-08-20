@@ -2,9 +2,9 @@ const mongoose = require("mongoose")
 const {Schema,model} = mongoose
 
 const reviewSchema = new Schema({
-    userId: {
+    profileId: {
         type: Schema.Types.ObjectId,
-        ref: "User",
+        ref: "Profile",
         required: true,
     },
     productId: {

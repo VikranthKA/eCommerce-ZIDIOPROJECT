@@ -101,7 +101,18 @@ productCltr.create = async (req, res) => {
 
 
 productCltr.getAll = async (req, res) => {
-    const products = await Product.find().populate("categoryId")
+    const products = await Product.find().populate("categoryId").populate({
+        path: 'reviews.reviewId',
+        populate: {
+            path: 'profileId',
+            populate: {
+                path: 'userId', 
+                model: 'User',  
+                select: "_id username email" 
+            },
+            select: "_id profilePic"
+        }
+    })
     res.status(200).json({
         msg: "Success",
         data: products
@@ -194,6 +205,32 @@ productCltr.update = async (req, res, next) => {
         }
     }
 
+}
+
+productCltr.getOne=async(req,res)=>{
+    try{
+        const product = await Product.find({_id:req.params.productId})
+        .populate({
+            path: 'reviews.reviewId',
+            populate: {
+                path: 'profileId',
+                select: "_id userId profilePic" ,
+                populate: {
+                    path: 'userId',
+                    model: 'User',  
+                    select: "_id username email" 
+                },
+            }
+        })
+        return res.json({
+            product
+        })
+    }catch(error){
+        console.log(error)
+        res.json({
+            error
+        })
+    }
 }
 
 module.exports = productCltr

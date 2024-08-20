@@ -5,6 +5,7 @@ import { setNewUserProfileAddressSaga, setUpdatedUserProfile, setUserProfile, se
 import { cartAllSaga, setCartItemsSaga, setRemovedProductFromCartSaga } from '../saga/cartSaga'
 import { createUserOrderSaga } from '../saga/orderSaga'
 import { makePaymentSaga, updatePaymentOrderSaga } from '../saga/paymentSaga'
+import { createNewReviewForProductSaga, deleteReviewForProductSaga, updateReviewForProductSaga } from '../saga/reviewSaga'
 
 
 export default function* rootSaga(){
@@ -15,6 +16,7 @@ export default function* rootSaga(){
         setNewUserProfileAddressSaga(),setUpdateProfileAddressSaga(),
                          cartAllSaga(),           setCartItemsSaga(),setRemovedProductFromCartSaga(),
                  createUserOrderSaga(),
-                     makePaymentSaga(),     updatePaymentOrderSaga()
+                     makePaymentSaga(),     updatePaymentOrderSaga(),
+       createNewReviewForProductSaga(), updateReviewForProductSaga(),   deleteReviewForProductSaga(),
     ]) 
 }

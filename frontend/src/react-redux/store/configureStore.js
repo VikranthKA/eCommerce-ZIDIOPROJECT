@@ -19,7 +19,7 @@ const store = configureStore({
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: {
-          ignoredActions: ['create/category',"update/category/saga","add/creating/product/saga",'remove/product/from/cart','update/created/product/saga',"update/user/profile/saga",'update/user/profile/saga'],
+          ignoredActions: ['create/category',"update/category/saga","add/creating/product/saga",'remove/product/from/cart','update/created/product/saga',"update/user/profile/saga",'update/user/profile/saga',"create/review/for/product/saga"],
           ignoredPaths: ['payload'],
         },
       }).concat(sageMiddleware),

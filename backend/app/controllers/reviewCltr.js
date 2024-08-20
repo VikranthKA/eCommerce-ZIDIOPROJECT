@@ -1,54 +1,81 @@
 const { validationResult } = require('express-validator');
 const Review = require("../models/review-model")
-const _= require('lodash');
+const _ = require('lodash');
 const Product = require('../models/product-model');
-const cloudinary = require("../../utils/Cloudinary/cloudinary")
+const cloudinary = require("../../utils/Cloudinary/cloudinary");
+const Profile = require('../models/profile-model');
 
 
 // Create a review for an prodcut
 reviewCltr = {}
 reviewCltr.createReviewForProduct = async (req, res) => {
     const errors = validationResult(req)
-    if(!errors.isEmpty()) return res.status(400).json({errors:errors.array()}) 
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() })
     try {
+        console.log(req.files.length, "files")
+        console.log(req.file, "file")
+        console.log(req.body, "body")
+
         const { productId } = req.params;
         const { body, rating } = req.body;
 
-        console.log(req.files,"file")
 
-        const uploadedImages = await Promise.all( req.files.map(async(file)=>{
+        // return res.send("Working")
+
+        const uploadedImages = await Promise.all(req.files.map(async (file) => {
             const uploaded = await cloudinary.uploader.upload(file.path)
             return uploaded.secure_url
 
 
-         }))
-        
-        // return res.json(tempReview)
+        }))
 
+        // return res.json(tempReview)
+        const profile = await Profile.findOne({ userId: req.user.id })
 
 
         // Create a new review instance
         const newReview = new Review({
             productId,
-            userId: req.user.id,
+            profileId: profile._id,
             body,
             rating,
-            images:uploadedImages
+            images: uploadedImages
 
         });
 
         const savedReview = await newReview.save();
 
+        await Product.findByIdAndUpdate(productId, { $push: { reviews: { reviewId: savedReview._id } } });
 
-        // Save the review to the database
-        const populatedReview = await Review.findById(savedReview._id).populate('userId');
-        const finalResponse={
-            reviewId:populatedReview,
-            _id:savedReview._id
+        const product = await Product.find({ _id: productId })
+            .populate({
+                path: 'reviews.reviewId',
+                populate: {
+                    path: 'profileId',
+                    select: "_id userId profilePic",
+                    populate: {
+                        path: 'userId',
+                        model: 'User',
+                        select: "_id username email"
+                    },
+                }
+            })
+
+        // return res.json({review:product[0].reviews})
+        console.log(product.reviews, "review")
+
+
+
+
+        // Save the review to the db
+
+        const finalResponse = {
+            reviews: product[0].reviews,
+            productId: product[0]._id,
+            msg: "Review created successfully"
         }
 
         // Push the review ID to the products's reviews array
-        await Product.findByIdAndUpdate(productId, { $push: { reviews: { reviewId: savedReview._id } } });
         console.log(finalResponse);
         res.status(201).json(finalResponse);
     } catch (error) {
@@ -61,28 +88,48 @@ reviewCltr.createReviewForProduct = async (req, res) => {
 // Update a review for an product
 reviewCltr.updateReviewForProduct = async (req, res) => {
     const errors = validationResult(req)
-    if(!errors.isEmpty()) return res.status(400).json({errors:errors.array(),error:"validation Error"})
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array(), error: "validation Error" })
     try {
         const { productId, reviewId } = req.params;
-        const body = _.pick(req.body,["body","rating"])
+        const body = _.pick(req.body, ["body", "rating"])
 
         // Find the review by ID
         const product = await Product.findById(productId)
-        if(!product) res.status(404).json("Product Not Found")
+        if (!product) res.status(404).json("Product Not Found")
 
-        const reviewToUpdate = await Review.findByIdAndUpdate({_id:reviewId},body,{new:true}).populate({path:"userId",select:"_id username email"})
+        const profile = await Profile.findOne({ userId: req.user.id })
+
+        const reviewToUpdate = await Review.findOneAndUpdate({ _id: reviewId, profileId: profile._id }, body, { new: true })
 
         if (!reviewToUpdate) {
             return res.status(404).json({ error: "Review not found" });
         }
 
-        // Prepare the final response
-        const finalResponse = {
-            reviewId: reviewToUpdate,
-            _id: reviewId
-        };
+        const productPopulated = await Product.find({ _id: productId })
+        .populate({
+            path: 'reviews.reviewId',
+            populate: {
+                path: 'profileId',
+                select: "_id userId profilePic",
+                populate: {
+                    path: 'userId',
+                    model: 'User',
+                    select: "_id username email"
+                },
+            }
+        })
 
-        res.status(200).json(finalResponse);
+    // return res.json({review:productPopulated[0].reviews})
+    // console.log(product.reviews, "review")
+    const finalResponse = {
+        reviews: productPopulated[0].reviews,
+        productId: productPopulated[0]._id,
+        msg: "Review Updated successfully"
+    }
+
+    console.log(finalResponse);
+    res.status(201).json(finalResponse);
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Server Error' });
@@ -96,13 +143,38 @@ reviewCltr.deleteReviewForProduct = async (req, res) => {
         const { productId, reviewId } = req.params;
 
         // Remove the review ID from the products's reviews array
+        
+        const profile = await Profile.findOne({ userId: req.user.id })
+        
+        
+        // Delete the review
+        const deletedReview = await Review.findOneAndDelete({ _id: reviewId, profileId: profile._id})
         await Product.findByIdAndUpdate(productId, { $pull: { reviews: { reviewId } } });
 
-        // Delete the review
-       const deletedReview =  await Review.findOneAndDelete({_id:reviewId,userId:req.user.id})
+        const productPopulated = await Product.find({ _id: productId })
+        .populate({
+            path: 'reviews.reviewId',
+            populate: {
+                path: 'profileId',
+                select: "_id userId profilePic",
+                populate: {
+                    path: 'userId',
+                    model: 'User',
+                    select: "_id username email"
+                },
+            }
+        })
 
-        res.json({ message: 'Review deleted successfully',review:deletedReview})
-    } catch (error) {
+    // return res.json({review:productPopulated[0].reviews})
+    // console.log(product.reviews, "review")
+    const finalResponse = {
+        reviews: productPopulated[0].reviews,
+        productId: productPopulated[0]._id,
+        msg: "Review Updated successfully"
+    }
+
+    console.log(finalResponse);
+    res.status(201).json(finalResponse);    } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Server Error' });
     }

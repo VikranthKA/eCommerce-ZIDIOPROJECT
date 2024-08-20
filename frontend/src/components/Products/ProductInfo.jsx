@@ -11,6 +11,8 @@ import CategoryIcon from '@mui/icons-material/Category';
 import PercentIcon from '@mui/icons-material/Percent';
 import { productEditId } from '../../react-redux/slices/actions/productActions'
 import { updateCartItems } from '../../react-redux/slices/actions/cartItemsActions'
+import ReviewForm from '../Review/ReviewForm'
+import ReviewCard from '../Review/ReviewCard'
 
 const ProductInfo = () => {
     const [displayProduct, setDisplayProduct] = useState(null)
@@ -131,9 +133,17 @@ const ProductInfo = () => {
                         </Box>
                     
                     </Box>
-                    {/* </Container> */}
                 </Box>
             </Card>
+            <Container>
+                <ReviewForm productId={displayProduct._id}/>
+                <Box sx={{display:"flex",flexWrap:"wrap"}}>
+                    {displayProduct.reviews.map((review)=>(
+                        <ReviewCard {...review}/>
+
+                    ))}
+                </Box>
+            </Container>
         </Container>
     )
 }

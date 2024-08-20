@@ -6,6 +6,7 @@ import ProductCard from '../Products/ProductCard';
 import CheckOutCard from './CheckOutCard';
 import { useAppDispatch } from '../../react-redux/hooks/reduxHooks';
 import { startPayment } from '../../react-redux/slices/actions/paymentAction';
+import CreditScoreIcon from '@mui/icons-material/CreditScore';
 
 
  
@@ -29,7 +30,7 @@ function OrderCard({ ...order }) {
         <Typography>Total Amount: {order?.ordersId?.totalAmount}</Typography>
         <Typography>Currency: {order?.ordersId?.currency}</Typography><br/>
         <Typography>
-          Status {order?.ordersId?.paymentStatus ? <h3>Completed</h3> : <Button onClick={()=>handlePayment(order?.ordersId?._id)}>Complete Payment</Button>}
+          Status {order?.ordersId?.paymentStatus ? <CreditScoreIcon/> : <Button onClick={()=>handlePayment(order?.ordersId?._id)}>Complete Payment</Button>}
         </Typography>
         <Typography>Ordered At: {new Date(order?.ordersId?.createdAt).toLocaleString()}</Typography>
         <ExpandMore

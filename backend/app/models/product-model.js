@@ -17,7 +17,7 @@ const productSchema = new Schema({
     reviews: [{
         reviewId:{
         type: Schema.Types.ObjectId,
-        ref: 'ReviewModel'
+        ref: 'Review'
     }
     }],
     name: {

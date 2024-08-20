@@ -527,6 +527,8 @@ const ProductForm = () => {
             fullWidth
             label="Description"
             name="description"
+            multiline
+            variant='outlined'
             value={formik.values.description}
             onChange={formik.handleChange}
             error={Boolean(formik.errors.description && formik.touched.description)}
