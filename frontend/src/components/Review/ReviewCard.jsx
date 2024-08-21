@@ -2,7 +2,7 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { Avatar, Box, Card, CardMedia, Container, Rating, Typography, Button, TextField, Grid, IconButton, Input } from '@mui/material';import EditIcon from '@mui/icons-material/Edit';
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../react-redux/hooks/reduxHooks";
-import { deepPurple, grey } from '@mui/material/colors';
+import { deepPurple, grey, yellow } from '@mui/material/colors';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Delete from '@mui/icons-material/Delete';
 
@@ -124,7 +124,7 @@ const ReviewCard = ({ ...review }) => {
                                         }
 
                                     </Typography>
-                                    <Rating value={review?.reviewId?.rating} readOnly sx={{ color: deepPurple[500] }} />
+                                    <Rating value={review?.reviewId?.rating} readOnly sx={{ color: yellow }} />
                                 </>
                             )}
                         </Box>
