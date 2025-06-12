@@ -138,7 +138,7 @@ const ProfileCard = () => {
               src={profilePic}
               sx={{ width: 120, height: 120,ml:5}}
             /> : <Avatar sx={{ bgcolor: deepPurple[500], width: 120, height: 120 }}>
-              {username.charAt(0).toUpperCase()}
+              {username?.charAt(0)?.toUpperCase()}
             </Avatar>}
             <IconButton
               sx={{

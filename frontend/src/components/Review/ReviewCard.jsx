@@ -59,9 +59,10 @@ const ReviewCard = ({ ...review }) => {
         // dispatch(createReviewForProductAction(formData, productId));
 
         // Clear the form fields after submission
-        setIsEdit(false)
+        
         setBody('');
         setRating(0);
+        setIsEdit(false)
         // setImages([]);
     };
 

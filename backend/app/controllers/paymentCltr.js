@@ -20,7 +20,7 @@ const paymentCltr = {};
 
 
 const findTheSizeAndColor = (arr, id) => {
-    return arr.find((sz) => console.log(sz._id,"sz") === console.log(id,"id"));
+    return arr.find((sz) => console.log(sz._id, "sz") === console.log(id, "id"));
 };
 
 
@@ -63,17 +63,20 @@ paymentCltr.paymentCheckoutSession = async (req, res) => {
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: {
                     "0": body.card
-                  },
+                },
                 mode: "payment",
                 line_items: orderItems.products.map((product) => {
                     console.log(findTheSizeAndColor(product?.productId?.sizesAndColors, product?.quantity?.sc_id)?.price, "price")
                     console.log((findTheSizeAndColor(product?.productId?.sizesAndColors, product?.quantity?.sc_id)?.price * (1 - product?.productId?.discount / 100)).toFixed(2) * 100, "uA")
+                    console.log(product?.productId?.images, 'image')
+
                     return {
                         price_data: {
                             currency: "inr",
                             product_data: {
-                                name: product.productId.name,
-                                images: [`${product.productId.image}`],
+                                name: `${product.productId.name} (Qty: ${product.quantity.count})`,
+                                images: [`${product?.productId?.images}`],
+                                quantity: product?.productId?.quantity?.count
                             },
                             unit_amount: (findTheSizeAndColor(product?.productId?.sizesAndColors, product?.quantity?.sc_id)?.price * (1 - product?.productId?.discount / 100)).toFixed(2) * 100, // not done the converting to cents for usd
                         },
@@ -94,7 +97,7 @@ paymentCltr.paymentCheckoutSession = async (req, res) => {
                 }, 0);
                 return value.toFixed(2);
             }
-            console.log(totalPaidAmount(),"total")
+            console.log(totalPaidAmount(), "total")
             res.json({ id: session.id, url: session.url })
             if (session.id) {
                 const paymentPending = new Payment({
@@ -131,22 +134,22 @@ paymentCltr.updatedPayment = async (req, res) => {
         if (payment.status) {
             console.log("2")
             const orderUpdate = await Order.findOneAndUpdate({ _id: payment.orderId }, { paymentStatus: true }, { new: true })
-            console.log(orderUpdate,"order3")
+            console.log(orderUpdate, "order3")
 
-            await Cart.findOneAndUpdate({userId:req.user.id}, { $set: { products: [] } });
+            await Cart.findOneAndUpdate({ userId: req.user.id }, { $set: { products: [] } });
 
             console.log("4")
             const profile = await Profile.find(
                 { userId: req.user.id }
             ).populate("userId")
-            .populate({
-                path: 'orders.ordersId',
-                populate: {
-                    path: 'products.productId',
-                    model: 'Product',
-                    // select: "_id name images"
-                }
-            })    
+                .populate({
+                    path: 'orders.ordersId',
+                    populate: {
+                        path: 'products.productId',
+                        model: 'Product',
+                        // select: "_id name images"
+                    }
+                })
 
             // await sendMail({
             //     email: orderUpdate.userId.email,
@@ -156,7 +159,7 @@ paymentCltr.updatedPayment = async (req, res) => {
 
             console.log("5")
 
-            res.status(200).json({msg:`Payment Successfull ${orderUpdate.totalAmount} Rs`,profile})
+            res.status(200).json({ msg: `Payment Successfull ${orderUpdate.totalAmount} Rs`, profile })
         } else {
             if (!payment) return res.status(404).json("Cannot find the Payment Info")
         }

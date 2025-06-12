@@ -54,9 +54,9 @@ const ReviewForm = ({ productId }) => {
     dispatch(createReviewForProductAction(formData, productId))
 
     // Clear the form fields after submission
-    // setBody('');
-    // setRating(0);
-    // setImages([]);
+    setBody('');
+    setRating(0);
+    setImages([]);
   };
 
   return (

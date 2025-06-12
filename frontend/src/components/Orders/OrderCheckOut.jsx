@@ -25,6 +25,7 @@ const OrderCheckOut = () => {
       }
     })();
   }, [])
+  
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };

@@ -68,6 +68,7 @@ const App = () => {
         <Route element={<PrivateRoute roles={['Admin','Customer',"SuperAdmin"]}/>}>
           <Route path='/profile' element={<Profile/>} />
           <Route path='/settings' element={<Settings/>} />
+          
         </Route>
 
         <Route element={<PrivateRoute roles={["SuperAdmin"]}/>}>

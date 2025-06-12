@@ -9,6 +9,9 @@ import OrderCard from '../components/Orders/OrderCard'
 const Orders = () => {
 
   const orders = useAppSelector((state)=>state?.profile?.profile?.orders)
+  React.useEffect(()=>{
+
+  },[])
   console.log(orders)
   return (
     <div style={{display:"flex"}}> 
