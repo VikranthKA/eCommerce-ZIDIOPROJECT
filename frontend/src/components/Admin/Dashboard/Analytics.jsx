@@ -28,7 +28,7 @@ const Analytics = () => {
 
         //     </Card>
         // </div>
-        //worki
+        //work
         <CreateProduct/>
     )
 }
