@@ -28,6 +28,7 @@ const Analytics = () => {
 
         //     </Card>
         // </div>
+        //working
         <CreateProduct/>
     )
 }
