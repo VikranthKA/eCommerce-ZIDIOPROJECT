@@ -90,10 +90,27 @@ export const UPDATE_ADDRESS_USER_PROFILE_SAGA = "update/address/user/profile/sag
 
 export const CREATE_ORDER_SAGA = "create/order/saga"
 
+
 //payment
 
 export const CREATE_PAYMENT_FOR_ORDER_SAGA = "create/payment/for/order"
 export const UPDATE_PAYMENT_AS_TRUE = "update/the/payment/order"
+
+
+//admin
+//allUsers
+
+export const GET_ALL_USERS_FOR_ADMIN = "get/all/users/for/admin"
+export const SET_ALL_USERS_FOR_ADMIN = "set/all/users/for/admin"
+
+//orders update
+export const GET_ALL_ORDERS_FOR_ADMIN = "get/all/orders/for/admin"
+export const SET_ALL_ORDERS_FOR_ADMIN = "set/all/orders/for/admin"
+
+export const UPDATE_DELIVERY_ORDER_FOR_CUSTOMER_BY_ADMIN = "update/delivery/order/for/customer/by/admin"
+export const SET_UPDATED_DELIVERY_ORDER_FOR_CUSTOMER_BY_ADMIN = "set/updated/delivery/order/for/customer/by/admin"
+
+
 
 
 

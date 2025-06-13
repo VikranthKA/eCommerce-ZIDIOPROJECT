@@ -6,6 +6,7 @@ import { cartAllSaga, setCartItemsSaga, setRemovedProductFromCartSaga } from '..
 import { createUserOrderSaga } from '../saga/orderSaga'
 import { makePaymentSaga, updatePaymentOrderSaga } from '../saga/paymentSaga'
 import { createNewReviewForProductSaga, deleteReviewForProductSaga, updateReviewForProductSaga } from '../saga/reviewSaga'
+import { allUsersforAdminSaga, getallOrderforAdminSaga, updateDeliveryStatusforCustomerByAdminSaga } from '../saga/adminSaga'
 
 
 export default function* rootSaga(){
@@ -18,5 +19,8 @@ export default function* rootSaga(){
                  createUserOrderSaga(),
                      makePaymentSaga(),     updatePaymentOrderSaga(),
        createNewReviewForProductSaga(), updateReviewForProductSaga(),   deleteReviewForProductSaga(),
+                allUsersforAdminSaga(),
+                                                                    updateDeliveryStatusforCustomerByAdminSaga(),
+             getallOrderforAdminSaga()
     ]) 
 }

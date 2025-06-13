@@ -133,7 +133,7 @@ paymentCltr.updatedPayment = async (req, res) => {
         )
         if (payment.status) {
             console.log("2")
-            const orderUpdate = await Order.findOneAndUpdate({ _id: payment.orderId }, { paymentStatus: true }, { new: true })
+            const orderUpdate = await Order.findOneAndUpdate({ _id: payment.orderId }, { paymentStatus: true,deliveryStatus:'SHIPPING' }, { new: true })
             console.log(orderUpdate, "order3")
 
             await Cart.findOneAndUpdate({ userId: req.user.id }, { $set: { products: [] } });
@@ -151,11 +151,11 @@ paymentCltr.updatedPayment = async (req, res) => {
                     }
                 })
 
-            // await sendMail({
-            //     email: orderUpdate.userId.email,
-            //     subject: "Order CONFIRMED",
-            //     message: `YOU'R ORDER IS SUCCESSFULLY${new Date()}`
-            // })
+            await sendMail({
+                email: orderUpdate.userId.email,
+                subject: "Order CONFIRMED",
+                message: `YOU'R ORDER IS SUCCESSFULLY${new Date()}`
+            })
 
             console.log("5")
 

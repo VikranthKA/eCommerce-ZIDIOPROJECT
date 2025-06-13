@@ -33,7 +33,7 @@ const orderSchema = new Schema({
     deliveryStatus: {
         type: String,
         default: 'PENDING',
-        enum: ['PENDING', 'INPROGRESS', 'DELIVERED', 'CANCELLED'],
+        enum: ['PENDING',"SHIPPING", 'INPROGRESS', 'DELIVERED', 'CANCELLED'],
     },
     paymentStatus: {
         type: Boolean,

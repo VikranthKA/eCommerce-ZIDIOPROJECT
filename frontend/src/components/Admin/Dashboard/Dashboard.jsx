@@ -12,6 +12,7 @@ import CreateCategory from "../Category/CreateCategory";
 import AllCategory from "../Category/AllCategory";
 import Analytics from './Analytics';
 import AllProducts from '../../Products/AllProducts';
+import Deactivate from '../Users/allUsers';
 const useStyles = makeStyles({
   container: {
     display: 'flex',
@@ -50,8 +51,8 @@ export default function PersistentDrawer() {
   return (
     <Box className={classes.container}>
       <Box className={classes.menu}>
-        <List>
-          {['New Product', 'Coupon', 'Payment', 'Category'].map((text) => (
+        <List onhover="pointer">
+          {['New Product', 'Category'].map((text) => (
             <ListItem
               key={text}
               button
@@ -65,14 +66,14 @@ export default function PersistentDrawer() {
         </List>
         <Divider />
         <List>
-          {['Products', 'Users', 'Coupons', "Orders"].map((text) => (
+          {['Products', 'Users', "Orders"].map((text) => (
             <ListItem
               key={text}
               button
               onClick={() => handleMenuClick(text)}
               className={activeMenuItem === text ? classes.activeItem : ''}
             >
-              <ListItemIcon>{/* Add icons here*/}</ListItemIcon>
+              <ListItemIcon>{/* icons */}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
@@ -86,7 +87,7 @@ export default function PersistentDrawer() {
           {activeMenuItem === 'Payment' && 'Here you can make Payments.'}
           {activeMenuItem === 'Category' && handleCategoryView()}
           {activeMenuItem === 'Products' && <AllProducts/>}
-          {activeMenuItem === 'Users' && 'Here are your Users.'}
+          {activeMenuItem === 'Users' && <Deactivate/>}
           {activeMenuItem === 'Coupons' && 'Here are your Coupons.'}
           {activeMenuItem === 'Orders' && 'These are your Orders.'}
           </> : <Analytics/> }

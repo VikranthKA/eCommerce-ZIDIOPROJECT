@@ -50,6 +50,7 @@ const orderCltr = require("./app/controllers/orderCltr")
 const profileCltr = require("./app/controllers/profielCltr")
 const reviewCltr = require("./app/controllers/reviewCltr")
 const paymentCltr = require("./app/controllers/paymentCltr")
+const adminCltr = require("./app/controllers/adminCltr")
 
 
 const storage = multer.diskStorage({
@@ -143,9 +144,10 @@ app.post("/api/product/:productId/review",upload.array("images",3),authenticateU
 app.put("/api/product/:productId/review/:reviewId",upload.array("images",3), authenticateUser, authorizeUser(['Customer',"SuperAdmin"]),reviewCltr.updateReviewForProduct);
 app.delete("/api/product/:productId/review/:reviewId", authenticateUser, authorizeUser(['Customer',"SuperAdmin"]),reviewCltr.deleteReviewForProduct )
 
-
-
-
+//admin
+app.get("/api/allusers",authenticateUser,authorizeUser(["SuperAdmin"]),adminCltr.getUser)
+app.get('/api/neworders',authenticateUser,authorizeUser(["SuperAdmin"]),adminCltr.getNewOrders)
+app.put('/api/deliverystatus/:orderId',authenticateUser,authorizeUser(["SuperAdmin"]))
 
 app.listen(process.env.PORT, () => {
     // Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass

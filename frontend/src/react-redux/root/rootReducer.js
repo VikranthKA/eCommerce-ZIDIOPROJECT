@@ -5,16 +5,18 @@ import categoryReducers from "../slices/reducers/categoryReducer";
 import productReducers from "../slices/reducers/productReducers";
 import profileReducers from "../slices/reducers/profileReducer";
 import cartReducers from "../slices/reducers/cartReducres";
+import adminReducer from "../slices/reducers/adminReducer";
 
 
 const rootReducer = combineReducers({
-    count : countReducers,
-    user:userReducers,
-    profile:profileReducers,
-    cart:cartReducers,
-    categories:categoryReducers,
-    products:productReducers
-    
+    count: countReducers,
+    user: userReducers,
+    profile: profileReducers,
+    cart: cartReducers,
+    categories: categoryReducers,
+    products: productReducers,
+    admin: adminReducer
+
 })
 
 export default rootReducer
