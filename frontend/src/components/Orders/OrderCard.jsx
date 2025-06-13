@@ -35,6 +35,8 @@ function OrderCard({ ...order }) {
       <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', mt: 1 }}>
         <Typography>Total Amount: {order?.ordersId?.totalAmount}</Typography>
         <Typography>Currency: {order?.ordersId?.currency}</Typography><br />
+                <Typography>Status: {order?.ordersId?.deliveryStatus}</Typography><br />
+
         <Typography>
           Status {order?.ordersId?.paymentStatus ? <CreditScoreIcon /> : <Button onClick={() => handlePayment(order?.ordersId?._id)}>Complete Payment</Button>}
         </Typography>

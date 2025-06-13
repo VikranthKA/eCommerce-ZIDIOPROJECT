@@ -1,9 +1,9 @@
-import { GET_ALL_USERS_FOR_ADMIN, SET_ALL_ORDERS_FOR_ADMIN, SET_ALL_USERS_FOR_ADMIN } from "../../constants/constantTypes";
+import {  SET_ALL_ORDERS_FOR_ADMIN, SET_ALL_USERS_FOR_ADMIN, SET_UPDATED_DELIVERY_ORDER_FOR_CUSTOMER_BY_ADMIN } from "../../constants/constantTypes";
 
 const initialState = {
     allUser: [],
     analytics: [],
-    orders:[]
+    orders: []
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -16,9 +16,24 @@ const adminReducer = (state = initialState, action) => {
                 allUser: action.payload,
             };
         case SET_ALL_ORDERS_FOR_ADMIN:
-            return{
+            return {
                 ...state,
-                orders:action.payload
+                orders: action.payload
+            }
+        case SET_UPDATED_DELIVERY_ORDER_FOR_CUSTOMER_BY_ADMIN:
+            console.log(action.payload,"pay")
+            return {
+                ...state,
+                orders: state.orders.map((order) => {
+                    if (order._id === action.payload.orderId) {
+                        return {
+                            ...order,
+                            deliveryStatus: action.payload.deliveryType
+                        }
+                    }
+                    return order
+
+                })
             }
         default:
             return state;

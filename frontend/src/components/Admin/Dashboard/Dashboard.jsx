@@ -13,6 +13,7 @@ import AllCategory from "../Category/AllCategory";
 import Analytics from './Analytics';
 import AllProducts from '../../Products/AllProducts';
 import Deactivate from '../Users/allUsers';
+import AdminOrder from '../Orders/adminOrder';
 const useStyles = makeStyles({
   container: {
     display: 'flex',
@@ -89,7 +90,7 @@ export default function PersistentDrawer() {
           {activeMenuItem === 'Products' && <AllProducts/>}
           {activeMenuItem === 'Users' && <Deactivate/>}
           {activeMenuItem === 'Coupons' && 'Here are your Coupons.'}
-          {activeMenuItem === 'Orders' && 'These are your Orders.'}
+          {activeMenuItem === 'Orders' && <AdminOrder/>}
           </> : <Analytics/> }
         </Typography>
       </Box>

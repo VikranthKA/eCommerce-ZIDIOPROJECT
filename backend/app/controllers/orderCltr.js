@@ -58,7 +58,7 @@ orderCltr.create = async (req, res) => {
     // const emptyUserCart = await Cart.findByIdAndUpdate(cartItems._id, { $set: { products: [] } });
 
     const populatedOrdersInfo = await Order.findOne({userId:req.user.id,_id:newOrder._id}).populate("products")
-
+    console.log(populatedOrdersInfo,"pop")
     return res.status(201).json({
       msg: "Order created successfully",
       order: populatedOrdersInfo

@@ -31,13 +31,20 @@ export const setAllOrdersforAdmin = (orders) => {
 
 //order deliveryStatusUpdate
 
-export const fetchUpdateDeliveryStatus = () => ({
-  type: UPDATE_DELIVERY_ORDER_FOR_CUSTOMER_BY_ADMIN
-});
+export const fetchUpdateDeliveryStatus = (orderId,deliveryStatus) =>{
+  
+   return{
+  type: UPDATE_DELIVERY_ORDER_FOR_CUSTOMER_BY_ADMIN,
+  payload:{orderId,deliveryStatus}
+};
+}
 
-export const setUpdateDeliveryOrderForCustomerByAdmin = ({orderId,deliveryType}) => {
+export const setUpdateDeliveryOrderForCustomerByAdmin = (orderId,deliveryType) => {
    return {
     
   type: SET_UPDATED_DELIVERY_ORDER_FOR_CUSTOMER_BY_ADMIN,
-  payload:{orderId,deliveryType}
+  payload:{
+    orderId,
+    deliveryType
+  }
 }};

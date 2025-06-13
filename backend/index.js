@@ -147,7 +147,7 @@ app.delete("/api/product/:productId/review/:reviewId", authenticateUser, authori
 //admin
 app.get("/api/allusers",authenticateUser,authorizeUser(["SuperAdmin"]),adminCltr.getUser)
 app.get('/api/neworders',authenticateUser,authorizeUser(["SuperAdmin"]),adminCltr.getNewOrders)
-app.put('/api/deliverystatus/:orderId',authenticateUser,authorizeUser(["SuperAdmin"]))
+app.put('/api/deliverystatus/:orderId',authenticateUser,authorizeUser(["SuperAdmin"]),adminCltr.updateDeliveryStatus)
 
 app.listen(process.env.PORT, () => {
     // Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass

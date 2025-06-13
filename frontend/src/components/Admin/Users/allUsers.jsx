@@ -87,7 +87,7 @@ export default function Deactivate() {
 
                                     <Typography variant="body2">Email: {profile.userId?.email}</Typography>
                                     <Typography variant="body2">Role: {profile.userId?.role}</Typography>
-                                    <Typography variant="body2">Address: {profile?.addresses[0]?.city ? profile?.addresses[0]?.city : "N/A"}</Typography>
+                                    {/* <Typography variant="body2">Address: {profile?.addresses[0]?.city ? profile?.addresses[0]?.city : "N/A"}</Typography> */}
 
 
                                 </CardContent>
